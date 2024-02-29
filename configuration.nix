@@ -93,6 +93,7 @@
       brave
       kitty
       etcher
+      zellij
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
