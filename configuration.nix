@@ -118,6 +118,7 @@
     gcc
     alejandra
     fish
+    direnv
     dunst
     starship
     pkg-config
@@ -125,6 +126,7 @@
     pciutils
   ];
 
+  # fix tearing
   hardware.nvidia.prime = {
     sync.enable = true;
 
