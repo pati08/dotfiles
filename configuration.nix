@@ -131,6 +131,7 @@
     nvidiaBusId = "PCI:14:0:0";
     intelBusId = "PCI:0:2:0";
   };
+  hardware.nvidia.forceFullCompositionPipeline = true;
 
   # Enable the fish shell
   # programs.fish.enable = true;
