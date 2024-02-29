@@ -9,6 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # ./shell.nix
   ];
 
   # Bootloader.
@@ -114,11 +115,11 @@
     git
     gh
     gcc
-    cargo
     alejandra
     fish
     dunst
     starship
+    pkg-config
   ];
 
   hardware.nvidia.prime = {
