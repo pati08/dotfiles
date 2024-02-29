@@ -122,6 +122,7 @@
     starship
     pkg-config
     openssl.dev
+    pciutils
   ];
 
   hardware.nvidia.prime = {
