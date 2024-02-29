@@ -9,7 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # ./shell.nix
   ];
 
   # Bootloader.
@@ -92,6 +91,7 @@
       wezterm
       #  thunderbird
       brave
+      kitty
     ];
   };
 
@@ -125,16 +125,6 @@
     openssl.dev
     pciutils
   ];
-
-  # fix tearing
-  hardware.nvidia.prime = {
-    sync.enable = true;
-
-    # Make sure to use the correct Bus ID values for your system!
-    nvidiaBusId = "PCI:1:0:0";
-    # intelBusId = "PCI:0:1:0";
-  };
-  # hardware.nvidia.forceFullCompositionPipeline = true;
 
   # Enable the fish shell
   programs.fish.enable = true;
