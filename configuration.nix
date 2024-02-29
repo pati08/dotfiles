@@ -120,7 +120,7 @@
     dunst
     starship
     pkg-config
-    openssl
+    openssl.dev
   ];
 
   hardware.nvidia.prime = {
