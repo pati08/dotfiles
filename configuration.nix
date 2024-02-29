@@ -158,6 +158,8 @@
 
   # List services that you want to enable:
 
+  services.lorri.enable = true;
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
