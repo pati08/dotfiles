@@ -117,6 +117,8 @@
     cargo
     alejandra
     fish
+    dunst
+    starship
   ];
 
   # Enable the fish shell
