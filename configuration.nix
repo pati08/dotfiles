@@ -115,6 +115,7 @@
     xclip
     git
     gh
+    parted
     gcc
     alejandra
     fish
