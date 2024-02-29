@@ -91,6 +91,7 @@
       spotify
       wezterm
       #  thunderbird
+      brave
     ];
   };
 
