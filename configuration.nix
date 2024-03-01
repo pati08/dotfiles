@@ -92,6 +92,7 @@
       #  thunderbird
       brave
       kitty
+      ripgrep
       etcher
       zellij
     ];
