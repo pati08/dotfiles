@@ -95,6 +95,8 @@
       ripgrep
       etcher
       zellij
+      bat
+      lsd
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
