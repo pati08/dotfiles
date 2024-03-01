@@ -122,6 +122,7 @@
     git
     gh
     gparted
+    postgresql
     gcc
     alejandra
     fish
