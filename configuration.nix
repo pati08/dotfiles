@@ -129,6 +129,7 @@
     openssl.dev
     pciutils
     inotify-tools
+    libnotify
   ];
 
   # Enable the fish shell
