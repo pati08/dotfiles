@@ -128,6 +128,7 @@
     pkg-config
     openssl.dev
     pciutils
+    inotify-tools
   ];
 
   # Enable the fish shell
