@@ -97,6 +97,7 @@
       zellij
       bat
       lsd
+      loc
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
