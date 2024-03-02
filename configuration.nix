@@ -98,6 +98,7 @@
       bat
       lsd
       loc
+      celluloid
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
