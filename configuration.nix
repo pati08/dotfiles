@@ -99,6 +99,8 @@
       lsd
       loc
       celluloid
+      ffmpeg
+      minecraft
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
