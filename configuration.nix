@@ -126,6 +126,7 @@
     gparted
     postgresql
     gcc
+    openjdk
     alejandra
     fish
     direnv
