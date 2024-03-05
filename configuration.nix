@@ -106,7 +106,7 @@
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
 
   fonts.packages = with pkgs; [
-    fira-code-nerdfont
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
   ];
 
   programs.neovim = {
