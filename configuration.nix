@@ -101,6 +101,7 @@
       celluloid
       ffmpeg
       prismlauncher
+      discord
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
