@@ -124,6 +124,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     xclip
+    libsForQt5.qt5.qtgraphicaleffects
     git
     gh
     gparted
