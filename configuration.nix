@@ -102,6 +102,7 @@
       ffmpeg
       prismlauncher
       discord
+      file
     ];
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
