@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      ov
       ffmpeg
       prismlauncher
       discord
