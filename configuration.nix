@@ -144,6 +144,8 @@
     libnotify
   ];
 
+  nix.settings.experimental-features = ["nix-command"];
+
   # Enable the fish shell
   programs.fish.enable = true;
   programs.bash = {
