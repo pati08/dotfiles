@@ -144,7 +144,7 @@
     libnotify
   ];
 
-  nix.settings.experimental-features = ["nix-command"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable the fish shell
   programs.fish.enable = true;
