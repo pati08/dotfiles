@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      usbutils
       ov
       ffmpeg
       prismlauncher
