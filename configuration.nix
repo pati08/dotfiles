@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      audacity
       usbutils
       ov
       ffmpeg
