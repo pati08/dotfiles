@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      fzf
       krita
       audacity
       usbutils
