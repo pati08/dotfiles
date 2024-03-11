@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      krita
       audacity
       usbutils
       ov
