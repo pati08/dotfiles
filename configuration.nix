@@ -99,6 +99,7 @@
       lsd
       loc
       celluloid
+      steam
       fzf
       krita
       audacity
