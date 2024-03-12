@@ -90,7 +90,6 @@
       spotify
       wezterm
       #  thunderbird
-      brave
       kitty
       ripgrep
       etcher
