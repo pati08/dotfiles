@@ -113,6 +113,12 @@
   };
   nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    blender = pkgs.blender.override {
+      cudaSupport = true;
+    };
+  };
+
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
   ];
