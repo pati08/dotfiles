@@ -99,8 +99,8 @@
       loc
       celluloid
       steam
-      davinci-resolve
       fzf
+      blender
       krita
       audacity
       usbutils
