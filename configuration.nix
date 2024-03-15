@@ -99,6 +99,7 @@
       loc
       celluloid
       steam
+      brave
       fzf
       blender
       krita
