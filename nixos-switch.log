@@ -1,12 +1,76 @@
+stopping the following units: accounts-daemon.service
 activating the configuration...
 setting up /etc...
 reloading user units for patrick...
-setting up tmpfiles
-gbrn03f0fnbnyfynicbmnc-user-environment.drv
-  /nix/store/pyzjll0p62k8k9292h0lzlff5gxmclbk-etc.drv
-  /nix/store/kdgm21f691bnsw1zc58xxn33s5s9z68v-nixos-system-patrick-desktop-23.11.4801.b7ee09cf5614.drv
-building '/nix/store/pqg17cv96dgbrn03f0fnbnyfynicbmnc-user-environment.drv'...
-created 2284 symlinks in user environment
+asetting up tmpfiles
+reloading the following units: dbus.service
+restarting the following units: polkit.service
+ndstarting the following units: accounts-daemon.service
+ ax9r184ff7wq87zcdmbpq-X-Restart-Triggers-dbus.drv
+  /nix/store/dyhdvp7yn9n36jfps3r3279ry81h925y-unit-dbus.service.drv
+  /nix/store/665qm8591rj3m7q110mvbrwskw9440q3-user-units.drv
+  /nix/store/8r8x4n64dg202fxm4bl2np3f4v3fg08d-X-Restart-Triggers-polkit.drv
+  /nix/store/axlj5yj5v9cdhsajd9ly580zsfl2412p-unit-polkit.service.drv
+  /nix/store/b2b99k5lfva2g979j3nyj0caqwaxiq92-unit-accounts-daemon.service.drv
+  /nix/store/ha2g3gr0zvrgl2c82j4j421grsix1h6j-man-paths.drv
+  /nix/store/scm3n61aybb1vf6vnnhy1l28ljmfsp4i-unit-dbus.service.drv
+  /nix/store/m88q7qkpnhl7yqb6icj5apprmv0givpj-system-units.drv
+  /nix/store/l4vj32r8yjvr8rvf91y0g4m6ff2wybqb-man-cache.drv
+  /nix/store/mzbd91yzcdx78sgkjgg427rvid64rffp-etc-man_db.conf.drv
+  /nix/store/vc84zmissj3z414b6mpajnff6j3m16p8-system_fish-completions.drv
+  /nix/store/jfjql5qbz4qr18vyjwh56sp9a9rydn1c-etc.drv
+  /nix/store/iip7bqf6nvv56wj4drflkrxjbxrynxvw-nixos-system-patrick-desktop-23.11.4801.b7ee09cf5614.drv
+this path will be fetched (171.41 MiB download, 349.14 MiB unpacked):
+  /nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0
+copying path '/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0' from 'https://cache.nixos.org'...
+building '/nix/store/ha2g3gr0zvrgl2c82j4j421grsix1h6j-man-paths.drv'...
+building '/nix/store/f8djhvijdrzh3bphznl30n8lfz867s10-system-path.drv'...
+building '/nix/store/4ylp2cda6rg1acdb79aiafqh4d3n13br-zulu-ca-jdk-21.0.0_fish-completions.drv'...
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/lib/src.zip' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/lib/src.zip'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jimage' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jimage'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jmod' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jmod'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jdb' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jdb'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jconsole' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jconsole'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jarsigner' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jarsigner'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jar' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jar'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jdeprscan' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jdeprscan'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/keytool' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/keytool'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/rmiregistry' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/rmiregistry'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jfr' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jfr'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jstatd' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jstatd'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jshell' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jshell'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jstack' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jstack'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jlink' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jlink'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/serialver' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/serialver'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jdeps' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jdeps'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jwebserver' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jwebserver'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/javac' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/javac'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/java' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/java'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jmap' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jmap'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/javadoc' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/javadoc'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/javap' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/javap'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jrunscript' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jrunscript'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jpackage' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jpackage'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jcmd' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jcmd'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jhsdb' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jhsdb'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jstat' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jstat'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jps' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jps'
+warning: collision between `/nix/store/inav8hafv7rmlzrz5y3ngmyd42kzc5kg-zulu-ca-jdk-21.0.0/bin/jinfo' and `/nix/store/6g5q62wafkpg0p3w854vc9yxy9bsnwi5-openjdk-19.0.2+7/bin/jinfo'
+building '/nix/store/vc84zmissj3z414b6mpajnff6j3m16p8-system_fish-completions.drv'...
+created 732 symlinks in user environment
+created 11309 symlinks in user environment
+building '/nix/store/l4vj32r8yjvr8rvf91y0g4m6ff2wybqb-man-cache.drv'...
+created 40655 symlinks in user environment
 gtk-update-icon-cache: Cache file created successfully.
-building '/nix/store/pyzjll0p62k8k9292h0lzlff5gxmclbk-etc.drv'...
-building '/nix/store/kdgm21f691bnsw1zc58xxn33s5s9z68v-nixos-system-patrick-desktop-23.11.4801.b7ee09cf5614.drv'...
+building '/nix/store/8r8x4n64dg202fxm4bl2np3f4v3fg08d-X-Restart-Triggers-polkit.drv'...
+building '/nix/store/5wi0cjnddi2wdlk84iqzgcpc8pyx6m9x-dbus-1.drv'...
+building '/nix/store/b2b99k5lfva2g979j3nyj0caqwaxiq92-unit-accounts-daemon.service.drv'...
+building '/nix/store/wflih8kirl3kx9r184ff7wq87zcdmbpq-X-Restart-Triggers-dbus.drv'...
+building '/nix/store/axlj5yj5v9cdhsajd9ly580zsfl2412p-unit-polkit.service.drv'...
+building '/nix/store/dyhdvp7yn9n36jfps3r3279ry81h925y-unit-dbus.service.drv'...
+building '/nix/store/scm3n61aybb1vf6vnnhy1l28ljmfsp4i-unit-dbus.service.drv'...
+building '/nix/store/665qm8591rj3m7q110mvbrwskw9440q3-user-units.drv'...
+building '/nix/store/m88q7qkpnhl7yqb6icj5apprmv0givpj-system-units.drv'...
+building '/nix/store/mzbd91yzcdx78sgkjgg427rvid64rffp-etc-man_db.conf.drv'...
+building '/nix/store/jfjql5qbz4qr18vyjwh56sp9a9rydn1c-etc.drv'...
+building '/nix/store/iip7bqf6nvv56wj4drflkrxjbxrynxvw-nixos-system-patrick-desktop-23.11.4801.b7ee09cf5614.drv'...
