@@ -155,7 +155,6 @@
     pciutils
     inotify-tools
     libnotify
-    zulu
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
