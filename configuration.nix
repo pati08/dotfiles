@@ -8,8 +8,13 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
   ];
+
+  swapDevices = [ {
+    device="/var/lib/swapfile";
+    size=16*1024;
+  } ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -86,40 +91,21 @@
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       firefox
-      kate
       spotify
-      jdownloader
       wezterm
-      #  thunderbird
-      kitty
       ripgrep
-      etcher
       zellij
       bat
       lsd
       loc
       celluloid
-      steam
-      brave
       fzf
-      blender
-      krita
-      audacity
       usbutils
-      ov
-      ffmpeg
-      prismlauncher
-      discord
       file
+      obsidian
     ];
   };
-  nixpkgs.config.permittedInsecurePackages = ["electron-19.1.9"];
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    blender = pkgs.blender.override {
-      cudaSupport = true;
-    };
-  };
+  nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
@@ -139,10 +125,8 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     xclip
-    libsForQt5.qt5.qtgraphicaleffects
     git
     gh
-    gparted
     postgresql
     gcc
     openjdk
@@ -153,7 +137,6 @@
     starship
     pkg-config
     openssl.dev
-    pciutils
     inotify-tools
     libnotify
   ];
