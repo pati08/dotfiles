@@ -84,7 +84,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick Oberholzer";
@@ -103,8 +102,9 @@
       usbutils
       file
       obsidian
-    ];
+    ] ++ import ./system-specific.nix pkgs;
   };
+
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   fonts.packages = with pkgs; [

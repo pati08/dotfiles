@@ -1,2 +1,2 @@
 hardware-configuration.nix
-desktop.nix
+system-specific.nix
