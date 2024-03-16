@@ -11,10 +11,12 @@
     /etc/nixos/hardware-configuration.nix
   ];
 
-  swapDevices = [ {
-    device="/var/lib/swapfile";
-    size=16*1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -88,21 +90,23 @@
     isNormalUser = true;
     description = "Patrick Oberholzer";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      firefox
-      spotify
-      wezterm
-      ripgrep
-      zellij
-      bat
-      lsd
-      loc
-      celluloid
-      fzf
-      usbutils
-      file
-      obsidian
-    ] ++ import ./system-specific.nix pkgs;
+    packages = with pkgs;
+      [
+        firefox
+        spotify
+        wezterm
+        ripgrep
+        zellij
+        bat
+        lsd
+        loc
+        celluloid
+        fzf
+        usbutils
+        file
+        obsidian
+      ]
+      ++ import ./system-specific.nix pkgs;
   };
 
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
