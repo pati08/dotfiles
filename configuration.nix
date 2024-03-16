@@ -88,6 +88,7 @@
       firefox
       kate
       spotify
+      jdownloader
       wezterm
       #  thunderbird
       kitty
