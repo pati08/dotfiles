@@ -7,6 +7,7 @@
   ...
 }: let
   system-specific-packages = import ./system-specific.nix pkgs;
+  unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -114,7 +115,7 @@ in {
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    (unstable.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
   ];
 
   programs.neovim = {
