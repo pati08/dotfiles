@@ -5,19 +5,20 @@
   config,
   pkgs,
   ...
-}:
-let
-    system-specific-packages = import ./system-specific.nix pkgs;
+}: let
+  system-specific-packages = import ./system-specific.nix pkgs;
 in {
   imports = [
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
   ];
 
-  swapDevices = [ {
-    device="/var/lib/swapfile";
-    size=16*1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -91,21 +92,23 @@ in {
     isNormalUser = true;
     description = "Patrick Oberholzer";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      firefox
-      spotify
-      wezterm
-      ripgrep
-      zellij
-      bat
-      lsd
-      loc
-      celluloid
-      fzf
-      usbutils
-      file
-      obsidian
-    ] ++ system-specific-packages.user;
+    packages = with pkgs;
+      [
+        firefox
+        spotify
+        wezterm
+        ripgrep
+        zellij
+        bat
+        lsd
+        loc
+        celluloid
+        fzf
+        usbutils
+        file
+        obsidian
+      ]
+      ++ system-specific-packages.user;
   };
 
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
@@ -124,25 +127,27 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    xclip
-    git
-    gh
-    postgresql
-    gcc
-    openjdk
-    alejandra
-    fish
-    direnv
-    dunst
-    starship
-    pkg-config
-    openssl.dev
-    inotify-tools
-    libnotify
-  ] ++ system-specific-packages.system;
+  environment.systemPackages = with pkgs;
+    [
+      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      xclip
+      git
+      gh
+      postgresql
+      gcc
+      openjdk
+      alejandra
+      fish
+      direnv
+      dunst
+      starship
+      pkg-config
+      openssl.dev
+      inotify-tools
+      libnotify
+    ]
+    ++ system-specific-packages.system;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
