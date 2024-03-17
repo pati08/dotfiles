@@ -5,7 +5,10 @@
   config,
   pkgs,
   ...
-}: {
+}:
+let
+    system-specific-packages = import ./system-specific.nix pkgs;
+in {
   imports = [
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
@@ -102,7 +105,7 @@
       usbutils
       file
       obsidian
-    ] ++ import ./system-specific.nix pkgs;
+    ] ++ system-specific-packages.user;
   };
 
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
@@ -139,7 +142,7 @@
     openssl.dev
     inotify-tools
     libnotify
-  ];
+  ] ++ system-specific-packages.system;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
