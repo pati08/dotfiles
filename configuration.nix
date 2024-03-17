@@ -5,7 +5,10 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  system-specific-packages = import ./system-specific.nix pkgs;
+  unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+in {
   imports = [
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
@@ -105,14 +108,13 @@
         usbutils
         file
         obsidian
-      ]
-      ++ import ./system-specific.nix pkgs;
+      ] ++ system-specific-packages.user;
   };
 
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    (unstable.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
   ];
 
   programs.neovim = {
@@ -125,26 +127,27 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    xclip
-    git
-    gh
-    postgresql
-    touchegg
-    gcc
-    openjdk
-    alejandra
-    fish
-    direnv
-    dunst
-    starship
-    pkg-config
-    openssl.dev
-    inotify-tools
-    libnotify
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      xclip
+      git
+      gh
+      postgresql
+      gcc
+      openjdk
+      alejandra
+      fish
+      direnv
+      dunst
+      starship
+      pkg-config
+      openssl.dev
+      inotify-tools
+      libnotify
+    ]
+    ++ system-specific-packages.system;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
