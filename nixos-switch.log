@@ -1,31 +1,4 @@
-building Nix...
-building the system configuration...
-error:
-       … while calling the 'head' builtin
-
-         at /nix/store/zqaa6gkf6m7c43y94ilr82n37ggf3dvq-nixos-23.11.4801.b7ee09cf5614/nixos/lib/attrsets.nix:922:11:
-
-          921|         || pred here (elemAt values 1) (head values) then
-          922|           head values
-             |           ^
-          923|         else
-
-       … while evaluating the attribute 'value'
-
-         at /nix/store/zqaa6gkf6m7c43y94ilr82n37ggf3dvq-nixos-23.11.4801.b7ee09cf5614/nixos/lib/modules.nix:807:9:
-
-          806|     in warnDeprecation opt //
-          807|       { value = builtins.addErrorContext "while evaluating the option `${showOption loc}':" value;
-             |         ^
-          808|         inherit (res.defsFinal') highestPrio;
-
-       (stack trace truncated; use '--show-trace' to show the full trace)
-
-       error: undefined variable 'jdownloader'
-
-       at /home/patrick/.config/nixos/configuration.nix:91:7:
-
-           90|       spotify
-           91|       jdownloader
-             |       ^
-           92|       wezterm
+activating the configuration...
+setting up /etc...
+reloading user units for patrick...
+setting up tmpfiles

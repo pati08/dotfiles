@@ -132,6 +132,7 @@
     git
     gh
     postgresql
+    touchegg
     gcc
     openjdk
     alejandra
