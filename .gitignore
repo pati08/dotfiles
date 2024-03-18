@@ -1,3 +1,4 @@
 hardware-configuration.nix
-system-specific.nix
+system-specific-pkgs.nix
+system-specific-conf.nix
 nixos-switch.log
