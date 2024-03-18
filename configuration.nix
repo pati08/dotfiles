@@ -108,7 +108,8 @@ in {
         usbutils
         file
         obsidian
-      ] ++ system-specific-packages.user;
+      ]
+      ++ system-specific-packages.user;
   };
 
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
