@@ -149,6 +149,7 @@ in
         marksman
         gcc
         openjdk
+        nodejs
         alejandra
         fish
         direnv
