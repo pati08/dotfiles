@@ -6,18 +6,22 @@
   pkgs,
   ...
 }: let
-  system-specific-config = import ./system-specific-conf.nix {
-    config = config;
-    pkgs = pkgs;
-  };
+  # system-specific-config = import ./system-specific-conf.nix {
+  #   config = config;
+  #   pkgs = pkgs;
+  # };
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
   unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
 in
-  system-specific-config
-  // {
+  /*
+     system-specific-config
+  //
+  */
+  {
     imports = [
       # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ./system-specific-conf.nix
     ];
 
     swapDevices = [
@@ -142,6 +146,7 @@ in
         git
         gh
         postgresql
+        marksman
         gcc
         openjdk
         alejandra
