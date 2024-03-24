@@ -109,6 +109,7 @@ in
           spotify
           wezterm
           ripgrep
+          chezmoi
           zellij
           bat
           lsd
