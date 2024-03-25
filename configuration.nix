@@ -115,6 +115,7 @@ in {
         file
         obsidian
         ncdu
+        thefuck
       ]
       ++ system-specific-packages.user;
   };
