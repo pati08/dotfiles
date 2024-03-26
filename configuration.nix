@@ -4,19 +4,17 @@
 {
   config,
   pkgs,
+  # system-specific-packages,
+  # system-specific-conf,
   ...
 }: let
-  # system-specific-config = import ./system-specific-conf.nix {
-  #   config = config;
-  #   pkgs = pkgs;
-  # };
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
   unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
 in {
   imports = [
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
-    ./system-specific-conf.nix
+    (import ./system-specific-conf.nix {inherit config pkgs;})
   ];
 
   swapDevices = [
