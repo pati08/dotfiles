@@ -1,4 +1,4 @@
-hardware-configuration.nix
 system-specific-pkgs.nix
 system-specific-conf.nix
 nixos-switch.log
+hostname.nix
