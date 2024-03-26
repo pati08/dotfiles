@@ -4,8 +4,6 @@
 {
   config,
   pkgs,
-  # system-specific-packages,
-  # system-specific-conf,
   ...
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
@@ -14,7 +12,7 @@ in {
   imports = [
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
-    (import ./system-specific-conf.nix {inherit config pkgs;})
+    ./system-specific-conf.nix
   ];
 
   swapDevices = [
