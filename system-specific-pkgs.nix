@@ -15,5 +15,6 @@ with pkgs; {
     unixtools.fsck
     ntfs3g
     diskscan
+    netcat
   ];
 }
