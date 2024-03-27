@@ -8,7 +8,6 @@ with pkgs; {
     prismlauncher
     ffmpeg
     tor-browser
-    brave
   ];
   system = [
     testdisk
