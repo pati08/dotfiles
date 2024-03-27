@@ -16,5 +16,9 @@ with pkgs; {
     ntfs3g
     diskscan
     nmap
+    qt5-wayland
+    qt5ct
+    libva
+    libva-nvidia-driver-git
   ];
 }
