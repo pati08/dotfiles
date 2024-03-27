@@ -70,7 +70,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
+  services.xserver.videoDrivers = ["nvidia-dkms"]; # or "nvidiaLegacy470 etc.
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -80,7 +80,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    # powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -101,15 +101,12 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
-  # # fix tearing
-  # hardware.nvidia.prime = {
-  #   sync.enable = true;
-  #
-  #   # Make sure to use the correct Bus ID values for your system!
-  #   nvidiaBusId = "PCI:1:0:0";
-  #   # intelBusId = "PCI:0:1:0";
-  # };
-  # # hardware.nvidia.forceFullCompositionPipeline = true;
+    prime = {
+      sync.enable = true;
+
+      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:0:1:0";
+    };
+  };
 }
