@@ -143,6 +143,15 @@ in {
       gh
       postgresql
       marksman
+      xwayland
+      swww # wallpaper
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
+      meson
+      wayland-protocols
+      wayland-utils
+      wl-clipboard
+      wlroots
       gcc
       openjdk
       nodejs
@@ -171,6 +180,37 @@ in {
         fi
     '';
   };
+
+  # Hyprland
+  programs.hyprland = {
+    enable = true;
+    enableNvidiaPatches = true;
+    xwayland.enable = true;
+  };
+
+# hint electron apps to use wayland
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
+# screen sharing
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+# fix waybar not displaying hyprland workspaces
+  nixpkgs.overlays = [
+    (self: super: {
+     waybar = super.waybar.overrideAttrs (oldAttrs: {
+         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+         });
+     })
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
