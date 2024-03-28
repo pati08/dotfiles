@@ -152,6 +152,7 @@ in {
       nodejs
       alejandra
       fish
+      networkmanagerapplet
       direnv
       dunst
       starship
