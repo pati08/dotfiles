@@ -143,15 +143,10 @@ in {
       gh
       postgresql
       marksman
-      xwayland
-      swww # wallpaper
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-      meson
-      wayland-protocols
-      wayland-utils
-      wl-clipboard
-      wlroots
+
+      xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
+      wayland-protocols wayland-utils wl-clipboard wlroots waybar
+
       gcc
       openjdk
       nodejs
