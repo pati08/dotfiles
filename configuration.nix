@@ -98,7 +98,7 @@ in {
       [
         firefox
         spotify
-        wezterm
+        unstable.wezterm
         ripgrep
         chezmoi
         zellij
