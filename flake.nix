@@ -3,7 +3,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.11";
     unstable.url = "nixpkgs/nixos-unstable";
-    wez.url = "github:wez/wezterm/tree/main/nix";
+    wez.url = "github:wez/wezterm?dir=nix";
+    # wez = {
+    #   url = "github:wez/wezterm/tree/main/nix";
+    # }
   };
   outputs = inputs@{ self, nixpkgs, unstable, ... }:
     let
