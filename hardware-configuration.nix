@@ -104,7 +104,7 @@
     package = pkgs.linuxKernel.packages.linux_6_1.nvidia_x11;
 
     prime = {
-      sync.enable = true;
+      offload.enable = true;
 
       nvidiaBusId = "PCI:1:0:0";
       intelBusId = "PCI:0:1:0";
