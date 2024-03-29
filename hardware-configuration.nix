@@ -103,11 +103,11 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     # package = pkgs.linuxKernel.packages.linux_6_1.nvidia_x11;
 
-    prime = {
-      offload.enable = true;
-
-      nvidiaBusId = "PCI:1:0:0";
-      intelBusId = "PCI:0:1:0";
-    };
+    # prime = {
+    #   offload.enable = true;
+    #
+    #   nvidiaBusId = "PCI:1:0:0";
+    #   intelBusId = "PCI:0:1:0";
+    # };
   };
 }
