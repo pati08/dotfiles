@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  wez,
   ...
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
@@ -94,11 +95,16 @@ in {
     isNormalUser = true;
     description = "Patrick Oberholzer";
     extraGroups = ["networkmanager" "wheel"];
+# packages are separated into the flakes, the general packages from nixpkgs,
+# and the system-specific ones (from a module)
     packages = with pkgs;
+      [
+        wez
+      ] ++
       [
         firefox
         spotify
-        unstable.wezterm
+        # unstable.wezterm
         ripgrep
         chezmoi
         zellij
