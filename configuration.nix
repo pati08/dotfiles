@@ -4,7 +4,7 @@
 {
   config,
   pkgs,
-  wez,
+  inputs,
   ...
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
@@ -35,7 +35,14 @@ in {
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi = {
+      backend = "iwd";
+      macAddress = "random";
+    };
+  };
+
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -99,10 +106,10 @@ in {
 # and the system-specific ones (from a module)
     packages = with pkgs;
       [
-        wez
       ] ++
       [
         firefox
+        kitty
         spotify
         # unstable.wezterm
         ripgrep
@@ -149,9 +156,10 @@ in {
       gh
       postgresql
       marksman
+      iwd
 
       xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
-      wayland-protocols wayland-utils wl-clipboard wlroots waybar
+      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi
 
       gcc
       openjdk
@@ -223,8 +231,6 @@ in {
   # };
 
   # List services that you want to enable:
-
-  services.lorri.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
