@@ -4,6 +4,7 @@
     nixpkgs.url = "nixpkgs/nixos-23.11";
     unstable.url = "nixpkgs/nixos-unstable";
     hypridle.url = "github:hyprwm/hypridle";
+    hyprlock.url = "github:hyprwm/hyprlock";
     # wez.url = "github:wez/wezterm?dir=nix";
   };
   outputs = inputs@{ self, nixpkgs, unstable, ... }:

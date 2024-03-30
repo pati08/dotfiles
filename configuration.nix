@@ -10,6 +10,7 @@
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
   unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
+  hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -161,6 +162,7 @@ in {
 
       xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
       wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi hypridle
+      hyprlock
 
       gcc
       openjdk
