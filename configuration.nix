@@ -9,6 +9,7 @@
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
   unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+  hypridle = inputs.hypridle.packages."${pkgs.system}".default;
 in {
   imports = [
     # Include the results of the hardware scan.
