@@ -159,7 +159,7 @@ in {
       iwd
 
       xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
-      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi
+      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi hypridle
 
       gcc
       openjdk
