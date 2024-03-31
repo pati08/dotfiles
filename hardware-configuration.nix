@@ -52,7 +52,7 @@
   #       interface = "wlo1";
   #   };
   # };
-  networking.interfaces.wlo1.ipv4.addresses = [ {
+  networking.interfaces.wlan0.ipv4.addresses = [ {
       address = "192.168.1.200";
       prefixLength = 24;
   } ];

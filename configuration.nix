@@ -8,7 +8,7 @@
   ...
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
-  unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+  # unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
   hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
 in {
@@ -17,6 +17,15 @@ in {
     ./hardware-configuration.nix
     ./system-specific-conf.nix
   ];
+
+  nix.settings = {
+    # enable hyperland's cachix
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+
+    # enable flakes
+    experimental-features = ["nix-command" "flakes"];
+  };
 
   swapDevices = [
     {
@@ -110,37 +119,46 @@ in {
       [
       ] ++
       [
-        firefox
-        kitty
-        spotify
-        # unstable.wezterm
-        ripgrep
-        chezmoi
-        zellij
-        bat
-        lsd
-        loc
-        celluloid
-        fzf
-        usbutils
-        file
-        obsidian
-        ncdu
-        thefuck
+        # firefox
+        # kitty
+        # spotify
+        # ripgrep
+        # chezmoi
+        # zellij
+        # bat
+        # lsd
+        # loc
+        # celluloid
+        # fzf
+        # usbutils
+        # file
+        # obsidian
+        # ncdu
+        # thefuck
       ]
       ++ system-specific-packages.user;
   };
 
-  nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
-
-  fonts.packages = with pkgs; [
-    (unstable.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
-  ];
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+        then
+          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        fi
+    '';
   };
+
+  # nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
+
+  # fonts.packages = with pkgs; [
+  #   (unstable.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+  # ];
+
+  # programs.neovim = {
+  #   enable = true;
+  #   defaultEditor = true;
+  # };
 
   programs.nix-ld.enable = true;
 
@@ -180,15 +198,12 @@ in {
     ]
     ++ system-specific-packages.system;
 
-  # nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix = {
-    settings = {
-      package = pkgs.nixFlakes;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-    };
-  };
+  # nix = {
+  #   settings = {
+  #     package = pkgs.nixFlakes;
+  #     experimental-features = [ "nix-command" "flakes" ];
+  #   };
+  # };
 
   # Enable the fish shell
   # programs.fish.enable = true;
@@ -203,15 +218,15 @@ in {
   # };
 
   # Hyprland
-  programs.hyprland = {
-    enable = true;
-    enableNvidiaPatches = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   enableNvidiaPatches = true;
+  #   xwayland.enable = true;
+  # };
 
 # hint electron apps to use wayland
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
   };
 
 # screen sharing
