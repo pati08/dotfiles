@@ -141,14 +141,14 @@
       ];
 
       bindle = [
-        ", XF86AudioRaiseVolume, exec, pamixer -- --increase 10"
-        ", XF86AudioLowerVolume, exec, pamixer -- --decrease 10"
+        ", XF86AudioRaiseVolume, exec, pamixer --increase 10"
+        ", XF86AudioLowerVolume, exec, pamixer --decrease 10"
         ", XF86MonBrightnessUp, exec, brightnessctl set +10%"
         ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
       ];
 
       bindl = [
-        ", XF86AudioMute, exec, pamixer -- --toggle-mute"
+        ", XF86AudioMute, exec, pamixer --toggle-mute"
         ", XF86AudioPlay, exec, playerctl -- play-pause"
         ", XF86AudioNext, exec, playerctl -- next "
         ", XF86AudioPrev, exec, playerctl -- previous"
