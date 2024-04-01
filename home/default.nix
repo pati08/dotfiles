@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -14,6 +14,16 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
+
+  _module.args = { inherit inputs; };
+  imports = [
+    inputs.hyprland.homeManagerModules.default
+    inputs.hyprlock.homeManagerModules.hyprlock
+    ./hypr
+    ./shell_conf.nix
+  ];
+
+  programs.hyprlock.package = inputs.hyprlock.packages."${pkgs.system}".default;
 
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -40,6 +50,13 @@
     pkgs.file
     pkgs.ncdu
     pkgs.thefuck
+    
+    # volume and player controls
+    pkgs.pamixer
+    pkgs.playerctl
+
+    # hypr and wayland stuff
+    pkgs.hyprlock
 
     (pkgs.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
@@ -52,26 +69,6 @@
   ];
 
 
-  # Enable the fish shell
-  programs.fish = {
-    enable = true;
-    shellInit = ''
-      starship init fish | source
-      direnv hook fish | source
-      thefuck --alias | source
-      '';
-    shellAliases = {
-      ls = "lsd";
-      cat = "bat";
-    };
-  };
-
-  # hyprland
-  programs.hyprland = {
-    enable = true;
-    enableNvidiaPatches = true;
-    xwayland.enable = true;
-  };
 
   # programs.direnv.enable = true;
 

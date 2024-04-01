@@ -32,11 +32,12 @@
     homeConfigurations."patrick" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
+      extraSpecialArgs = { inherit inputs; };
+
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
       modules = [
-        hyprland.homeManagerModules.default
-        {wayland.windowManager.hyprland.enable = true;}
+        # hyprland.homeManagerModules.default
         ./home
       ];
 

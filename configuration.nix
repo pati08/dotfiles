@@ -9,6 +9,7 @@
 }: let
   system-specific-packages = import ./system-specific-pkgs.nix pkgs;
   # unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+  hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
   hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
 in {
@@ -82,8 +83,10 @@ in {
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      varient = "";
+    };
   };
 
   # Enable CUPS to print documents.
@@ -179,7 +182,7 @@ in {
       iwd
 
       xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
-      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi hypridle
+      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi-wayland hypridle
       hyprlock
 
       gcc
@@ -218,11 +221,11 @@ in {
   # };
 
   # Hyprland
-  # programs.hyprland = {
-  #   enable = true;
-  #   enableNvidiaPatches = true;
-  #   xwayland.enable = true;
-  # };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    package = hyprland_flake;
+  };
 
 # hint electron apps to use wayland
   environment.sessionVariables = {
