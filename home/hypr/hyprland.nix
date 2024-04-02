@@ -13,11 +13,6 @@
       exec-once = "waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle";
       env = [
         "XCURSOR_SIZE,24"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "XDG_SESSION_TYPE,wayland"
-        "GBM_BACKEND,nvidia-drm"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "WLR_NO_HARDWARE_CURSORS,1"
       ];
       input = {
         kb_layout = "us";
@@ -82,7 +77,7 @@
 
       dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        # pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
         preserve_split = "yes"; # you probably want this
       };
 
@@ -101,6 +96,7 @@
         "$mod, M, exit,"
         "$mod, V, togglefloating,"
         "$mod SHIFT, L, exec, hyprlock,"
+        "$mod, P, pseudo,"
 
         "$mod, R, exec, rofi -show drun"
         "$mod SHIFT, R, exec, rofi -show run"

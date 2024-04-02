@@ -7,8 +7,11 @@
   inputs,
   ...
 }: let
-  system-specific-packages = import ./system-specific-pkgs.nix pkgs;
-  # unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+  profileString = builtins.readFile ./profile-id.txt;
+  profilePath = import ./profiles/parse.nix profileString;
+
+  # system-specific-packages = import ./system-specific-pkgs.nix pkgs;
+
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
   hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
@@ -16,7 +19,8 @@ in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./system-specific-conf.nix
+    # ./system-specific-conf.nix
+    profilePath
   ];
 
   nix.settings = {
@@ -138,8 +142,7 @@ in {
         # obsidian
         # ncdu
         # thefuck
-      ]
-      ++ system-specific-packages.user;
+      ];
   };
 
   programs.bash = {
@@ -183,8 +186,9 @@ in {
 
       xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
       wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi-wayland hypridle
-      hyprlock
+      hyprlock libsForQt5.qt5.qtwayland qt5ct libva
 
+      nmap
       gcc
       openjdk
       nodejs
@@ -198,8 +202,7 @@ in {
       openssl.dev
       inotify-tools
       libnotify
-    ]
-    ++ system-specific-packages.system;
+    ];
 
   # nix = {
   #   settings = {

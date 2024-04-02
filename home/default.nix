@@ -1,6 +1,8 @@
 { config, pkgs, inputs, ... }:
-
-{
+let
+  profileString = builtins.readFile ../profile-id.txt;
+  profilePath = (import ./profiles/parse.nix) profileString;
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "patrick";
@@ -21,6 +23,7 @@
     inputs.hyprlock.homeManagerModules.hyprlock
     ./hypr
     ./shell_conf.nix
+    profilePath
   ];
 
   programs.hyprlock.package = inputs.hyprlock.packages."${pkgs.system}".default;
@@ -30,35 +33,36 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # applications
-    pkgs.firefox
-    pkgs.kitty
-    pkgs.spotify
-    pkgs.obsidian
-    pkgs.celluloid
+    firefox
+    kitty
+    spotify
+    obsidian
+    celluloid
 
     # command line utils
-    pkgs.ripgrep
-    pkgs.chezmoi
-    pkgs.zellij
-    pkgs.bat
-    pkgs.lsd
-    pkgs.loc
-    pkgs.fzf
-    pkgs.usbutils
-    pkgs.file
-    pkgs.ncdu
-    pkgs.thefuck
+    ripgrep
+    chezmoi
+    zellij
+    bat
+    lsd
+    loc
+    fzf
+    usbutils
+    file
+    ncdu
+    thefuck
     
-    # volume and player controls
-    pkgs.pamixer
-    pkgs.playerctl
+    # volume, brightness, and player controls
+    pamixer
+    playerctl
+    brightnessctl
 
     # hypr and wayland stuff
-    pkgs.hyprlock
+    hyprlock
 
-    (pkgs.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
