@@ -6,6 +6,7 @@
   pkgs,
   inputs,
   profilePath,
+  hwConfigPath,
   ...
 }: let
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
@@ -14,9 +15,10 @@
 in {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # ./system-specific-conf.nix
+    # ./hardware-configuration.nix
+
     profilePath
+    hwConfigPath
   ];
 
   nix.settings = {

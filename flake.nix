@@ -27,6 +27,7 @@
           inherit inputs;
           inherit system;
           profilePath = ./profiles/desktop.nix;
+          hwConfigPath = ./hardware/desktop.nix;
         };
         modules = [
           ./configuration.nix
@@ -38,6 +39,7 @@
           inherit inputs;
           inherit system;
           profilePath = ./profiles/laptop.nix;
+          hwConfigPath = ./hardware/laptop.nix;
         };
         modules = [
           ./configuration.nix
