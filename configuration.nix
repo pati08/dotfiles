@@ -85,7 +85,7 @@ in {
   services.xserver = {
     xkb = {
       layout = "us";
-      varient = "";
+      variant = "";
     };
   };
 
