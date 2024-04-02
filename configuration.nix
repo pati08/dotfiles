@@ -5,13 +5,9 @@
   config,
   pkgs,
   inputs,
+  profilePath,
   ...
 }: let
-  profileString = builtins.readFile ./profile-id.txt;
-  profilePath = import ./profiles/parse.nix profileString;
-
-  # system-specific-packages = import ./system-specific-pkgs.nix pkgs;
-
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
   hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;

@@ -1,8 +1,4 @@
-{ config, pkgs, inputs, ... }:
-let
-  profileString = builtins.readFile ../profile-id.txt;
-  profilePath = (import ./profiles/parse.nix) profileString;
-in {
+{ config, pkgs, inputs, profilePath, ... }: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "patrick";

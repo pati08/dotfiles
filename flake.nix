@@ -21,18 +21,54 @@
   pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
-      patrick-nixos = lib.nixosSystem {
+      desktop = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; inherit system; };
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          profilePath = ./profiles/desktop.nix;
+        };
+        modules = [
+          ./configuration.nix
+        ];
+      };
+      laptop = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          profilePath = ./profiles/laptop.nix;
+        };
         modules = [
           ./configuration.nix
         ];
       };
     };
-    homeConfigurations."patrick" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."desktop" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = { 
+        inherit inputs;
+        profilePath = ./home/profiles/desktop.nix;
+      };
+
+      # Specify your home configuration modules here, for example,
+      # the path to your home.nix.
+      modules = [
+        # hyprland.homeManagerModules.default
+        ./home
+      ];
+
+    # Optionally use extraSpecialArgs
+    # to pass through arguments to home.nix
+    };
+    homeConfigurations."laptop" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      extraSpecialArgs = {
+        inherit inputs;
+        profilePath = ./home/profiles/laptop.nix;
+      };
 
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
