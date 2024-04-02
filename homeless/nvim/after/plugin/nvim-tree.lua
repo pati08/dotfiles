@@ -1,0 +1,6 @@
+vim.keymap.set('n', '<leader>e', function()
+    vim.cmd('NvimTreeFocus')
+end)
+vim.keymap.set('n', '<leader>t', function()
+    vim.cmd('NvimTreeToggle')
+end)

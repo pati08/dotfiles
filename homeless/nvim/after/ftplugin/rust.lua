@@ -1,0 +1,1 @@
+-- vim.keymap.set("n", "<A>-c", vim.cmd('RustLsp flyCheck'))
