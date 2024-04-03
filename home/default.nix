@@ -58,6 +58,9 @@
     # hypr and wayland stuff
     hyprlock
 
+    # nil-ls
+    inputs.nilLs.packages."${pkgs.system}".default
+
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
     # # You can also create simple shell scripts directly inside your
@@ -81,6 +84,9 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+
+    ".config/nvim".source = ../homeless/nvim;
+
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.

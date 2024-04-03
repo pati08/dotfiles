@@ -13,6 +13,7 @@
     hypridle.url = "github:hyprwm/hypridle";
     hyprlock.url = "github:hyprwm/hyprlock";
 
+    nilLs.url = "github:oxalica/nil";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
     let

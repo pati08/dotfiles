@@ -118,29 +118,8 @@ in {
     isNormalUser = true;
     description = "Patrick Oberholzer";
     extraGroups = ["networkmanager" "wheel"];
-# packages are separated into the flakes, the general packages from nixpkgs,
-# and the system-specific ones (from a module)
-    packages = with pkgs;
-      [
-      ] ++
-      [
-        # firefox
-        # kitty
-        # spotify
-        # ripgrep
-        # chezmoi
-        # zellij
-        # bat
-        # lsd
-        # loc
-        # celluloid
-        # fzf
-        # usbutils
-        # file
-        # obsidian
-        # ncdu
-        # thefuck
-      ];
+    # all in HM now
+    packages = [];
   };
 
   programs.bash = {
