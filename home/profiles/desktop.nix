@@ -3,7 +3,16 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+let
+  suspendScript = pkgs.writeShellScript "suspend-script" ''
+    ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
+    # don't suspend if audio is playing
+    if [ $? == 1 ]; then
+      ${pkgs.systemd}/bin/systemctl suspend
+    fi
+  '';
+in {
   home.packages = with pkgs; [
     steam
     blender
@@ -22,4 +31,11 @@
   home.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
   };
+
+  services.hypridle.listeners = [
+    {
+      timeout = 1800; # 30 minutes
+      onTimeout = suspendScript.outPath;
+    }
+  ];
 }
