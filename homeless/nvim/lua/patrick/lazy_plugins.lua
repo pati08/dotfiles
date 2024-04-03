@@ -52,48 +52,6 @@ return require('lazy').setup({
         }
     },
 
-    -- git
-    -- 'tpope/vim-fugitive',
-    
- --    -- copilot
- --    {
- --        'zbirenbaum/copilot.lua',
- --        cmd = 'Copilot',
- --        build = ':Copilot auth',
- --        event = 'InsertEnter',
- --        event = "InsertEnter",
- --        config = function()
- --            require("copilot").setup({
- --                suggestion = {
- --                    enabled = true,
- --                    auto_trigger = true,
- --                    keymap = {
- --                        accept = "<Tab>",
- --                        accept_word = false,
- --                        accept_line = false,
- --                        next = "<C-j>",
- --                        prev = "<C-k>",
- --                        dismiss = false,
- --                        -- dismiss = "<Esc>",
- --                    },
- --                },
- --            })
-	--
- --            -- hide copilot suggestions when cmp menu is open
- --            -- to prevent odd behavior/garbled up suggestions
- --            local cmp_status_ok, cmp = pcall(require, "cmp")
- --            if cmp_status_ok then
- --                cmp.event:on("menu_opened", function()
- --                    vim.b.copilot_suggestion_hidden = true
- --                end)
-	--
- --                cmp.event:on("menu_closed", function()
- --                    vim.b.copilot_suggestion_hidden = false
- --                end)
- --            end
-	-- end
- --    },
-
     -- sudo saving
     {
         "lambdalisue/suda.vim",
@@ -147,38 +105,6 @@ return require('lazy').setup({
             }
         },
         config = function()
-            vim.o.completeopt = 'menuone,noinsert,noselect'
-            vim.opt.shortmess = vim.opt.shortmess + 'c'
-
-            local cmp = require('cmp')
-            cmp.setup({
-              preselect = cmp.PreselectMode.None,
-              snippet = {
-                expand = function(args)
-                  vim.fn["vsnip#anonymous"](args.body)
-                end,
-              },
-              mapping = {
-                ["<C-p>"] = cmp.mapping.select_prev_item(),
-                ["<C-n>"] = cmp.mapping.select_next_item(),
-                -- Add tab support
-                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<Tab>"] = cmp.mapping.confirm({
-                  behavior = cmp.ConfirmBehavior.Insert,
-                  select = true,
-                }),
-              },
-
-              -- Installed sources
-              sources = {
-                { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "path" },
-                { name = "buffer" },
-              },
-            })
-
             -- keybindings for cmp and lsp
             local function on_attach(client, buffer)
                 local keymap_opts = { buffer = buffer }
@@ -218,6 +144,55 @@ return require('lazy').setup({
             })
         end
     },
+
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            -- lsp completion
+            'hrsh7th/cmp-nvim-lsp',
+            -- snippet completion
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip',
+            -- path completion
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-buffer',
+        },
+        config = function()
+            vim.o.completeopt = 'menuone,noinsert,noselect'
+            vim.opt.shortmess = vim.opt.shortmess + 'c'
+
+            local cmp = require('cmp')
+            cmp.setup({
+              preselect = cmp.PreselectMode.None,
+              snippet = {
+                expand = function(args)
+                  vim.fn["vsnip#anonymous"](args.body)
+                end,
+              },
+              mapping = {
+                ["<C-p>"] = cmp.mapping.select_prev_item(),
+                ["<C-n>"] = cmp.mapping.select_next_item(),
+                -- Add tab support
+                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<Tab>"] = cmp.mapping.confirm({
+                  behavior = cmp.ConfirmBehavior.Insert,
+                  select = true,
+                }),
+              },
+
+              -- Installed sources
+              sources = {
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+                { name = "path" },
+                { name = "buffer" },
+              },
+            })
+
+        end
+    },
+
     'nvim-lua/popup.nvim',
 
     {
@@ -284,4 +259,46 @@ return require('lazy').setup({
             require'lualine'.setup()
         end
     },
+
+    -- git
+    -- 'tpope/vim-fugitive',
+    
+ --    -- copilot
+ --    {
+ --        'zbirenbaum/copilot.lua',
+ --        cmd = 'Copilot',
+ --        build = ':Copilot auth',
+ --        event = 'InsertEnter',
+ --        event = "InsertEnter",
+ --        config = function()
+ --            require("copilot").setup({
+ --                suggestion = {
+ --                    enabled = true,
+ --                    auto_trigger = true,
+ --                    keymap = {
+ --                        accept = "<Tab>",
+ --                        accept_word = false,
+ --                        accept_line = false,
+ --                        next = "<C-j>",
+ --                        prev = "<C-k>",
+ --                        dismiss = false,
+ --                        -- dismiss = "<Esc>",
+ --                    },
+ --                },
+ --            })
+	--
+ --            -- hide copilot suggestions when cmp menu is open
+ --            -- to prevent odd behavior/garbled up suggestions
+ --            local cmp_status_ok, cmp = pcall(require, "cmp")
+ --            if cmp_status_ok then
+ --                cmp.event:on("menu_opened", function()
+ --                    vim.b.copilot_suggestion_hidden = true
+ --                end)
+	--
+ --                cmp.event:on("menu_closed", function()
+ --                    vim.b.copilot_suggestion_hidden = false
+ --                end)
+ --            end
+	-- end
+ --    },
 })
