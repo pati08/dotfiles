@@ -19,6 +19,7 @@
     ./hypr
     ./shell_conf.nix
     ./neovim.nix
+    ./kitty
     profilePath
   ];
 
