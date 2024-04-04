@@ -58,7 +58,6 @@
     gh
     postgresql
     marksman
-    openjdk
     nodejs
     networkmanagerapplet
     
