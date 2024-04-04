@@ -4,7 +4,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  lockScriptPath = (import ../scripts/lock.nix pkgs).outPath;
+in {
   imports = [
     inputs.hypridle.homeManagerModules.default
   ];
@@ -13,8 +15,8 @@
     enable = true;
     package = inputs.hypridle.packages."${pkgs.system}".default;
 
-    beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
-    lockCmd = (import ../scripts/lock.nix pkgs).outPath;
+    beforeSleepCmd = lockScriptPath;
+    lockCmd = lockScriptPath;
 
     listeners = [
       {
@@ -22,13 +24,6 @@
         onTimeout = "hyprctl dispatch dpms off";
         onResume = "hyprctl dispatch dpms on";
       }
-
-      # moved to desktop profile
-      # {
-      #   timeout = 1800; # 30 minutes
-      #   onTimeout = suspendScript.outPath;
-      # }
-
     ];
   };
 }
