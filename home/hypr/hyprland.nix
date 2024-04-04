@@ -3,6 +3,22 @@
   pkgs,
   ...
 }: {
+
+  home.packages = with pkgs; [
+    xwayland
+    # swww # not using yet
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+    meson
+    wayland-protocols
+		wayland-utils
+		wl-clipboard
+		waybar
+		rofi-wayland
+		hypridle
+    dunst
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     # enableNvidiaPatches = true; # option removed
@@ -88,20 +104,20 @@
       misc.force_default_wallpaper = -1;
 
       bind = [
-        "$mod, Q, exec, kitty,"
-        "$mod, F, exec, firefox,"
-        "$mod, E, exec, dolphin,"
+        "$mod, Q, exec, kitty"
+        "$mod, F, exec, firefox"
+        "$mod, E, exec, dolphin"
 
-        "$mod, C, killactive,"
-        "$mod, M, exit,"
-        "$mod, V, togglefloating,"
-        "$mod SHIFT, L, exec, hyprlock,"
-        "$mod, P, pseudo,"
+        "$mod, C, killactive"
+        "$mod, M, exit"
+        "$mod, V, togglefloating"
+        "$mod SHIFT, L, exec, ${(import ../scripts/lock.nix pkgs).outPath}"
+        "$mod, P, pseudo"
 
         "$mod, R, exec, rofi -show drun"
         "$mod SHIFT, R, exec, rofi -show run"
 
-        "$mod, T, togglesplit,"
+        "$mod, T, togglesplit"
 
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"

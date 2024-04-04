@@ -4,12 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-let
-  lockScript = pkgs.writeShellScript "lock-script" ''
-    pidof hyprlock || ${lib.getExe config.programs.hyprlock.package}
-  '';
-in {
+}: {
   imports = [
     inputs.hypridle.homeManagerModules.default
   ];
@@ -19,7 +14,7 @@ in {
     package = inputs.hypridle.packages."${pkgs.system}".default;
 
     beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
-    lockCmd = lockScript.outPath;
+    lockCmd = (import ../scripts/lock.nix pkgs).outPath;
 
     listeners = [
       {

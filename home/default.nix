@@ -16,14 +16,13 @@
   _module.args = { inherit inputs; };
   imports = [
     inputs.hyprland.homeManagerModules.default
-    inputs.hyprlock.homeManagerModules.hyprlock
     ./hypr
     ./shell_conf.nix
     ./neovim.nix
     profilePath
   ];
 
-  programs.hyprlock.package = inputs.hyprlock.packages."${pkgs.system}".default;
+  programs.swaylock.enable = true;
 
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -40,6 +39,7 @@
 
     # command line utils
     ripgrep
+    alejandra
     chezmoi
     zellij
     bat
@@ -49,15 +49,22 @@
     usbutils
     file
     ncdu
-    thefuck
+    nmap
+
+    # misc (temp)
+    wget
+    git
+    gh
+    postgresql
+    marksman
+    openjdk
+    nodejs
+    networkmanagerapplet
     
     # volume, brightness, and player controls
     pamixer
     playerctl
     brightnessctl
-
-    # hypr and wayland stuff
-    hyprlock
 
     # nil-ls
     inputs.nilLs.packages."${pkgs.system}".default

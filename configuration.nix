@@ -57,6 +57,9 @@ in {
     };
   };
 
+  # allow swaylock to unlock
+  security.pam.services.swaylock = {};
+
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -152,33 +155,32 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
-      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      wget
-      xclip
-      git
-      gh
-      postgresql
-      marksman
       iwd
-
-      xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
-      wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi-wayland hypridle
-      hyprlock libsForQt5.qt5.qtwayland qt5ct libva
-
-      nmap
       gcc
-      openjdk
-      nodejs
-      alejandra
-      fish
-      networkmanagerapplet
-      direnv
-      dunst
-      starship
-      pkg-config
-      openssl.dev
+      libsForQt5.qt5.qtwayland qt5ct libva
       inotify-tools
       libnotify
+      pkg-config
+
+      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      # wget
+      # git
+      # gh
+      # postgresql
+      # marksman
+
+      # xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
+      # wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi-wayland hypridle
+
+
+      # openjdk
+      # nodejs
+      # fish
+      # networkmanagerapplet
+      # direnv
+      # dunst
+      # starship
+      # openssl.dev
     ];
 
   # nix = {

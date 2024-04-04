@@ -6,11 +6,7 @@
   # Enable the fish shell
   programs.fish = {
     enable = true;
-    shellInit = ''
-      starship init fish | source
-      direnv hook fish | source
-      thefuck --alias | source
-      '';
+    shellInit = ""; # empty for now
     shellAliases = {
       ls = "lsd";
       cat = "bat";
@@ -37,5 +33,20 @@
         popd
       '';
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    # enableFishIntegration = true;
+  };
+
+  programs.thefuck = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
   };
 }
