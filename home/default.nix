@@ -16,10 +16,6 @@
   _module.args = { inherit inputs; };
   imports = [
     inputs.hyprland.homeManagerModules.default
-    ./hypr
-    ./shell_conf.nix
-    ./neovim.nix
-    ./kitty
     profilePath
   ];
 
@@ -51,6 +47,7 @@
     file
     ncdu
     nmap
+    unzip
 
     # misc (temp)
     wget

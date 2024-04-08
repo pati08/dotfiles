@@ -11,7 +11,9 @@
     # hyprland stuff
     hyprland.url = "github:hyprwm/Hyprland";
     hypridle.url = "github:hyprwm/hypridle";
-    hyprlock.url = "github:hyprwm/hyprlock";
+    # hyprlock.url = "github:hyprwm/hyprlock"; # switched to swaylock
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprpicker.inputs.nixpkgs.follows = "nixpkgs";
 
     nilLs.url = "github:oxalica/nil";
   };

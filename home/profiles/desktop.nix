@@ -13,6 +13,16 @@ let
     fi
   '';
 in {
+
+  imports = [
+    ../wayland
+    ../shell_conf.nix
+    ../neovim.nix
+    ../kitty
+  ];
+
+  wayland.hyprland.enableBlur = true;
+
   home.packages = with pkgs; [
     steam
     blender
