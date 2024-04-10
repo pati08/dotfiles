@@ -12,6 +12,7 @@
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
   hypridle = inputs.hypridle.packages."${pkgs.system}".default;
   hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
+  toString = builtins.toString;
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -117,12 +118,19 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  users.groups.ydogroup = {
+    name = "ydogroup";
+    gid = 1002;
+    members = [ "patrick" ];
+  };
+
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick Oberholzer";
     extraGroups = ["networkmanager" "wheel"];
     # all in HM now
     packages = [];
+    uid = 1000;
   };
 
   programs.bash = {
@@ -161,46 +169,8 @@ in {
       inotify-tools
       libnotify
       pkg-config
-
-      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      # wget
-      # git
-      # gh
-      # postgresql
-      # marksman
-
-      # xwayland swww xdg-desktop-portal-gtk xdg-desktop-portal-hyprland meson
-      # wayland-protocols wayland-utils wl-clipboard wlroots waybar rofi-wayland hypridle
-
-
-      # openjdk
-      # nodejs
-      # fish
-      # networkmanagerapplet
-      # direnv
-      # dunst
-      # starship
-      # openssl.dev
+      # ydotool
     ];
-
-  # nix = {
-  #   settings = {
-  #     package = pkgs.nixFlakes;
-  #     experimental-features = [ "nix-command" "flakes" ];
-  #   };
-  # };
-
-  # Enable the fish shell
-  # programs.fish.enable = true;
-  # programs.bash = {
-  #   interactiveShellInit = ''
-  #     if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-  #       then
-  #         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-  #         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-  #       fi
-  #   '';
-  # };
 
   # Hyprland
   programs.hyprland = {
@@ -209,7 +179,7 @@ in {
     package = hyprland_flake;
   };
 
-# hint electron apps to use wayland
+  # hint electron apps to use wayland
   environment.sessionVariables = {
     # NIXOS_OZONE_WL = "1";
   };
@@ -224,7 +194,7 @@ in {
     ];
   };
 
-# fix waybar not displaying hyprland workspaces
+  # fix waybar not displaying hyprland workspaces
   nixpkgs.overlays = [
     (self: super: {
      waybar = super.waybar.overrideAttrs (oldAttrs: {
@@ -232,6 +202,20 @@ in {
          });
      })
   ];
+
+  # systemd.services.ydotoold = {
+  #   wantedBy = [ "multi-user.target" ];
+  #   after = [];
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     User = "root";
+  #     ExecStart = ''
+  #       ${pkgs.ydotool}/bin/ydotoold \
+  #       --socket-path=/run/user/${toString config.users.users.patrick.uid}/.ydotool_socket \
+  #       --socket-own=${toString config.users.users.patrick.uid}:${toString config.users.groups.ydogroup.gid}
+  #     '';
+  #   };
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

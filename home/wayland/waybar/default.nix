@@ -3,10 +3,22 @@
   pkgs,
   inputs,
   ...
-}: {
-  programs.waybar = {
+}:
+let
+  lib = pkgs.lib;
+in {
+  options.wayland.waybar = {
+    backlight = lib.mkEnableOption "backlight display module";
+    battery = lib.mkEnableOption "battery display module";
+  };
+
+  config.programs.waybar = {
     enable = true;
     style = ./style.css;
-    settings = { mainBar = import ./settings.nix; };
+    # settings = { mainBar = import ./settings.nix; };
   }; 
+
+  imports = [
+    ./settings.nix
+  ];
 }

@@ -48,6 +48,7 @@ in {
           kb_layout = "us";
           kb_variant = "";
           kb_model = "";
+          # kb_options = "caps:ctrl_modifier";
           kb_options = "caps:swapescape";
           kb_rules = "";
 
