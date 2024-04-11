@@ -1,11 +1,12 @@
 def hm-switch [profile: string] {
-  pushd ~/dotfiles
-  home-manager switch --flake .#$profile
-  popd
+  enter ~/dotfiles
+  let arg = ".#" + $profile
+  home-manager switch --flake $arg
+  exit
 }
 
 def os-switch [profile: string] {
-  pushd ~/dotfiles
-  sudo nixos-rebuild switch --flake .#$profile
-  popd
+  enter ~/dotfiles
+  sudo nixos-rebuild switch --flake .# ($profile)
+  exit
 }
