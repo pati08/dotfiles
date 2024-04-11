@@ -30,6 +30,13 @@ return require('lazy').setup({
     -- syntax highlighting
     {
         'nvim-treesitter/nvim-treesitter', 
+        config = function()
+          -- setup treesitter with config
+        end,
+        dependencies = {
+          { "nushell/tree-sitter-nu" },
+        },
+        build = ":TSUpdate",
     },
 
     'theprimeagen/harpoon',

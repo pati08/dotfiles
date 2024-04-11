@@ -135,10 +135,10 @@ in {
 
   programs.bash = {
     interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "nu" && -z ''${BASH_EXECUTION_STRING} ]]
         then
           shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+          exec ${pkgs.nushell}/bin/nu $LOGIN_OPTION
         fi
     '';
   };
@@ -164,11 +164,13 @@ in {
   environment.systemPackages = with pkgs;
     [
       iwd
+      pulseaudioFull
       gcc
       libsForQt5.qt5.qtwayland qt5ct libva
       inotify-tools
       libnotify
       pkg-config
+      nushell
       # ydotool
     ];
 

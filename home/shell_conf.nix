@@ -3,50 +3,24 @@
   pkgs,
   ...
 }: {
-  # Enable the fish shell
-  programs.fish = {
+  # Use nushell
+  programs.nushell = {
     enable = true;
-    shellInit = ""; # empty for now
     shellAliases = {
       ls = "lsd";
-      cat = "bat";
+      ll = "lsd -l";
+      cat = "bar";
     };
-    functions = {
-      hm-switch = ''
-        if not set -q argv[1]
-          echo "Argument required"
-          return 1
-        end
-
-        pushd ~/dotfiles
-        home-manager switch --flake .#$argv
-        popd
-      '';
-      os-switch = ''
-        if not set -q argv[1]
-          echo "Argument required"
-          return 1
-        end
-
-        pushd ~/dotfiles
-        sudo nixos-rebuild switch --flake .#$argv
-        popd
-      '';
-    };
+    configFile = ./funcs.nu;
   };
 
   programs.direnv = {
     enable = true;
-    # enableFishIntegration = true;
-  };
-
-  programs.thefuck = {
-    enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 }
