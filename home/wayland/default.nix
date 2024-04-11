@@ -10,4 +10,9 @@
     ./hypridle.nix
     ./waybar
   ];
+
+  home.packages = with pkgs; [
+    grim
+    slurp
+  ];
 }

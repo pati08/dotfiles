@@ -6,6 +6,7 @@
 }:
 let
   lib = pkgs.lib;
+  screenshotScript = (import ../scripts/screenshot.nix pkgs).outPath;
 in {
   options = {
     wayland.hyprland = {
@@ -146,6 +147,8 @@ in {
 
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
+
+          ", Print, exec, ${screenshotScript}"
         ]
         ++ (
             # workspaces
