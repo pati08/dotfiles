@@ -9,9 +9,8 @@
     shellAliases = {
       ls = "lsd";
       ll = "lsd -l";
-      cat = "bar";
     };
-    configFile = ./funcs.nu;
+    extraConfig = builtins.readFile ./funcs.nu;
   };
 
   programs.direnv = {
