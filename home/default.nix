@@ -17,6 +17,7 @@
   imports = [
     inputs.hyprland.homeManagerModules.default
     profilePath
+    ./spotify.nix
   ];
 
   programs.swaylock.enable = true;
@@ -33,6 +34,7 @@
     spotify
     obsidian
     celluloid
+    libreoffice
 
     # command line utils
     ripgrep

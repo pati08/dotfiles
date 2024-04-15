@@ -9,6 +9,7 @@
     shellAliases = {
       ls = "lsd";
       ll = "lsd -l";
+      cat = "bat";
     };
     extraConfig = builtins.readFile ./funcs.nu;
   };

@@ -28,6 +28,7 @@ in {
     blender
     discord
     prismlauncher
+    darktable
   ];
 
   wayland.windowManager.hyprland.settings.env = [

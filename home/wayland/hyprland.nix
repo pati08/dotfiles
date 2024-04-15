@@ -7,6 +7,7 @@
 let
   lib = pkgs.lib;
   screenshotScript = (import ../scripts/screenshot.nix pkgs).outPath;
+  hyprpickerPkg = inputs.hyprpicker.packages."${pkgs.system}".default;
 in {
   options = {
     wayland.hyprland = {
@@ -28,7 +29,7 @@ in {
       rofi-wayland
       hypridle
       dunst
-      inputs.hyprpicker.packages."${pkgs.system}".default
+      hyprpickerPkg
     ];
 
     wayland.windowManager.hyprland =
@@ -69,7 +70,7 @@ in {
           "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
           "col.inactive_border" = "rgba(595959aa)";
 
-          layout = "dwindle";
+          layout = "master";
 
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false;
@@ -115,7 +116,7 @@ in {
           preserve_split = "yes"; # you probably want this
         };
 
-        master.new_is_master = true;
+        master.new_is_master = false;
 
         gestures.workspace_swipe = "off";
 
@@ -131,6 +132,7 @@ in {
           "$mod, V, togglefloating"
           "$mod SHIFT, L, exec, ${(import ../scripts/lock.nix pkgs).outPath}"
           "$mod, P, pseudo"
+          "$mod, B, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"
 
           "$mod, R, exec, rofi -show drun"
           "$mod SHIFT, R, exec, rofi -show run"
