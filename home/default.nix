@@ -50,6 +50,7 @@
     nmap
     unzip
     hyperfine
+    d2
 
     # misc (temp)
     wget
