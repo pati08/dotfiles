@@ -50,6 +50,7 @@
     ncdu
     nmap
     unzip
+    hyperfine
 
     # misc (temp)
     wget
