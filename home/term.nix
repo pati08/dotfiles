@@ -14,6 +14,10 @@
     extraConfig = builtins.readFile ./funcs.nu;
   };
 
+  imports = [
+    ./zellij.nix
+  ];
+
   programs.direnv = {
     enable = true;
     enableNushellIntegration = true;

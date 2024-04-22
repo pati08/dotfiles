@@ -40,7 +40,6 @@
     ripgrep
     alejandra
     chezmoi
-    zellij
     bat
     lsd
     loc

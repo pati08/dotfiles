@@ -16,7 +16,7 @@ in {
 
   imports = [
     ../wayland
-    ../shell_conf.nix
+    ../term.nix
     ../neovim.nix
     ../kitty
   ];
@@ -29,6 +29,7 @@ in {
     discord
     prismlauncher
     darktable
+    godot_4
   ];
 
   wayland.windowManager.hyprland.settings.env = [

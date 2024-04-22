@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../wayland
-    ../shell_conf.nix
+    ../term.nix
     ../neovim.nix
     ../kitty
   ];
