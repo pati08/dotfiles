@@ -36,20 +36,6 @@
     celluloid
     libreoffice
 
-    # command line utils
-    ripgrep
-    alejandra
-    chezmoi
-    bat
-    lsd
-    loc
-    fzf
-    usbutils
-    file
-    ncdu
-    nmap
-    unzip
-    hyperfine
 
     # misc (temp)
     wget
