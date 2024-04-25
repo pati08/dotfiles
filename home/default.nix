@@ -34,6 +34,7 @@
     spotify
     obsidian
     celluloid
+    godot_4
     libreoffice
 
     # command line utils

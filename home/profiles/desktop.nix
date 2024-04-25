@@ -29,7 +29,6 @@ in {
     discord
     prismlauncher
     darktable
-    godot_4
   ];
 
   wayland.windowManager.hyprland.settings.env = [
