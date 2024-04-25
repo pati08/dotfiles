@@ -75,7 +75,7 @@ return require('lazy').setup({
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
-        ft = { 'rust', 'python', 'lua', 'typescript', 'javascript', 'c', 'cpp', 'java' },
+        ft = { 'rust', 'python', 'lua', 'typescript', 'javascript', 'c', 'cpp', 'java', 'css', 'html' },
         dependencies = {
             -- managing lsps from neovim
             'williamboman/mason.nvim',

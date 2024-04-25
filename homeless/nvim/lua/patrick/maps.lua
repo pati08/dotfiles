@@ -1,3 +1,5 @@
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
 -- navigation between nvim panes
 vim.keymap.set('n', '<C-l>', function()
     vim.api.nvim_input('<C-w>l')
