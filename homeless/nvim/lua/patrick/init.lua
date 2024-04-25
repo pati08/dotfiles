@@ -5,9 +5,8 @@ vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 
-require("patrick.remap")
-require('patrick.lazy_plugins')
 require('patrick.set')
 require('patrick.maps')
+require('patrick.lazy_plugins')
 
 require('nvim-tree').setup()
