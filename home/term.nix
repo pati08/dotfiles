@@ -38,6 +38,9 @@
       ls = "lsd";
       ll = "lsd -l";
       cat = "bat";
+      zj = "zellij";
+      za = "zellij a";
+      zn = "zellij -s";
     };
     extraConfig = builtins.readFile ./funcs.nu + ''
       

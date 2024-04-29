@@ -36,6 +36,7 @@
     celluloid
     godot_4
     libreoffice
+    prusa-slicer
 
     # command line utils
     ripgrep
