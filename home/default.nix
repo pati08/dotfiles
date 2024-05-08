@@ -37,6 +37,8 @@
     godot_4
     libreoffice
     prusa-slicer
+    dissent # discord
+    discordo # discord tui
 
     # command line utils
     ripgrep

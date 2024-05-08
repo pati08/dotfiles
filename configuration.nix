@@ -117,7 +117,7 @@ in {
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   users.groups.ydogroup = {
     name = "ydogroup";
@@ -173,6 +173,7 @@ in {
       pkg-config
       nushell
       # ydotool
+      libinput
     ];
 
   # Hyprland
