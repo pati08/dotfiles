@@ -31,8 +31,8 @@
     neofetch
   ];
 
-  # Use nushell
-  programs.nushell = {
+  # Use fish
+  programs.fish = {
     enable = true;
     shellAliases = {
       ls = "lsd";
@@ -42,13 +42,21 @@
       za = "zellij a";
       zn = "zellij -s";
     };
-    extraConfig = builtins.readFile ./funcs.nu + ''
-      
-      $env.config = {
-        show_banner: false,
-      }
-      neofetch
-    '';
+    shellInit = "neofetch";
+    functions = {
+      hm-switch = ''
+        pushd ~/dotfiles
+        set arg ".#$profile"
+        home-manager switch --flake $arg
+        popd
+      '';
+      os-switch = ''
+        pushd ~/dotfiles
+        set arg ".#$profile"
+        sudo nixos-rebuild switch --flake $arg
+        popd
+      '';
+    };
   };
 
   imports = [
@@ -57,11 +65,11 @@
 
   programs.direnv = {
     enable = true;
-    enableNushellIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.starship = {
     enable = true;
-    enableNushellIntegration = true;
+    enableFishIntegration = true;
   };
 }
