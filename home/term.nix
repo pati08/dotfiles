@@ -13,10 +13,11 @@
     alejandra # nix code formatting
 
     # Misc tools
-    loc
+    scc
     fzf
     hyperfine # benchmarking
     file
+    d2
 
     # Important utilities
     usbutils

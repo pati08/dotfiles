@@ -42,22 +42,6 @@
     gimp
     aseprite
 
-    # command line utils
-    ripgrep
-    alejandra
-    chezmoi
-    bat
-    lsd
-    loc
-    fzf
-    usbutils
-    file
-    ncdu
-    nmap
-    unzip
-    hyperfine
-    d2
-
     # misc (temp)
     wget
     git
