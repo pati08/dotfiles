@@ -46,13 +46,13 @@
     functions = {
       hm-switch = ''
         pushd ~/dotfiles
-        set arg ".#$profile"
+        set arg ".#$argv"
         home-manager switch --flake $arg
         popd
       '';
       os-switch = ''
         pushd ~/dotfiles
-        set arg ".#$profile"
+        set arg ".#$argv"
         sudo nixos-rebuild switch --flake $arg
         popd
       '';

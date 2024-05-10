@@ -39,6 +39,8 @@
     prusa-slicer
     dissent # discord
     discordo # discord tui
+    gimp
+    aseprite
 
     # command line utils
     ripgrep
