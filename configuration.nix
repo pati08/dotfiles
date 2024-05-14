@@ -83,9 +83,9 @@ in {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
+  # use SDDM
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -119,12 +119,6 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  users.groups.ydogroup = {
-    name = "ydogroup";
-    gid = 1002;
-    members = [ "patrick" ];
-  };
-
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick Oberholzer";
@@ -144,17 +138,6 @@ in {
     '';
   };
 
-  # nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
-
-  # fonts.packages = with pkgs; [
-  #   (unstable.nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
-  # ];
-
-  # programs.neovim = {
-  #   enable = true;
-  #   defaultEditor = true;
-  # };
-
   programs.nix-ld.enable = true;
 
   # Allow unfree packages
@@ -172,7 +155,6 @@ in {
       libnotify
       pkg-config
       fish
-      # ydotool
       libinput
     ];
 
@@ -206,20 +188,6 @@ in {
          });
      })
   ];
-
-  # systemd.services.ydotoold = {
-  #   wantedBy = [ "multi-user.target" ];
-  #   after = [];
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     User = "root";
-  #     ExecStart = ''
-  #       ${pkgs.ydotool}/bin/ydotoold \
-  #       --socket-path=/run/user/${toString config.users.users.patrick.uid}/.ydotool_socket \
-  #       --socket-own=${toString config.users.users.patrick.uid}:${toString config.users.groups.ydogroup.gid}
-  #     '';
-  #   };
-  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
