@@ -26,6 +26,7 @@ in {
   home.packages = with pkgs; [
     steam
     blender
+    brave
     discord
     prismlauncher
     darktable
