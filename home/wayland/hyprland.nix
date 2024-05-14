@@ -42,13 +42,13 @@ in {
       settings = {
         "$mod" = "SUPER";
         monitor = ",preferred,0x0,1";
-        exec-once = "waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle";
+        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle";
         env = [
           "XCURSOR_SIZE,24"
         ];
         input = {
-          kb_layout = "us";
-          kb_variant = "";
+          kb_layout = "us,us";
+          kb_variant = "intl,,";
           kb_model = "";
           # kb_options = "caps:ctrl_modifier";
           kb_options = "caps:swapescape";
@@ -135,8 +135,10 @@ in {
           "$mod, M, exit"
           "$mod, V, togglefloating"
           "$mod SHIFT, L, exec, ${(import ../scripts/lock.nix pkgs).outPath}"
-          "$mod, P, pseudo"
-          "$mod, B, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"
+          #"$mod, P, pseudo" not the current layout
+          "$mod, P, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"
+          # toggle bar
+          "$mod, B, exec, pkill -SIGUSR1 waybar"
 
           "$mod, R, exec, rofi -show drun"
           "$mod SHIFT, R, exec, rofi -show run"

@@ -12,6 +12,11 @@ window#waybar {
     color: #cdd6f4;
 }
 
+/* #idle_inhibitor { */
+/*     padding-left: 7px; */
+/*     padding-right: 10px; */
+/* } */
+
 tooltip {
     background: #1e1e2e;
     border-radius: 10px;
@@ -48,10 +53,7 @@ tooltip {
     border-radius: 10px;
 }
 
-#custom-language,
-#custom-updates,
-#custom-caffeine,
-#custom-weather,
+#idle_inhibitor,
 #window,
 #clock,
 #battery,
@@ -59,12 +61,20 @@ tooltip {
 #network,
 #workspaces,
 #tray,
+#language,
+#cpu,
+#memory,
+#temperature,
 #backlight {
     background: #1e1e2e;
     padding: 0px 10px;
     margin: 3px 0px;
     margin-top: 10px;
     border: 1px solid #181825;
+}
+
+#cpu,#memory,#temperature {
+    color: #d87070;
 }
 
 #tray {
@@ -78,26 +88,6 @@ tooltip {
     margin-left: 10px;
     padding-right: 0px;
     padding-left: 5px;
-}
-
-#custom-caffeine {
-    color: #89dceb;
-    border-radius: 10px 0px 0px 10px;
-    border-right: 0px;
-    margin-left: 10px;
-}
-
-#custom-language {
-    color: #f38ba8;
-    border-left: 0px;
-    border-right: 0px;
-}
-
-#custom-updates {
-    color: #f5c2e7;
-    border-radius: 10px 0px 0px 10px;
-    border-left: 0px;
-    border-right: 0px;
 }
 
 #window {

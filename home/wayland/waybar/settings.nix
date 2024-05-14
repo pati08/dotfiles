@@ -10,7 +10,7 @@ in {
     mainBar = {
       layer = "top";
       position = "top";
-      height = 34;
+      height = 42;
       spacing = 4;
       "modules-left" =
         [
@@ -25,8 +25,7 @@ in {
         )
         ++ [
           "network"
-          "custom/updates"
-          "mpd"
+          # "mpd" disabled for now because I don't (yet) use it
         ];
 
       "modules-center" = [
@@ -54,25 +53,6 @@ in {
         format = "{name}";
         "on-scroll-up" = "hyprctl dispatch workspace m-1 > /dev/null";
         "on-scroll-down" = "hyprctl dispatch workspace m+1 > /dev/null";
-        "format-icons" = {
-          "1" = "";
-          "2" = "";
-          "3" = "";
-          "4" = "";
-          "5" = "";
-          urgent = "";
-          focused = "";
-          default = "";
-        };
-      };
-      "keyboard-state" = {
-        numlock = false;
-        capslock = false;
-        format = "{name} {icon}";
-        "format-icons" = {
-          locked = "";
-          unlocked = "";
-        };
       };
       "hyprland/window" = {
         "max-length" = 50;
@@ -81,19 +61,7 @@ in {
       "hyprland/language" = {
         format = "{}";
         "max-length" = 18;
-      };
-      "sway/mode" = {
-        format = "<span style=\"italic\">{}</span>";
-      };
-      "sway/scratchpad" = {
-        format = "{icon} {count}";
-        "show-empty" = false;
-        "format-icons" = [
-          ""
-          ""
-        ];
-        tooltip = true;
-        "tooltip-format" = "{app}: {title}";
+        "on-click" = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
       };
       mpd = {
         format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
@@ -215,37 +183,7 @@ in {
             ""
           ];
         };
-        "on-click" = "pavucontrol";
-      };
-      "custom/notification" = {
-        tooltip = false;
-        format = "{} {icon}";
-        "format-icons" = {
-          notification = "<span foreground='red'><sup></sup></span> ";
-          none = "";
-          "dnd-notification" = "<span foreground='red'><sup></sup></span> ";
-          "dnd-none" = "";
-          "inhibited-notification" = "<span foreground='red'><sup></sup></span> ";
-          "inhibited-none" = "";
-          "dnd-inhibited-notification" = "<span foreground='red'><sup></sup></span> ";
-          "dnd-inhibited-none" = "";
-        };
-        "return-type" = "json";
-        "exec-if" = "which swaync-client";
-        exec = "swaync-client -swb";
-        "on-click" = "sleep 0.1 && swaync-client -t -sw";
-        "on-click-right" = "swaync-client -d -sw";
-        escape = true;
-      };
-      "custom/updates" = {
-        format = "{} {icon}";
-        "return-type" = "json";
-        "format-icons" = {
-          "has-updates" = "󱍷";
-          updated = "󰂪";
-        };
-        "exec-if" = "which waybar-module-pacman-updates";
-        exec = "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300";
+        "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
       };
     };
   };
