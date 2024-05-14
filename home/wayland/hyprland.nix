@@ -90,6 +90,10 @@ in {
           shadow_range = 4;
           shadow_render_power = 3;
           "col.shadow" = "rgba(1a1a1aee)";
+
+          active_opacity = 0.85;
+          inactive_opacity = 0.5;
+          fullscreen_opacity = 0.85;
         };
 
         animations = {

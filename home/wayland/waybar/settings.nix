@@ -17,7 +17,6 @@ in {
           "hyprland/workspaces"
           "idle_inhibitor"
           "pulseaudio"
-          "backlight"
         ]
         ++ (
           if cfg.backlight
