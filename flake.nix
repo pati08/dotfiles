@@ -16,6 +16,11 @@
     hyprpicker.inputs.nixpkgs.follows = "nixpkgs";
 
     nilLs.url = "github:oxalica/nil";
+
+    waybar = {
+      url = "github:Alexays/Waybar";
+      intputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
     let

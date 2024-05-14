@@ -15,6 +15,7 @@ in {
   config.programs.waybar = {
     enable = true;
     style = ./style.css;
+    package = inputs.waybar.${pkgs.stdenv.hostPlatform.system}.waybar;
     # settings = { mainBar = import ./settings.nix; };
   }; 
 
