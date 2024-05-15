@@ -19,7 +19,7 @@
 
     waybar = {
       url = "github:Alexays/Waybar";
-      intputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:

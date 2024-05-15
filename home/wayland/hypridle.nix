@@ -12,7 +12,7 @@ in {
   ];
 
   services.hypridle = {
-    enable = true;
+    #enable = true;
     package = inputs.hypridle.packages."${pkgs.system}".default;
 
     beforeSleepCmd = lockScriptPath;

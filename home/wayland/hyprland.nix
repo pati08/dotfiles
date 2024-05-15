@@ -42,7 +42,7 @@ in {
       settings = {
         "$mod" = "SUPER";
         monitor = ",preferred,0x0,1";
-        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle";
+        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & sleep 0";
         env = [
           "XCURSOR_SIZE,24"
         ];

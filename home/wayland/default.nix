@@ -7,7 +7,7 @@
   _module.args = { inherit inputs; };
   imports = [
     ./hyprland.nix
-    ./hypridle.nix
+    #./hypridle.nix
     ./waybar
   ];
 
