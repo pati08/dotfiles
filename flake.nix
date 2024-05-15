@@ -9,7 +9,7 @@
     };
 
     # hyprland stuff
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
     # hyprlock.url = "github:hyprwm/hyprlock"; # switched to swaylock
     hyprpicker.url = "github:hyprwm/hyprpicker";
