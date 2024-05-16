@@ -10,9 +10,6 @@
   ...
 }: let
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
-  hypridle = inputs.hypridle.packages."${pkgs.system}".default;
-  hyprlock = inputs.hyprlock.packages."${pkgs.system}".default;
-  toString = builtins.toString;
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -84,7 +81,7 @@ in {
   services.xserver.enable = true;
 
   # use SDDM
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   # services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
@@ -117,7 +114,7 @@ in {
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   users.users.patrick = {
     isNormalUser = true;

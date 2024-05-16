@@ -7,23 +7,21 @@
 }: let
   lockScriptPath = (import ../scripts/lock.nix pkgs).outPath;
 in {
-  imports = [
-    inputs.hypridle.homeManagerModules.default
-  ];
-
-  services.hypridle = {
-    #enable = true;
+  config.services.hypridle = {
+    enable = true;
     package = inputs.hypridle.packages."${pkgs.system}".default;
 
-    beforeSleepCmd = lockScriptPath;
-    lockCmd = lockScriptPath;
+    settings = {
+      before_sleep_cmd = lockScriptPath;
+      lock_cmd = lockScriptPath;
 
-    listeners = [
-      {
-        timeout = 300;
-        onTimeout = "hyprctl dispatch dpms off";
-        onResume = "hyprctl dispatch dpms on";
-      }
-    ];
+      listener = [
+        {
+          timeout = 300;
+          on_timeout = "hyprctl dispatch dpms off";
+          on_resume = "hyprctl dispatch dpms on";
+        }
+      ];
+    };
   };
 }

@@ -25,9 +25,7 @@ in {
       wayland-protocols
       wayland-utils
       wl-clipboard
-      waybar
       rofi-wayland
-      hypridle
       dunst
       hyprpickerPkg
     ];
@@ -194,6 +192,7 @@ in {
           ", XF86AudioPrev, exec, playerctl -- previous"
         ];
       };
+      package = inputs.hyprland.packages.${pkgs.system}.default;
     };
   };
 }

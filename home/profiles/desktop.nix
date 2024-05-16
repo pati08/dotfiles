@@ -44,10 +44,10 @@ in {
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  # services.hypridle.listeners = [
-  #   {
-  #     timeout = 1800; # 30 minutes
-  #     onTimeout = suspendScript.outPath;
-  #   }
-  # ];
+  services.hypridle.settings.listener = [
+    {
+      timeout = 1800; # 30 minutes
+      on_timeout = suspendScript.outPath;
+    }
+  ];
 }
