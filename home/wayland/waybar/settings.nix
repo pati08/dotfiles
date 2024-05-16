@@ -61,7 +61,6 @@ in {
       "hyprland/language" = {
         format = "{}";
         "max-length" = 18;
-        "on-click" = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
       };
       mpd = {
         format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";

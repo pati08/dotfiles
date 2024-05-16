@@ -50,4 +50,14 @@ in {
       on_timeout = suspendScript.outPath;
     }
   ];
+
+  wayland.windowManager.hyprland.settings.monitor = [
+    "DP-1,preferred,0x0,1"
+    "Unknown-1,disable"
+  ];
+
+  programs.waybar.settings.mainBar."hyprland/language"."on-click"
+    = "hyprctl switchxkblayout logitech-g305 next";
+
+  programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "logitech-g305";
 }
