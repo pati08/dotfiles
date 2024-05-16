@@ -59,7 +59,7 @@ in {
         "separate-outputs" = true;
       };
       "hyprland/language" = {
-        format = "{}";
+        format = "Lang: {long}";
         "max-length" = 18;
       };
       mpd = {
