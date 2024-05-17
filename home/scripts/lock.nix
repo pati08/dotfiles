@@ -1,3 +1,3 @@
 pkgs: pkgs.writeShellScript "lock-script" ''
-    pidof swaylock || ${pkgs.lib.getExe pkgs.swaylock-fancy}
+    ps -e | grep lock || ${pkgs.lib.getExe pkgs.swaylock-fancy}
   ''
