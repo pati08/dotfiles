@@ -58,6 +58,8 @@ in {
           };
 
           sensitivity = 0;
+
+          scroll_method = "2fg";
         };
 
         general = {

@@ -19,7 +19,7 @@ theme "catppuccin-mocha"
 keybinds {
     normal clear-defaults=true {
         // tmux
-        bind "Ctrl f" { SwitchToMode "Tmux"; }
+        bind "Ctrl a" { SwitchToMode "Tmux"; }
         unbind "Ctrl b"
         // general stuff
         bind "Alt n" { NewPane; }
@@ -40,7 +40,7 @@ keybinds {
     }
 
     tmux clear-defaults=true {
-        bind "Ctrl f" { Write 2; SwitchToMode "Normal"; }
+        bind "Ctrl a" { Write 2; SwitchToMode "Normal"; }
         bind "Esc" { SwitchToMode "Normal"; }
         bind "g" { SwitchToMode "Locked"; }
         bind "p" { SwitchToMode "Pane"; }

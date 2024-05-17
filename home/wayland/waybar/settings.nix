@@ -89,7 +89,7 @@ in {
         "tooltip-format-disconnected" = "MPD (disconnected)";
       };
       "idle_inhibitor" = {
-        format = "{icon}";
+        format = "{icon} ";
         "format-icons" = {
           activated = "";
           deactivated = "";
