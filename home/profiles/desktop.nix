@@ -57,7 +57,7 @@ in {
   ];
 
   programs.waybar.settings.mainBar."hyprland/language"."on-click"
-    = "hyprctl switchxkblayout logitech-g305 next";
+    = "hyprctl switchxkblayout logitech-usb-receiver next";
 
-  programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "logitech-g305";
+  programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "logitech-usb-receiver";
 }
