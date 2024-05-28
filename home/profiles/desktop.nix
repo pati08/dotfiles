@@ -25,14 +25,10 @@ in {
 
   home.packages = with pkgs; [
     steam
-    blender
+    # blender
     discord
     prismlauncher
     darktable
-  ];
-
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "opaque,title:^(darktable)$"
   ];
 
   wayland.windowManager.hyprland.settings.env = [

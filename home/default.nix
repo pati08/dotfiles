@@ -18,6 +18,7 @@
     inputs.hyprland.homeManagerModules.default
     profilePath
     ./spotify.nix
+    ./browser.nix
   ];
 
   programs.swaylock.enable = true;
@@ -29,7 +30,6 @@
   # environment.
   home.packages = with pkgs; [
     # applications
-    firefox
     kitty
     spotify
     obsidian

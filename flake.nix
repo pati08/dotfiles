@@ -1,7 +1,7 @@
 {
   description = "My NixOS and home-manager configurations";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/master"; # this is kinda scary, using the master branch
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
