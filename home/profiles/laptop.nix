@@ -3,7 +3,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  keyboard = "at-translated-set-2-keyboard";
+in {
   imports = [
     ../wayland
     ../term.nix
@@ -24,4 +26,7 @@
     = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
 
   programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "at-translated-set-2-keyboard";
+
+
+  wayland.windowManager.hyprland.settings.bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
 }

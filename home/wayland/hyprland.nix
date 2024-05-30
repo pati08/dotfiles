@@ -71,7 +71,7 @@ in {
         ];
         input = {
           kb_layout = "us,us";
-          kb_variant = "intl,,";
+          kb_variant = ",intl";
           kb_model = "";
           # kb_options = "caps:ctrl_modifier";
           kb_options = "caps:swapescape";
@@ -168,7 +168,7 @@ in {
           "$mod, R, exec, rofi -show drun"
           "$mod SHIFT, R, exec, rofi -show run"
 
-          "$mod, T, togglesplit"
+          # "$mod, T, togglesplit" not the current layout
 
           "$mod, H, movefocus, l"
           "$mod, L, movefocus, r"

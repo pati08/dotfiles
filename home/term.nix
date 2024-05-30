@@ -18,6 +18,7 @@
     hyperfine # benchmarking
     file
     d2
+    duf
 
     # Important utilities
     usbutils
@@ -27,9 +28,6 @@
     # Zip files!
     unzip
     zip
-
-    # For a cool system info greeting in the terminal
-    neofetch
   ];
 
   # Use fish
@@ -43,7 +41,10 @@
       za = "zellij a";
       zn = "zellij -s";
     };
-    shellInit = "neofetch";
+    shellInit = ''
+      ${pkgs.fastfetch}/bin/fastfetch
+      set fish_greeting
+    '';
     functions = {
       hm-switch = ''
         pushd ~/dotfiles

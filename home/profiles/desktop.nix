@@ -5,6 +5,11 @@
   ...
 }:
 let
+  keyboard = "logitech-usb-receiver";
+  toggleScript = pkgs.writeShellScript "toggle_script" ''
+    ${(import ../scripts/toggleGameMode.nix pkgs).outPath}
+    hyprctl switchxkblayout ${keyboard} next
+  '';
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
     # don't suspend if audio is playing
@@ -56,7 +61,8 @@ in {
   ];
 
   programs.waybar.settings.mainBar."hyprland/language"."on-click"
-    = "hyprctl switchxkblayout logitech-usb-receiver next";
+    = "hyprctl switchxkblayout ${keyboard} next";
 
-  programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "logitech-usb-receiver";
+  programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "${keyboard}";
+  wayland.windowManager.hyprland.settings.bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
 }
