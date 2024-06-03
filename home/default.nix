@@ -41,6 +41,7 @@
     discordo # discord tui
     gimp
     aseprite
+    blender
 
     # misc (temp)
     wget

@@ -104,12 +104,12 @@ return require('lazy').setup({
             -- path completion
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
-            {
-                'RaafatTurki/corn.nvim',
-                config = function()
-                    require'corn'.setup()
-                end
-            }
+            -- {
+            --     'RaafatTurki/corn.nvim',
+            --     config = function()
+            --         require'corn'.setup()
+            --     end
+            -- }
         },
         config = function()
             -- keybindings for cmp and lsp
