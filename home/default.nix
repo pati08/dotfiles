@@ -45,7 +45,6 @@
 
     # misc (temp)
     wget
-    git
     gh
     postgresql
     marksman

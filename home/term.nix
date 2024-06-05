@@ -2,27 +2,48 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  aliases = {
+    grep = "${pkgs.ripgrep}/bin/ripgrep";
+    cat = "${pkgs.bat}/bin/bat";
+    ls = "${pkgs.lsd}/bin/lsd";
+    zj = "${pkgs.zellij}/bin/zellij";
+    za = "${pkgs.zellij}/bin/zellij -a";
+    zn = "${pkgs.zellij}/bin/zellij -s";
+    top = "${pkgs.bottom}/bin/bottom";
+    du = "${pkgs.diskonaut}/bin/diskonaut";
+    df = "${pkgs.duf}/bin/duf";
+    find = "${pkgs.fd}/bin/fd";
+    ll = "${pkgs.lsd}/bin/lsd -l";
+    lso = "command ls";
+  };
+in {
 
   # command line utils
   home.packages = with pkgs; [
-    # Improved from GNU
-    ripgrep
-    bat
-    lsd
+    ripgrep # better grep
+    bat # better cat
+    lsd # better ls
     alejandra # nix code formatting
-
-    # Misc tools
-    scc
-    fzf
+    bottom # better top
+    diskonaut # better du
+    scc # count lines of code
+    fzf skim # kinda the same, idk which to use
     hyperfine # benchmarking
-    file
-    d2
-    duf
+    file # very basic utility
+    d2 # graphrendering
+    duf # better df
+    inlyne # markdown rendering
+    mdcat # markdown rendering in terminal
+    fd # better find
+    fselect # file finding with sql-like syntax
+    jless # json reading
+    git-cliff # git changelogs
+    pipr # interactive pipe construction
+    fclones # duplicate file finder
+    fend # calculator
 
-    # Important utilities
-    usbutils
-    ncdu # ncurses disk usage
+    usbutils # duh, it's utils for usb!
     exfatprogs # for the camera card
 
     # Zip files!
@@ -33,14 +54,7 @@
   # Use fish
   programs.fish = {
     enable = true;
-    shellAliases = {
-      ls = "lsd";
-      ll = "lsd -l";
-      cat = "bat";
-      zj = "zellij";
-      za = "zellij a";
-      zn = "zellij -s";
-    };
+    shellAliases = aliases;
     shellInit = ''
       ${pkgs.fastfetch}/bin/fastfetch
       set fish_greeting
@@ -59,6 +73,18 @@
         popd
       '';
     };
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.git = {
+    enable = true;
+    delta.enable = true;
+    userName = "Patrick Oberholzer";
+    userEmail = "patrickoberholzer08@gmail.com";
   };
 
   imports = [
