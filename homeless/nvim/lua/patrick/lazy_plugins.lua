@@ -27,6 +27,13 @@ return require('lazy').setup({
         end
     },
 
+    -- TODO comments
+    {
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      opts = {}
+    },
+
     -- syntax highlighting
     {
         'nvim-treesitter/nvim-treesitter', 

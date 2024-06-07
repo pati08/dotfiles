@@ -30,7 +30,6 @@
   # environment.
   home.packages = with pkgs; [
     # applications
-    kitty
     spotify
     obsidian
     celluloid
