@@ -23,7 +23,7 @@ in {
   imports = [
     ../wayland
     ../term.nix
-    ../neovim.nix
+    ../nixvim
     ../kitty
   ];
 

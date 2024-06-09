@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim.url = "github:pati08/nixvim-config";
+    nixvim.url = "github:nix-community/nixvim";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
     let

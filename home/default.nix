@@ -19,6 +19,7 @@
     profilePath
     ./spotify.nix
     ./browser.nix
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 
   programs.swaylock.enable = true;
