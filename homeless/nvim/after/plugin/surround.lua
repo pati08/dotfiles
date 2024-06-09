@@ -1,4 +1,0 @@
--- keybindings
--- vim.keymap.set('n', 'p', function()
---     vim.cmd('redo')
--- end)

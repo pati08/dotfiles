@@ -19,6 +19,7 @@ let
   '';
 in {
 
+  _module.args = { inherit inputs; };
   imports = [
     ../wayland
     ../term.nix

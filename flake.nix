@@ -21,6 +21,8 @@
       url = "github:Alexays/Waybar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:pati08/nixvim-config";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
     let

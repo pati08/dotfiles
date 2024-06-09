@@ -6,6 +6,7 @@
 }: let
   keyboard = "at-translated-set-2-keyboard";
 in {
+  _module.args = { inherit inputs; };
   imports = [
     ../wayland
     ../term.nix
