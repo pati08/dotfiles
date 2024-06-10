@@ -15,15 +15,15 @@ in {
   ];
 
   wayland = {
-    windowManager.hyprland.settings.bindl = [
-      ", switch:on:Lid Switch, exec, systemctl suspend"
-    ];
     hyprland.enableBlur = true;
     waybar.backlight = true;
     waybar.battery = true;
-    windowManager = {
-      hyprland.settings.monitor = "eDP-1,preferred,0x0,1";
-      hyprland.settings.bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
+    windowManager.hyprland.settings = {
+      bindl = [
+        ", switch:on:Lid Switch, exec, systemctl suspend"
+      ];
+      monitor = "eDP-1,preferred,0x0,1";
+      bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
     };
   };
 
