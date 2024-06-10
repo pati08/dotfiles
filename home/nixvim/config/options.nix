@@ -23,6 +23,9 @@
       foldmethod = "indent";
       foldlevelstart = 99;
 
+      # color column
+      colorcolumn="80";
+
       # System clipboard support, needs xclip/wl-clipboard
       # clipboard = "unnamedplus";
 

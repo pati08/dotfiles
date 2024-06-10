@@ -66,10 +66,10 @@
 
             };
           };
-          completion = {
-            luasnip.enable = true;
-            spell.enable = true;
-          };
+          # completion = {
+          #   luasnip.enable = true;
+          #   spell.enable = true;
+          # };
         };
       };
 
@@ -335,22 +335,35 @@
         iconsEnabled = true;
       };
 
-      cmp.enable = true;
-
-      cmp-nvim-lsp = {
-        enable = true; # Enable suggestions for LSP
-      };
-      cmp-buffer = {
-        enable = true; # Enable suggestions for buffer in current file
-      };
-      cmp-path = {
-        enable = true; # Enable suggestions for file system paths
-      };
-      cmp_luasnip = {
-        enable = true; # Enable suggestions for code snippets
-      };
-      cmp-cmdline = {
-        enable = false; # Enable autocomplete for command line
+      cmp = {
+        enable = true;
+        settings = {
+          mapping = {
+            __raw = ''
+              cmp.mapping.preset.insert({
+                ["<C-p>"] = cmp.mapping.select_prev_item(),
+                ["<C-n>"] = cmp.mapping.select_next_item(),
+                -- Add tab support
+                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<Tab>"] = cmp.mapping.confirm({
+                  behavior = cmp.ConfirmBehavior.Insert,
+                  select = true,
+                }),
+              })
+            '';
+          };
+          snippet = {
+            expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+          };
+          sources = [
+            { name = "nvim_lsp"; }
+            # { name = "vsnip"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "buffer"; }
+          ];
+        };
       };
     };
 
@@ -420,33 +433,6 @@
           Operator = "",
           TypeParameter = "",
         }
-
-      local cmp = require'cmp'
-
-        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline({'/', "?" }, {
-            sources = {
-            { name = 'buffer' }
-            }
-            })
-
-      -- Set configuration for specific filetype.
-        cmp.setup.filetype('gitcommit', {
-            sources = cmp.config.sources({
-                { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-                }, {
-                { name = 'buffer' },
-                })
-            })
-
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline(':', {
-            sources = cmp.config.sources({
-                { name = 'path' }
-                }, {
-                { name = 'cmdline' }
-                }),
-              })
     require("headlines").setup {
         markdown = {
             query = vim.treesitter.query.parse(
@@ -626,43 +612,14 @@
         },
     }'';
 
-    # extraConfigLua = ''
-    #   local notify = require("notify")
-    #   local filtered_message = { "No information available" }
-
-    #   -- Override notify function to filter out messages
-    #   ---@diagnostic disable-next-line: duplicate-set-field
-    #   vim.notify = function(message, level, opts)
-    #   	local merged_opts = vim.tbl_extend("force", {
-    #   		on_open = function(win)
-    #   			local buf = vim.api.nvim_win_get_buf(win)
-    #   			vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-    #   		end,
-    #   	}, opts or {})
-
-    #   	for _, msg in ipairs(filtered_message) do
-    #   		if message == msg then
-    #   			return
-    #   		end
-    #   	end
-    #   	return notify(message, level, merged_opts)
-    #   end
-    # '';
-
-    # extraPlugins = with pkgs.vimPlugins; [
-    #   vim-be-good
-    #   headlines-nvim
-    #   # accelerated-jk
-    # ];
-
     extraPlugins = with pkgs.vimPlugins;
       [
         vim-be-good
         headlines-nvim # Should load this in at the opening of filetypes that require this, namely Markdown.
         nvim-web-devicons # Should load this in at Telescope/Neotree actions.
-        friendly-snippets # Should load this in at LuaSnip's initialisation, no clue how tho yet...
+        # friendly-snippets # Should load this in at LuaSnip's initialisation, no clue how tho yet...
         glow-nvim # Glow inside of Neovim
-        ultisnips
+        # ultisnips
         clipboard-image-nvim
         vim-suda # saving root-owned files
       ]

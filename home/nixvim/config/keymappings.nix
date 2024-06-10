@@ -168,6 +168,14 @@
         options.silent = true;
         mode = "t";
       }
+
+      # rename the current symbol
+      {
+        action = {__raw = "vim.lsp.buf.rename";};
+        key = "<leader>r";
+        options.silent = true;
+        mode = "n";
+      }
     ];
   };
 }
