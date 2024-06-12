@@ -53,28 +53,29 @@
     # ];
 
     highlight = {
-      Comment.fg = "#ff00ff";
-      Comment.bg = "#000000";
-      Comment.underline = true;
-      Comment.bold = true;
+      Comment = {
+        fg = "#ff00ff";
+        bg = "#000000";
+        underline = true;
+        bold = true;
+      };
     };
 
     autoCmd = [
       {
         event = ["BufNewFile" "BufRead"];
         pattern = "*.wgsl";
-        callback = {__raw = "function() vim.bo.filetype = wgsl end";};
+        command = "set filetype=wgsl";
       }
       {
         event = "FileType";
-        # pattern = [ "html" "nix"];
         pattern = "html";
-        callback = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
+        command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
       }
       {
         event = "FileType";
         pattern = "markdown";
-        callback = "set colorcolumn=";
+        command = "set colorcolumn=";
       }
     ];
   };
