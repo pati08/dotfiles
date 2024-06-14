@@ -6,6 +6,7 @@
 }: {
   _module.args = { inherit inputs; };
   imports = [
+    inputs.hyprland.homeManagerModules.default
     ./hyprland.nix
     ./hypridle.nix
     ./waybar
@@ -15,4 +16,6 @@
     grim
     slurp
   ];
+
+  programs.swaylock.enable = true;
 }

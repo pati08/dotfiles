@@ -65,7 +65,7 @@ in {
       xwayland.enable = true;
       settings = {
         "$mod" = "SUPER";
-        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & wezterm & nm-applet --indicator & dunst & hypridle & sleep 0";
+        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & sleep 0";
         env = [
           "XCURSOR_SIZE,24"
         ];
@@ -152,7 +152,7 @@ in {
         misc.force_default_wallpaper = 0;
 
         bind = [
-          "$mod, Q, exec, wezterm"
+          "$mod, Q, exec, kitty"
           "$mod, F, exec, firefox"
           "$mod, E, exec, dolphin"
 

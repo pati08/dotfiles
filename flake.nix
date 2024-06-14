@@ -61,36 +61,43 @@
 
       extraSpecialArgs = { 
         inherit inputs;
-        profilePath = ./home/profiles/desktop.nix;
       };
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
       modules = [
         # hyprland.homeManagerModules.default
         ./home
+        ./home/profiles/desktop.nix
       ];
 
-    # Optionally use extraSpecialArgs
-    # to pass through arguments to home.nix
     };
     homeConfigurations."laptop" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       extraSpecialArgs = {
         inherit inputs;
-        profilePath = ./home/profiles/laptop.nix;
       };
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
       modules = [
         # hyprland.homeManagerModules.default
         ./home
+        ./home/profiles/laptop.nix
       ];
 
-    # Optionally use extraSpecialArgs
-    # to pass through arguments to home.nix
+    };
+
+    homeConfigurations."friend" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      extraSpecialArgs = {
+        inherit inputs;
+      };
+
+      modules = [
+        # hyprland.homeManagerModules.default
+        ./home
+        ./home/profiles/friend.nix
+      ];
+
     };
   };
 }

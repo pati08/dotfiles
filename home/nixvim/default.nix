@@ -11,5 +11,6 @@
 
   imports = [
     ./config
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 }
