@@ -42,6 +42,7 @@ in {
     pipr # interactive pipe construction
     fclones # duplicate file finder
     fend # calculator
+    caligula # burning disk images
 
     usbutils # duh, it's utils for usb!
     exfatprogs # for the camera card
