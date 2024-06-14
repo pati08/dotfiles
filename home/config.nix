@@ -6,7 +6,7 @@ in {
   # manage.
   home = {
     username = lib.mkDefault "patrick";
-    homeDirectory = "/home/patrick";
+    homeDirectory = lib.mkDefault "/home/patrick";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
