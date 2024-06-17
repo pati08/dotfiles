@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: let
   aliases = {
@@ -17,6 +18,7 @@
     ll = "${pkgs.lsd}/bin/lsd -l";
     lso = "command ls";
   };
+  thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
 in {
 
   # command line utils
@@ -50,6 +52,8 @@ in {
     # Zip files!
     unzip
     zip
+
+    thokrPkg
   ];
 
   # Use fish

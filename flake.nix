@@ -23,6 +23,8 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
+
+    thokr.url = "github:pati08/thokr";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
     let
