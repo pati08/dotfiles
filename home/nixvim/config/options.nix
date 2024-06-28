@@ -44,14 +44,6 @@
 
     globals.mapleader = " ";
 
-    # autoCmd = [
-    #   {
-    #     event = [ "BufEnter" "BufWinEnter" ];
-    #     pattern = [ "*.md" "*.mdx" ];
-    #     command = "MarkdownPreviewToggle";
-    #   }
-    # ];
-
     highlight = {
       Comment = {
         fg = "#ff00ff";
@@ -76,6 +68,11 @@
         event = "FileType";
         pattern = "markdown";
         command = "set colorcolumn=";
+      }
+      {
+        event = "BufWritePre";
+        pattern = "*.rs";
+        callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
       }
     ];
   };

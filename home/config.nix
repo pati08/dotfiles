@@ -32,19 +32,6 @@ in {
   home.packages = with pkgs; [
     # applications
     spotify
-
-    # misc (temp)
-    wget
-    gh
-    
-    # volume, brightness, and player controls
-    pamixer
-    playerctl
-    brightnessctl
-
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
-  ] ++ (if (!config.isGuest) then [
-    # applications
     obsidian
     celluloid
     godot_4
@@ -57,11 +44,26 @@ in {
     blender
 
     # misc (temp)
+    wget
+    gh
     postgresql
     marksman
     nodejs
     networkmanagerapplet
-  ] else []);
+    
+    # volume, brightness, and player controls
+    pamixer
+    playerctl
+    brightnessctl
+
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+
+    imv
+
+    openjdk8-bootstrap
+
+    vesktop
+  ];
 
   home.sessionVariables = {
     EDITOR = "nvim";

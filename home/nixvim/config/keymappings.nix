@@ -1,9 +1,9 @@
 {self, ...}: {
   programs.nixvim = {
-    keymaps = [
+    keymaps = import ./lsp-keys.nix ++ [
       # Neo-tree bindings
       {
-        action = "<cmd>Neotree toggle<CR>";
+        action = "<cmd>NvimTreeToggle<CR>";
         key = "<leader>e";
       }
 
@@ -167,14 +167,6 @@
         key = "<A-i>";
         options.silent = true;
         mode = "t";
-      }
-
-      # rename the current symbol
-      {
-        action = {__raw = "vim.lsp.buf.rename";};
-        key = "<leader>r";
-        options.silent = true;
-        mode = "n";
       }
     ];
   };

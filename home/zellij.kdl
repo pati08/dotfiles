@@ -211,9 +211,9 @@ keybinds {
 
 plugins {
     tab-bar { path "tab-bar"; }
-    status-bar { path "status-bar"; }
+    // status-bar { path "status-bar"; }
     strider { path "strider"; }
-    compact-bar { path "compact-bar"; }
+    // compact-bar { path "compact-bar"; }
     session-manager { path "session-manager"; }
 }
 
@@ -235,7 +235,7 @@ plugins {
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-// default_shell "fish"
+default_shell "fish"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
@@ -246,7 +246,7 @@ plugins {
 //   - true (default)
 //   - false
 //
-// pane_frames true
+pane_frames false
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:

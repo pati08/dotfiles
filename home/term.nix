@@ -5,13 +5,13 @@
   ...
 }: let
   aliases = {
-    grep = "${pkgs.ripgrep}/bin/ripgrep";
+    grep = "${pkgs.ripgrep}/bin/rg";
     cat = "${pkgs.bat}/bin/bat";
     ls = "${pkgs.lsd}/bin/lsd";
     zj = "${pkgs.zellij}/bin/zellij";
     za = "${pkgs.zellij}/bin/zellij a";
     zn = "${pkgs.zellij}/bin/zellij -s";
-    top = "${pkgs.bottom}/bin/bottom";
+    top = "${pkgs.btop}/bin/btop";
     du = "${pkgs.diskonaut}/bin/diskonaut";
     df = "${pkgs.duf}/bin/duf";
     find = "${pkgs.fd}/bin/fd";
@@ -27,7 +27,7 @@ in {
     bat # better cat
     lsd # better ls
     alejandra # nix code formatting
-    bottom # better top
+    btop # better top
     diskonaut # better du
     scc # count lines of code
     fzf skim # kinda the same, idk which to use

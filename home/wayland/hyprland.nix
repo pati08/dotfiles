@@ -70,6 +70,7 @@ in {
           "XCURSOR_SIZE,24"
         ];
         input = {
+          scroll_factor = 0.66667;
           kb_layout = "us,us";
           kb_variant = ",intl";
           kb_model = "";

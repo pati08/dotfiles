@@ -722,11 +722,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1718572357,
-        "narHash": "sha256-IOGQJ0CTsnX6TcKEida1MbLzt3fHq66MFVotenoIpnU=",
+        "lastModified": 1719267076,
+        "narHash": "sha256-cXMyD92Au9lo/JVDOGZOK8uJsg0WKBe3EgI+5A4pUA0=",
         "owner": "pati08",
         "repo": "thokr",
-        "rev": "46ddea937b19d62c140fd374fb1cb70b32bfe3be",
+        "rev": "306b188a97e019aa9ee66a134a6cf30ccaa5383f",
         "type": "github"
       },
       "original": {
