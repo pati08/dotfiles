@@ -5,7 +5,7 @@
   ...
 }:
 let
-  keyboard = "logitech-usb-receiver";
+  keyboard = "keychron-keychron-c3-pro-keyboard";
   toggleScript = pkgs.writeShellScript "toggle_script" ''
     ${(import ../scripts/toggleGameMode.nix pkgs).outPath}
     hyprctl switchxkblayout ${keyboard} next
@@ -18,7 +18,6 @@ let
     fi
   '';
 in {
-
   _module.args = { inherit inputs; };
   imports = [
     ../wayland
@@ -35,6 +34,7 @@ in {
     discord
     prismlauncher
     darktable
+    cassowary
   ];
 
   wayland.windowManager.hyprland.settings.env = [

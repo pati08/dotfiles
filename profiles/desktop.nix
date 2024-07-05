@@ -4,10 +4,9 @@
   inputs,
   ...
 }: {
-  # virtualisation.libvirtd.enable = true;
-  # programs.virt-manager.enable = true;
+  programs.virt-manager.enable = true;
   virtualisation = {
-    waydroid.enable = true;
+    libvirtd.enable = true;
   };
 
   nixpkgs.config.cudaSupport = true;

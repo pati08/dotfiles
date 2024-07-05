@@ -65,7 +65,7 @@ in {
       xwayland.enable = true;
       settings = {
         "$mod" = "SUPER";
-        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & sleep 0";
+        exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & lxqt-policykit-agent";
         env = [
           "XCURSOR_SIZE,24"
         ];
