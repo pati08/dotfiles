@@ -63,6 +63,8 @@ in {
     openjdk8-bootstrap
 
     vesktop
+
+    vscode
   ];
 
   home.sessionVariables = {
