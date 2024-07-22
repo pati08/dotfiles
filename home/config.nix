@@ -42,6 +42,7 @@ in {
     gimp
     aseprite
     blender
+    sidequest
 
     # misc (temp)
     wget

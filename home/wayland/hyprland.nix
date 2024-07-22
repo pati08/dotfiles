@@ -64,6 +64,7 @@ in {
       # enableNvidiaPatches = true; # option removed
       xwayland.enable = true;
       settings = {
+        # "experimental:explicit_sync" = true;
         "$mod" = "SUPER";
         exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & lxqt-policykit-agent";
         env = [
@@ -145,8 +146,6 @@ in {
           pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
           preserve_split = "yes"; # you probably want this
         };
-
-        master.new_is_master = false;
 
         gestures.workspace_swipe = "on";
 
