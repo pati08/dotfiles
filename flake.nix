@@ -22,11 +22,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     thokr.url = "github:pati08/thokr";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
     let
     lib = nixpkgs.lib;
   system = "x86_64-linux";
@@ -42,6 +50,7 @@
           hwConfigPath = ./hardware/desktop.nix;
         };
         modules = [
+          lanzaboote.nixosModules.lanzaboote
           ./configuration.nix
         ];
       };

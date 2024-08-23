@@ -19,6 +19,7 @@
       # Includes all parsers for treesitter
       treesitter = {
         enable = true;
+        settings.highlight.enable = true;
       };
 
       # Auto-tagging
@@ -33,8 +34,10 @@
 
       none-ls = {
         enable = true;
-        cmd = ["bash -c nvim"];
-        debug = true;
+        settings = {
+          cmd = ["bash -c nvim"];
+          debug = true;
+        };
         sources = {
           code_actions = {
             statix.enable = true;
@@ -58,7 +61,7 @@
             };
             black = {
               enable = true;
-              withArgs = ''
+              settings = ''
                 {
                   extra_args = { "--fast" },
                 }

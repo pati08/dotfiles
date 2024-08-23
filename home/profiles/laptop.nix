@@ -15,7 +15,6 @@ in {
   ];
 
   wayland = {
-    hyprland.enableBlur = true;
     waybar.backlight = true;
     waybar.battery = true;
     windowManager.hyprland.settings = {
@@ -23,7 +22,7 @@ in {
         ", switch:on:Lid Switch, exec, systemctl suspend"
       ];
       monitor = "eDP-1,preferred,0x0,1";
-      bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
+      # bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
     };
   };
 

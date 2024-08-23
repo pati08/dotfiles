@@ -32,7 +32,7 @@ in {
   home.packages = with pkgs; [
     # applications
     spotify
-    obsidian
+    (obsidian.overrideAttrs (_oldAttrs: { buildInputs = [pkgs.d2]; }))
     celluloid
     godot_4
     libreoffice
@@ -43,11 +43,18 @@ in {
     aseprite
     blender
     sidequest
+    lumafly # hollow knight modding
+    vesktop # discord replacement that doesn't suck on linux
+    # vscode
+    imv
+    # Inkscape with .EPS support
+    (inkscape.overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [pkgs.ghostscript]; }))
+    ghostscript
 
     # misc (temp)
     wget
     gh
-    postgresql
+    postgresql_16
     marksman
     nodejs
     networkmanagerapplet
@@ -59,19 +66,44 @@ in {
 
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
-    imv
-
     openjdk8-bootstrap
-
-    vesktop
-
-    vscode
   ];
-
   home.sessionVariables = {
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
   };
+
+  # add imv desktop file
+  xdg.desktopEntries = {
+    imv = {
+      name = "imv";
+      genericName = "Image viewer";
+      exec = "imv %F";
+      terminal = false;
+      categories = [ "Graphics" "2DGraphics" "Viewer" ];
+      mimeType = [
+        "image/bmp"
+        "image/gif"
+        "image/jpeg"
+        "image/jpg"
+        "image/pjpeg"
+        "image/png"
+        "image/tiff"
+        "image/x-bmp"
+        "image/x-pcx"
+        "image/x-png"
+        "image/x-portable-anymap"
+        "image/x-portable-bitmap"
+        "image/x-portable-graymap"
+        "image/x-portable-pixmap"
+        "image/x-tga"
+        "image/x-xbitmap"
+        "image/heif"
+        "image/avif"
+      ];
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

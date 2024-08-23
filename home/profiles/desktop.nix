@@ -6,10 +6,6 @@
 }:
 let
   keyboard = "keychron-keychron-c3-pro-keyboard";
-  toggleScript = pkgs.writeShellScript "toggle_script" ''
-    ${(import ../scripts/toggleGameMode.nix pkgs).outPath}
-    hyprctl switchxkblayout ${keyboard} next
-  '';
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
     # don't suspend if audio is playing
@@ -25,8 +21,6 @@ in {
     ../nixvim
     ../kitty
   ];
-
-  wayland.hyprland.enableBlur = true;
 
   home.packages = with pkgs; [
     steam
@@ -47,6 +41,7 @@ in {
 
   home.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
+    MOZ_ENABLE_WAYLAND = 0;
   };
 
   services.hypridle.settings.listener = [
@@ -56,8 +51,10 @@ in {
     }
   ];
 
+
   wayland.windowManager.hyprland.settings.monitor = [
-    "DP-1,preferred,0x0,1"
+    "DP-3,2560x1440@60,1920x0,1,vrr,2"
+    "HDMI-A-1,1920x1080@60,0x0,1"
     "Unknown-1,disable"
   ];
 
@@ -65,5 +62,5 @@ in {
     = "hyprctl switchxkblayout ${keyboard} next";
 
   programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "${keyboard}";
-  wayland.windowManager.hyprland.settings.bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
+  # wayland.windowManager.hyprland.settings.bind = ["$mod, T, exec, ${(import ../scripts/toggleGameMode.nix pkgs keyboard).outPath}"];
 }
