@@ -4,9 +4,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  keyboard = "at-translated-set-2-keyboard";
-in {
+}: {
   imports = [
     ../term.nix
     ../nixvim

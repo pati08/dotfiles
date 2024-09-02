@@ -5,7 +5,7 @@
   ...
 }:
 let
-  keyboard = "keychron-keychron-c3-pro-keyboard";
+  keyboard = "kanata";
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
     # don't suspend if audio is playing
@@ -31,17 +31,17 @@ in {
     cassowary
   ];
 
-  wayland.windowManager.hyprland.settings.env = [
-    "LIBVA_DRIVER_NAME,nvidia"
-    "XDG_SESSION_TYPE,wayland"
-    "GBM_BACKEND,nvidia-drm"
-    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-    "WLR_NO_HARDWARE_CURSORS,1"
-  ];
+  # wayland.windowManager.hyprland.settings.env = [
+  #   "LIBVA_DRIVER_NAME,nvidia"
+  #   "XDG_SESSION_TYPE,wayland"
+  #   "GBM_BACKEND,nvidia-drm"
+  #   "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+  #   "WLR_NO_HARDWARE_CURSORS,1"
+  # ];
 
   home.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    MOZ_ENABLE_WAYLAND = 0;
+    # WLR_NO_HARDWARE_CURSORS = "1";
+    # MOZ_ENABLE_WAYLAND = 0;
   };
 
   services.hypridle.settings.listener = [

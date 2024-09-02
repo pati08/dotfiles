@@ -3,9 +3,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  keyboard = "at-translated-set-2-keyboard";
-in {
+}: {
   _module.args = { inherit inputs; };
   imports = [
     ../wayland
@@ -28,8 +26,8 @@ in {
 
   programs.waybar.settings.mainbar."hyprland/language" = {
     "on-click"
-      = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+      = "hyprctl switchxkblayout kanata next";
 
-    "keyboard-name" = "at-translated-set-2-keyboard";
+    "keyboard-name" = "kanata";
   };
 }

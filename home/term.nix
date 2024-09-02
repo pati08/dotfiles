@@ -46,6 +46,7 @@ in {
     fend # calculator
     caligula # burning disk images
     nixos-generators
+    mpg123
 
     usbutils # duh, it's utils for usb!
     exfatprogs # for the camera card
@@ -93,37 +94,37 @@ in {
     userEmail = "patrickoberholzer08@gmail.com";
   };
 
-  programs.wezterm = {
-    enable = true;
-    extraConfig = /* lua */ ''
-      local wezterm = require 'wezterm'
-
-      local config = {}
-
-      if wezterm.config_builder then
-          config = wezterm.config_builder()
-      end
-
-      -- config.font = wezterm.font 'FiraCode Nerd Font'
-      config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
-      config.enable_tab_bar = false
-      config.window_padding = {
-          left = 6,
-          right = 2,
-          top = 6,
-          bottom = 2,
-      }
-
-      config.adjust_window_size_when_changing_font_size = false
-
-      config.color_scheme = "Argonaut"
-
-      -- config.enable_wayland = false -- Currently required when using hyprland
-      config.enable_wayland = true
-
-      return config
-    '';
-  };
+  # programs.wezterm = {
+  #   enable = true;
+  #   extraConfig = /* lua */ ''
+  #     local wezterm = require 'wezterm'
+  #
+  #     local config = {}
+  #
+  #     if wezterm.config_builder then
+  #         config = wezterm.config_builder()
+  #     end
+  #
+  #     -- config.font = wezterm.font 'FiraCode Nerd Font'
+  #     config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
+  #     config.enable_tab_bar = false
+  #     config.window_padding = {
+  #         left = 6,
+  #         right = 2,
+  #         top = 6,
+  #         bottom = 2,
+  #     }
+  #
+  #     config.adjust_window_size_when_changing_font_size = false
+  #
+  #     config.color_scheme = "Argonaut"
+  #
+  #     -- config.enable_wayland = false -- Currently required when using hyprland
+  #     config.enable_wayland = true
+  #
+  #     return config
+  #   '';
+  # };
 
   imports = [
     ./zellij.nix
