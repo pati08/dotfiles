@@ -60,8 +60,18 @@
         command = "set filetype=wgsl";
       }
       {
+        event = ["BufNewFile" "BufRead"];
+        pattern = "*.mdp";
+        command = "set filetype=markdown";
+      }
+      {
         event = "FileType";
         pattern = "html";
+        command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
+      }
+      {
+        event = "FileType";
+        pattern = "lisp";
         command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
       }
       {

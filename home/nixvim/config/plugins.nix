@@ -28,9 +28,9 @@
       };
 
       # Autopairs
-      nvim-autopairs = {
-        enable = true;
-      };
+      # nvim-autopairs = {
+      #   enable = true;
+      # };
 
       none-ls = {
         enable = true;
@@ -633,6 +633,7 @@
           },
       }
       require("otter").activate({"python", "rust", "fish", "lua"}, true, true, nil)
+      require("ultimate-autopair").setup({})
     '';
 
     extraPlugins = with pkgs.vimPlugins;
@@ -646,6 +647,7 @@
         clipboard-image-nvim
         vim-suda # saving root-owned files
         otter-nvim # embedded lsp
+        ultimate-autopair-nvim
       ]
       ++ [
         # (pkgs.vimUtils.buildVimPlugin {

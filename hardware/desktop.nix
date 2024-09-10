@@ -84,6 +84,8 @@
   ];
 
   boot.kernelParams = [
+    "video=DP-3:2560x1440@144"
+    "video=HDMI-A-1:1920x1080@60"
     # "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     # "nvidia-drm.fbdev=1"
   ];
