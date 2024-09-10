@@ -23,7 +23,6 @@ in {
   ];
 
   home.packages = with pkgs; [
-    steam
     # blender
     discord
     prismlauncher

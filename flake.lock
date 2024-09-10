@@ -990,11 +990,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1724419768,
-        "narHash": "sha256-8iA39+PwUym4JzTTgzd2uLUwblP3+XRyf441gW1TCG0=",
+        "lastModified": 1725043608,
+        "narHash": "sha256-MdrVATDlHIFmm7O4XN4z8aH+zBdQ9u+T/cTWK0tBEGk=",
         "owner": "pati08",
         "repo": "thokr",
-        "rev": "25c0537c2277ed2be0785c08ae33fde99007de5a",
+        "rev": "831722a422424aa24d0cd9affb4bbb4079d19e4c",
         "type": "github"
       },
       "original": {

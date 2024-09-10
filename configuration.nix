@@ -22,11 +22,7 @@ in {
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
+  boot.loader.systemd-boot.enable = true;
 
   # didn't like the delay, but keeping it here just in case
 
@@ -47,19 +43,10 @@ in {
     experimental-features = ["nix-command" "flakes"];
   };
 
-  services.harmonia.enable = true;
-  services.harmonia.signKeyPath = /var/lib/secrets/harmonia.secret;
-  # Example using sops-nix to store the signing key
-  #services.harmonia.signKeyPaths = [ config.sops.secrets.harmonia-key.path ];
-  #sops.secrets.harmonia-key = { };
-
   # optional if you use allowed-users in other places
   nix.settings.allowed-users = [ "harmonia" "patrick" ];
 
   networking.firewall.allowedTCPPorts = [ 443 80 ];
-
-  security.acme.defaults.email = "mail@poberholzer.com";
-  security.acme.acceptTerms = true;
 
   services.nginx = {
     enable = true;
@@ -68,22 +55,6 @@ in {
     };
     recommendedTlsSettings = true;
     recommendedZstdSettings = true;
-    virtualHosts."nix-cache.poberholzer.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".extraConfig = ''
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_redirect http:// https://;
-        proxy_http_version 1.1;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $connection_upgrade;
-
-        zstd on;
-        zstd_types application/x-nix-archive;
-      '';
-    };
   };
 
   swapDevices = [
@@ -224,6 +195,11 @@ in {
       lxqt.lxqt-policykit
       sbctl
     ];
+
+  programs.steam = {
+    enable = true;
+    package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; };
+  };
 
   # Hyprland
   programs.hyprland = {

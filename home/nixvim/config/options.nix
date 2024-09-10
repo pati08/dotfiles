@@ -77,7 +77,7 @@
       {
         event = "FileType";
         pattern = "markdown";
-        command = "set colorcolumn=";
+        command = "set colorcolumn= | set linebreak";
       }
       {
         event = "BufWritePre";
