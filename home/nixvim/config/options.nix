@@ -1,5 +1,5 @@
 {self, ...}: {
-    programs.nixvim = {
+  programs.nixvim = {
     globalOpts = {
       # Line numbers
       number = true;
@@ -40,6 +40,25 @@
 
       # Start scrolling when the cursor is X lines away from the top/bottom
       scrolloff = 5;
+    };
+
+    diagnostics = {
+      virtual_text = {
+        severity = {
+          # This defines the priority order of diagnostic severity
+          # min = vim.diagnostic.severity.HINT;
+          min = { __raw = "vim.diagnostic.severity.HINT"; };
+          max = { __raw = "vim.diagnostic.severity.ERROR"; };
+        };
+        # Show only the highest priority diagnostic on a line
+        severity_sort = true;
+      };
+      float = {
+        source = "always"; # You can also include the source of the diagnostic
+      };
+      signs = true; # Show signs on the left column
+      underline = true; # Underline diagnostics
+      update_in_insert = false; # Update diagnostics only in normal mode
     };
 
     globals.mapleader = " ";

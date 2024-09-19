@@ -311,6 +311,8 @@
           phpactor.enable = true; # PHP
           svelte.enable = false; # Svelte
           vuels.enable = false; # Vue
+          
+          jdt-language-server.enable = true;
 
           # Python
           pyright.enable = true;
