@@ -1,6 +1,42 @@
 { config, options, pkgs, inputs, ... }:
 let
   inherit (pkgs) lib;
+  ffSchool = { pkgs ? import <nixpkgs> {} }:
+    pkgs.stdenv.mkDerivation {
+      pname = "firefox-school";
+      version = "1.0";
+
+      # The main package you want to wrap
+      nativeBuildInputs = [ pkgs.firefox ];
+
+      # Create a bin directory with your wrapper script
+      buildInputs = [ pkgs.makeWrapper ];
+
+      buildPhase = ''
+        mkdir -p $out/bin
+        # wrapProgram ${pkgs.firefox}/bin/firefox --add-flags "-P School"
+        cp ${pkgs.firefox}/bin/firefox $out/bin/firefox-original
+        wrapProgram $out/bin/firefox-original --add-flags "-P School"
+        ln -s $out/bin/firefox-original $out/bin/firefox
+      '';
+
+      src = builtins.filterSource (path: type: false) ./.;
+      # unpackPhase = "true";
+
+      installPhase = ''
+        mkdir -p $out/share/applications
+        cat > $out/share/applications/firefox-rofi.desktop <<EOF
+        [Desktop Entry]
+        Version=1.0
+        Name=Firefox (School)
+        Exec=$out/bin/firefox
+        Icon=firefox
+        Terminal=false
+        Type=Application
+        Categories=Network;WebBrowser;
+        EOF
+      '';
+    };
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -67,6 +103,8 @@ in {
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
     openjdk8-bootstrap
+
+    (pkgs.callPackage ffSchool {})
   ];
   home.sessionVariables = {
     EDITOR = "nvim";
