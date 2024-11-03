@@ -55,6 +55,8 @@ in {
     zip
 
     thokrPkg
+
+    g810-led
   ];
 
   # Use fish

@@ -16,10 +16,11 @@ let
 in {
   _module.args = { inherit inputs; };
   imports = [
-    ../wayland
+    # ../wayland
     ../term.nix
     ../nixvim
     ../kitty
+    ../gptconf.nix
   ];
 
   home.packages = with pkgs; [
