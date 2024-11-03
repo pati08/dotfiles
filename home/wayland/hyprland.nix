@@ -60,18 +60,18 @@ in {
     settings = {
       # "experimental:explicit_sync" = true;
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle & lxqt-policykit-agent";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle >> ~/hypridle.log & lxqt-policykit-agent &";
       env = [
         "XCURSOR_SIZE,24"
       ];
       input = {
         scroll_factor = 0.66667;
-        kb_layout = "us,us";
-        kb_variant = ",intl";
+        kb_layout = "us,us,gr";
+        kb_variant = ",intl,";
         kb_model = "";
         # kb_options = "caps:ctrl_modifier";
         # kb_options = "caps:swapescape";
-        kb_options = "";
+        kb_options = "grp:alt_shift_toggle";
         kb_rules = "";
 
         follow_mouse = 2;
@@ -97,7 +97,7 @@ in {
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
 
-        layout = "master";
+        layout = "dwindle";
 
         # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
         allow_tearing = false;
@@ -123,7 +123,7 @@ in {
       };
 
       animations = {
-        enabled = "no";
+        enabled = false;
         # enabled = "yes";
 
         # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
@@ -142,13 +142,17 @@ in {
 
       dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = "yes"; # you probably want this
+        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        preserve_split = true; # you probably want this
       };
 
-      gestures.workspace_swipe = "on";
+      gestures.workspace_swipe = true;
 
-      misc.force_default_wallpaper = 0;
+      misc = {
+        force_default_wallpaper = 0;
+        enable_swallow = true;
+        swallow_regex = "kitty";
+      };
 
       bind = [
         "$mod, Q, exec, kitty"
@@ -159,7 +163,7 @@ in {
         "$mod, M, exit"
         "$mod, V, togglefloating"
         "$mod SHIFT, L, exec, ${(import ../scripts/lock.nix pkgs).outPath}"
-        #"$mod, P, pseudo" not the current layout
+        "$mod, W, pseudo"
         "$mod, P, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"
         # toggle bar
         "$mod, B, exec, pkill -SIGUSR1 waybar"
@@ -167,7 +171,7 @@ in {
         "$mod, R, exec, rofi -show drun"
         "$mod SHIFT, R, exec, rofi -show run"
 
-        # "$mod, T, togglesplit" not the current layout
+        "$mod, bracketleft, togglesplit"
 
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"
@@ -177,12 +181,27 @@ in {
         "$mod, S, togglespecialworkspace, magic"
         "$mod SHIFT, S, movetoworkspace, special:magic"
 
+        "$mod, O, togglespecialworkspace, obsidian"
+        "$mod SHIFT, O, movetoworkspace, special:obsidian"
+
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
 
         "$mod, Print, exec, ${screenshotScript2}"
         "$mod SHIFT, Print, exec, ${screenshotScript3}"
         ", Print, exec, ${screenshotScript}"
+
+        # Move windows within the layout
+        "$mod SHIFT, H, moveactive, l"  # Move active window left
+        "$mod SHIFT, L, moveactive, r"  # Move active window right
+        "$mod SHIFT, K, moveactive, u"  # Move active window up
+        "$mod SHIFT, J, moveactive, d"  # Move active window down
+
+        # Swap window positions
+        "$mod CTRL, H, swapwindow, l"   # Swap with left window
+        "$mod CTRL, L, swapwindow, r"   # Swap with right window
+        "$mod CTRL, K, swapwindow, u"   # Swap with upper window
+        "$mod CTRL, J, swapwindow, d"   # Swap with lower window
       ]
       ++ (
           # workspaces

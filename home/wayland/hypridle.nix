@@ -21,6 +21,10 @@ in {
           on_timeout = "hyprctl dispatch dpms off";
           on_resume = "hyprctl dispatch dpms on";
         }
+        {
+          timout = 5;
+          on_resume = "notify-send TIMEDOUT";
+        }
       ];
     };
   };

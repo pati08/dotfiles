@@ -14,7 +14,6 @@
     top = "${pkgs.btop}/bin/btop";
     du = "${pkgs.diskonaut}/bin/diskonaut";
     df = "${pkgs.duf}/bin/duf";
-    find = "${pkgs.fd}/bin/fd";
     ll = "${pkgs.lsd}/bin/lsd -l";
     lso = "command ls";
   };
@@ -81,6 +80,8 @@ in {
       '';
     };
   };
+
+  home.file.".config/spotify-player/app.toml".source = ./spotify-player.toml;
 
   programs.zoxide = {
     enable = true;

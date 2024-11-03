@@ -11,6 +11,7 @@
   ...
 }: let
   hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
+  # tilp2 = pkgs.callPackage (import ./tilp2.nix { inherit pkgs; }).tilp {};
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -127,10 +128,10 @@ in {
 
   # Enable sound with pipewire.
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    # enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -181,19 +182,20 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
+  environment.systemPackages = 
     [
-      iwd
-      pulseaudioFull
-      gcc
-      libsForQt5.qt5.qtwayland qt5ct libva
-      inotify-tools
-      libnotify
-      pkg-config
-      fish
-      libinput
-      lxqt.lxqt-policykit
-      sbctl
+      pkgs.iwd
+      pkgs.pulseaudioFull
+      pkgs.gcc
+      pkgs.libsForQt5.qt5.qtwayland pkgs.qt5ct pkgs.libva
+      pkgs.inotify-tools
+      pkgs.libnotify
+      pkgs.pkg-config
+      pkgs.fish
+      pkgs.libinput
+      pkgs.lxqt.lxqt-policykit
+      pkgs.sbctl
+      # tilp2
     ];
 
   programs.steam = {

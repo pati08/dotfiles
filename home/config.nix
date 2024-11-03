@@ -37,6 +37,10 @@ let
         EOF
       '';
     };
+    fhsZulu8 = pkgs.buildFHSUserEnv {
+      name = "zulu8-env";
+      targetPkgs = pkgs: [ pkgs.zulu8 ];
+    };
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -102,9 +106,13 @@ in {
 
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
 
-    openjdk8-bootstrap
+    # openjdk8-bootstrap
 
     (pkgs.callPackage ffSchool {})
+
+    zulu
+    fhsZulu8
+                           # with the installation of java 21
   ];
   home.sessionVariables = {
     EDITOR = "nvim";
