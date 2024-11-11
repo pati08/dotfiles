@@ -33,12 +33,23 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix";
+
+    ags.url = "github:Aylur/ags";
+
+    hyprpanel.url = "github:pati08/HyprPanel";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
     let
     lib = nixpkgs.lib;
   system = "x86_64-linux";
-  pkgs = nixpkgs.legacyPackages.${system};
+  pkgs = import nixpkgs {
+    inherit system;
+    overlays = [
+      inputs.hyprpanel.overlay
+    ];
+  };
   in {
     nixosConfigurations = {
       desktop = lib.nixosSystem {
@@ -78,6 +89,7 @@
         # hyprland.homeManagerModules.default
         ./home
         ./home/profiles/desktop.nix
+        inputs.stylix.homeManagerModules.stylix
       ];
 
     };
@@ -92,21 +104,7 @@
         # hyprland.homeManagerModules.default
         ./home
         ./home/profiles/laptop.nix
-      ];
-
-    };
-
-    homeConfigurations."friend" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      extraSpecialArgs = {
-        inherit inputs;
-      };
-
-      modules = [
-        # hyprland.homeManagerModules.default
-        ./home
-        ./home/profiles/friend.nix
+        inputs.stylix.homeManagerModules.stylix
       ];
 
     };

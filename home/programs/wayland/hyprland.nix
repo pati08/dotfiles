@@ -5,10 +5,7 @@
   ...
 }:
 let
-  lib = pkgs.lib;
-  screenshotScript = (import ../scripts/screenshot.nix pkgs).outPath;
-  screenshotScript2 = (import ../scripts/screenshot2.nix pkgs).outPath;
-  screenshotScript3 = (import ../scripts/screenshot3.nix pkgs).outPath;
+  screenshotScript = (import ../../scripts/screenshot.nix pkgs).outPath;
   hyprpickerPkg = inputs.hyprpicker.packages."${pkgs.system}".default;
 in {
   home.packages = with pkgs; [
@@ -19,48 +16,52 @@ in {
     wayland-protocols
     wayland-utils
     wl-clipboard
-    rofi-wayland
-    dunst
     hyprpickerPkg
+    hyprpanel
+    nautilus
+    cliphist
+    wl-clip-persist
+    wtype
+    grimblast
   ];
+
+  # programs.rofi = {
+  #   enable = true;
+  #   package = pkgs.rofi-wayland;
+  # };
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+  };
+
+  # home.pointerCursor = {
+  #   gtk.enable = true;
+  #   # x11.enable = true;
+  #   package = pkgs.bibata-cursors;
+  #   name = "Bibata-Modern-Classic";
+  #   size = 16;
+  # };
 
   home.pointerCursor = {
     gtk.enable = true;
-    # x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
+    x11.enable = true;
   };
+  gtk.enable = true;
 
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
-    };
-
-    iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-
-    font = {
-      name = "Sans";
-      size = 11;
-    };
-  };
+  # services.mako = {
+  #   enable = true;
+  #   borderRadius = 3;
+  # };
 
   wayland.windowManager.hyprland =
   let
     cfg = config.wayland.hyprland;
   in {
     enable = true;
-    # enableNvidiaPatches = true; # option removed
     xwayland.enable = true;
     settings = {
-      # "experimental:explicit_sync" = true;
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & waybar & firefox & kitty & nm-applet --indicator & dunst & hypridle >> ~/hypridle.log & lxqt-policykit-agent &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular &";
       env = [
         "XCURSOR_SIZE,24"
       ];
@@ -69,8 +70,6 @@ in {
         kb_layout = "us,us,gr";
         kb_variant = ",intl,";
         kb_model = "";
-        # kb_options = "caps:ctrl_modifier";
-        # kb_options = "caps:swapescape";
         kb_options = "grp:alt_shift_toggle";
         kb_rules = "";
 
@@ -85,17 +84,10 @@ in {
         scroll_method = "2fg";
       };
 
-      # render = {
-        # explicit_sync = 1;
-        # explicit_sync_kms = 1;
-      # };
-
       general = {
-        gaps_in = 0;
-        gaps_out = 0;
+        gaps_in = 2;
+        gaps_out = 1;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
 
         layout = "dwindle";
 
@@ -104,29 +96,25 @@ in {
       };
 
       decoration = {
-        rounding = 0;
+        rounding = 2;
 
         blur = {
-          enabled = false;
-          size = 3;
+          enabled = true;
+          size = 2;
           passes = 1;
         };
 
-        drop_shadow = "no";
+        drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
 
-        active_opacity = 1;
-        inactive_opacity = 1;
+        active_opacity = 0.95;
+        inactive_opacity = 0.8;
         fullscreen_opacity = 1;
       };
 
       animations = {
-        enabled = false;
-        # enabled = "yes";
-
-        # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+        enabled = true;
 
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
 
@@ -155,41 +143,49 @@ in {
       };
 
       bind = [
-        "$mod, Q, exec, kitty"
+        # Binds that launch things
+        "$mod, Return, exec, kitty"
         "$mod, F, exec, firefox"
-        "$mod, E, exec, dolphin"
-
-        "$mod, C, killactive"
-        "$mod, M, exit"
-        "$mod, V, togglefloating"
-        "$mod SHIFT, L, exec, ${(import ../scripts/lock.nix pkgs).outPath}"
-        "$mod, W, pseudo"
+        "$mod, E, exec, nautilus"
         "$mod, P, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"
-        # toggle bar
-        "$mod, B, exec, pkill -SIGUSR1 waybar"
-
         "$mod, R, exec, rofi -show drun"
         "$mod SHIFT, R, exec, rofi -show run"
+        ", Print, exec, ${screenshotScript} area"
+        "SHIFT, Print, exec, ${screenshotScript} screen"
 
+        # Cliphist operations
+        "$mod, semicolon, exec, ${(pkgs.writeShellScript "cliphist-selector" ''
+          cliphist list | rofi -dmenu | cliphist decode | wl-copy
+        '').outPath}"
+        "$mod SHIFT, semicolon, exec, ${(pkgs.writeShellScript "cliphist-deleter" ''
+          cliphist list | rofi -dmenu | cliphist delete
+        '').outPath}"
+        "$mod CTRL, semicolon, exec, ${(pkgs.writeShellScript "cliphist-selector" ''
+          cliphist list | rofi -dmenu | cliphist decode | wl-copy && wtype -M ctrl -k v -m ctrl
+        '').outPath}"
+
+
+        # Hyprland utility operations
+        "$mod, C, killactive"
+        "$mod, Delete, exit" # would be escape, but that seems too easy to do by accident
+        "$mod, V, togglefloating"
         "$mod, bracketleft, togglesplit"
 
+        # Switching windows
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"
         "$mod, K, movefocus, u"
         "$mod, J, movefocus, d"
 
+        # Special workspaces
         "$mod, S, togglespecialworkspace, magic"
         "$mod SHIFT, S, movetoworkspace, special:magic"
-
         "$mod, O, togglespecialworkspace, obsidian"
         "$mod SHIFT, O, movetoworkspace, special:obsidian"
 
+        # Workspace scrolling
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
-
-        "$mod, Print, exec, ${screenshotScript2}"
-        "$mod SHIFT, Print, exec, ${screenshotScript3}"
-        ", Print, exec, ${screenshotScript}"
 
         # Move windows within the layout
         "$mod SHIFT, H, moveactive, l"  # Move active window left

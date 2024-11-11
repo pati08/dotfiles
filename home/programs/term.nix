@@ -16,6 +16,7 @@
     df = "${pkgs.duf}/bin/duf";
     ll = "${pkgs.lsd}/bin/lsd -l";
     lso = "command ls";
+    lbk = "${pkgs.util-linux}/bin/lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL";
   };
   thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
 in {
@@ -82,8 +83,6 @@ in {
       '';
     };
   };
-
-  home.file.".config/spotify-player/app.toml".source = ./spotify-player.toml;
 
   programs.zoxide = {
     enable = true;

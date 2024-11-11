@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ...}: {
-  home.packages = with pkgs; [
-    firefox # while I switch to chromium
-  ];
+  programs.firefox = {
+    enable = true;
+  };
 
   programs.chromium = {
     enable = true;

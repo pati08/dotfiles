@@ -1,0 +1,108 @@
+From 8a00c5a749763474c314376426870f7d45753760 Mon Sep 17 00:00:00 2001
+From: Patrick Oberholzer <patrickoberholzer08@gmail.com>
+Date: Tue, 5 Nov 2024 18:59:56 -0500
+Subject: [PATCH] made some customizations
+
+---
+ modules/bar/Bar.ts   |  2 +-
+ options.ts           | 10 +++++-----
+ services/snapshot.sh | 35 +----------------------------------
+ 3 files changed, 7 insertions(+), 40 deletions(-)
+
+diff --git a/modules/bar/Bar.ts b/modules/bar/Bar.ts
+index dfb4567..54742de 100644
+--- a/modules/bar/Bar.ts
++++ b/modules/bar/Bar.ts
+@@ -89,7 +89,7 @@ const getLayoutForMonitor = (monitor: number, layouts: BarLayout): Layout => {
+     return {
+         left: ['dashboard', 'workspaces', 'windowtitle'],
+         middle: ['media'],
+-        right: ['volume', 'network', 'bluetooth', 'battery', 'systray', 'clock', 'notifications'],
++        right: ['kbinput', 'cpu', 'ram', 'volume', 'network', 'bluetooth', 'battery', 'systray', 'clock', 'notifications'],
+     };
+ };
+ 
+diff --git a/options.ts b/options.ts
+index 5d7b5fc..843836c 100644
+--- a/options.ts
++++ b/options.ts
+@@ -854,7 +854,7 @@ const options = mkOptions(OPTIONS, {
+             },
+         }),
+         launcher: {
+-            icon: opt('󰣇'),
++            icon: opt('❄️'),
+             rightClick: opt(''),
+             middleClick: opt(''),
+             scrollUp: opt(''),
+@@ -1113,8 +1113,8 @@ const options = mkOptions(OPTIONS, {
+                 left: {
+                     shortcut1: {
+                         icon: opt('󰇩'),
+-                        tooltip: opt('Microsoft Edge'),
+-                        command: opt('microsoft-edge-stable'),
++                        tooltip: opt('Firefox'),
++                        command: opt('firefox --new-window'),
+                     },
+                     shortcut2: {
+                         icon: opt(''),
+@@ -1124,12 +1124,12 @@ const options = mkOptions(OPTIONS, {
+                     shortcut3: {
+                         icon: opt(''),
+                         tooltip: opt('Discord'),
+-                        command: opt('discord'),
++                        command: opt('vesktop'),
+                     },
+                     shortcut4: {
+                         icon: opt(''),
+                         tooltip: opt('Search Apps'),
+-                        command: opt('rofi -show drun'),
++                        command: opt('tofi-drun'),
+                     },
+                 },
+                 right: {
+diff --git a/services/snapshot.sh b/services/snapshot.sh
+index 0aa0697..cebd509 100755
+--- a/services/snapshot.sh
++++ b/services/snapshot.sh
+@@ -1,36 +1,3 @@
+ #!/usr/bin/env bash
+ 
+-outputDir="$HOME/Pictures/Screenshots/"
+-outputFile="snapshot_$(date +%Y-%m-%d_%H-%M-%S).png"
+-outputPath="$outputDir/$outputFile"
+-mkdir -p "$outputDir"
+-
+-mode=${1:-area}
+-
+-case "$mode" in
+-active)
+-    command="grimblast copysave active $outputPath"
+-    ;;
+-output)
+-    command="grimblast copysave output $outputPath"
+-    ;;
+-area)
+-    command="grimblast copysave area $outputPath"
+-    ;;
+-*)
+-    echo "Invalid option: $mode"
+-    echo "Usage: $0 {active|output|area}"
+-    exit 1
+-    ;;
+-esac
+-
+-if eval "$command"; then
+-    recentFile=$(find "$outputDir" -name 'snapshot_*.png' -printf '%T+ %p\n' | sort -r | head -n 1 | cut -d' ' -f2-)
+-    notify-send "Grimblast" "Your snapshot has been saved." \
+-        -i video-x-generic \
+-        -a "Grimblast" \
+-        -t 7000 \
+-        -u normal \
+-        --action="scriptAction:-xdg-open $outputDir=Directory" \
+-        --action="scriptAction:-xdg-open $recentFile=View"
+-fi
++grim -g "$(slurp)" /home/patrick/screenshots/$(date +'%s_grim.png')
+-- 
+2.45.2
+

@@ -1,0 +1,25 @@
+From 19a6c974c6ff11905ccc62b9139d5b5138031e66 Mon Sep 17 00:00:00 2001
+From: Patrick Oberholzer <patrickoberholzer08@gmail.com>
+Date: Tue, 5 Nov 2024 19:07:52 -0500
+Subject: [PATCH 2/2] change to firefox logo
+
+---
+ options.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/options.ts b/options.ts
+index 843836c..2264481 100644
+--- a/options.ts
++++ b/options.ts
+@@ -1112,7 +1112,7 @@ const options = mkOptions(OPTIONS, {
+                 enabled: opt(true),
+                 left: {
+                     shortcut1: {
+-                        icon: opt('󰇩'),
++                        icon: opt('󰈹'),
+                         tooltip: opt('Firefox'),
+                         command: opt('firefox --new-window'),
+                     },
+-- 
+2.45.2
+

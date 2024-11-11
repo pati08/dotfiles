@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  lockScriptPath = (import ../scripts/lock.nix pkgs).outPath;
+  lockScriptPath = (import ../../scripts/lock.nix pkgs).outPath;
 in {
   config.services.hypridle = {
     enable = true;

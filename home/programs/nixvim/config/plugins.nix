@@ -46,7 +46,7 @@
           diagnostics = {
             statix.enable = true;
             deadnix.enable = true;
-            pylint.enable = true;
+            # pylint.enable = true;
             checkstyle.enable = true;
           };
           formatting = {
@@ -316,6 +316,7 @@
 
           # Python
           pyright.enable = true;
+          ruff.enable = true;
 
           # Markdown
           marksman.enable = true;

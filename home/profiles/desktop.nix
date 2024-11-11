@@ -16,16 +16,11 @@ let
 in {
   _module.args = { inherit inputs; };
   imports = [
-    # ../wayland
-    ../term.nix
-    ../nixvim
-    ../kitty
-    ../gptconf.nix
+    ../programs
   ];
 
   home.packages = with pkgs; [
     # blender
-    discord
     prismlauncher
     darktable
     cassowary

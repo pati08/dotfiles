@@ -14,7 +14,7 @@ in {
 
   config.programs.waybar = {
     enable = true;
-    style = ./style.css;
+    # style = ./style.css;
     package = inputs.waybar.packages."${pkgs.system}".waybar;
     # settings = { mainBar = import ./settings.nix; };
   }; 

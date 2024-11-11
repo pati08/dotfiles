@@ -4,5 +4,13 @@
     extraConfig = builtins.readFile ./kitty.conf;
     theme = "duckbones";
   };
-  # home.file.".config/kitty/kitty.conf".source = ./kitty.conf;
+  imports = [
+    ./spotify.nix
+    ./browser.nix
+    ./zellij.nix
+    ./term.nix
+    ./wayland
+    # ./ags.nix
+    ./nixvim
+  ];
 }
