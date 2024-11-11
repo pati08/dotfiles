@@ -61,7 +61,7 @@ in {
     xwayland.enable = true;
     settings = {
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet &";
       env = [
         "XCURSOR_SIZE,24"
       ];
@@ -76,7 +76,8 @@ in {
         follow_mouse = 2;
 
         touchpad = {
-          natural_scroll = "no";
+          natural_scroll = false;
+          disable_while_typing = true;
         };
 
         sensitivity = 0;

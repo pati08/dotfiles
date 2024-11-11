@@ -32,6 +32,53 @@ in {
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
+  home.packages = with pkgs; [
+    # applications
+    spotify
+    (obsidian.overrideAttrs (_oldAttrs: { buildInputs = [pkgs.d2]; }))
+    celluloid
+    godot_4
+    libreoffice
+    prusa-slicer
+    dissent # discord
+    discordo # discord tui
+    gimp
+    aseprite
+    blender
+    sidequest
+    lumafly # hollow knight modding
+    vesktop # discord replacement that doesn't suck on linux
+    # vscode
+    imv
+    # Inkscape with .EPS support
+    (inkscape.overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [pkgs.ghostscript]; }))
+    ghostscript
+
+    # misc (temp)
+    wget
+    gh
+    postgresql_16
+    marksman
+    nodejs
+    networkmanagerapplet
+    
+    # volume, brightness, and player controls
+    pamixer
+    playerctl
+    brightnessctl
+
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    iosevka
+
+    openjdk8-bootstrap
+
+    (pkgs.callPackage ffSchool {})
+
+    prismlauncher
+  ];
+
   home.sessionVariables = {
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";

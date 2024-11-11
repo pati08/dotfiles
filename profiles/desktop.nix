@@ -8,12 +8,6 @@
   programs.virt-manager.enable = true;
   virtualisation = {
     libvirtd.enable = true;
-    docker = {
-      enable = true;
-      daemon.settings = {
-        data-root = "/home/patrick/docker/";
-      };
-    };
   };
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -23,7 +17,6 @@
   };
 
   # users.users.patrick.groups = [ "docker" ];
-  users.groups.docker.members = [ "patrick" ];
 
   nixpkgs.config.cudaSupport = true;
 

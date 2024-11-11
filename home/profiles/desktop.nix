@@ -23,7 +23,7 @@ in {
     # blender
     prismlauncher
     darktable
-    cassowary
+    # cassowary
   ];
 
   # wayland.windowManager.hyprland.settings.env = [

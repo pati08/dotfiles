@@ -21,9 +21,23 @@ in {
     hwConfigPath
   ];
 
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      data-root = "/home/patrick/docker/";
+    };
+  };
+  users.groups.docker.members = [ "patrick" ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader.systemd-boot.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
 
   # didn't like the delay, but keeping it here just in case
 
