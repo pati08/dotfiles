@@ -21,6 +21,11 @@ in {
     hwConfigPath
   ];
 
+  programs.virt-manager.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+  };
+
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
@@ -209,7 +214,9 @@ in {
       pkgs.libinput
       pkgs.lxqt.lxqt-policykit
       pkgs.sbctl
-      # tilp2
+
+      inputs.winapps.packages."${pkgs.system}".winapps
+      inputs.winapps.packages."${pkgs.system}".winapps-launcher
     ];
 
   programs.steam = {
