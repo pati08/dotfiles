@@ -84,5 +84,7 @@ in {
     # with the installation of java 21
 
     lutris
+
+    vscode
   ];
 }

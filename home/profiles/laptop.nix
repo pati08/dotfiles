@@ -6,10 +6,7 @@
 }: {
   _module.args = { inherit inputs; };
   imports = [
-    ../wayland
-    ../term.nix
-    ../nixvim
-    ../kitty
+    ../programs
   ];
 
   wayland = {
