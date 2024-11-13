@@ -7,6 +7,20 @@
 let
   screenshotScript = (import ../../scripts/screenshot.nix pkgs).outPath;
   hyprpickerPkg = inputs.hyprpicker.packages."${pkgs.system}".default;
+
+  active_opacity = 0.95;
+  inactive_opacity = 0.8;
+  toggleOpacity = pkgs.writeShellScript "toggle-opacity-script" ''
+    active_opacity=$(hyprctl getoption decoration:active_opacity | rg 'float: ([\.\d]+)' -r '$1')
+
+    if [ "$active_opacity" != "1.000000" ]; then
+      hyprctl keyword decoration:active_opacity 1
+      hyprctl keyword decoration:inactive_opacity 1
+    else
+      hyprctl keyword decoration:active_opacity ${toString active_opacity}
+      hyprctl keyword decoration:inactive_opacity ${toString inactive_opacity}
+    fi
+  '';
 in {
   home.packages = with pkgs; [
     xwayland
@@ -97,11 +111,11 @@ in {
       };
 
       decoration = {
-        rounding = 2;
+        rounding = 5;
 
         blur = {
           enabled = true;
-          size = 2;
+          size = 10;
           passes = 1;
         };
 
@@ -109,8 +123,8 @@ in {
         shadow_range = 4;
         shadow_render_power = 3;
 
-        active_opacity = 0.95;
-        inactive_opacity = 0.8;
+        inherit active_opacity;
+        inherit inactive_opacity;
         fullscreen_opacity = 1;
       };
 
@@ -171,6 +185,7 @@ in {
         "$mod, Delete, exit" # would be escape, but that seems too easy to do by accident
         "$mod, V, togglefloating"
         "$mod, bracketleft, togglesplit"
+        "$mod, T, exec, ${toggleOpacity.outPath}"
 
         # Switching windows
         "$mod, H, movefocus, l"

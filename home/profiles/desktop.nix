@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
@@ -26,14 +27,6 @@ in {
     # cassowary
   ];
 
-  # wayland.windowManager.hyprland.settings.env = [
-  #   "LIBVA_DRIVER_NAME,nvidia"
-  #   "XDG_SESSION_TYPE,wayland"
-  #   "GBM_BACKEND,nvidia-drm"
-  #   "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-  #   "WLR_NO_HARDWARE_CURSORS,1"
-  # ];
-
   home.sessionVariables = {
     # WLR_NO_HARDWARE_CURSORS = "1";
     # MOZ_ENABLE_WAYLAND = 0;
@@ -52,6 +45,11 @@ in {
     "HDMI-A-1,1920x1080@60,0x0,1"
     "Unknown-1,disable"
   ];
+
+  wayland.windowManager.hyprland.settings.decoration.blur = {
+    size = lib.mkForce 40;
+    passes = lib.mkForce 3;
+  };
 
   programs.waybar.settings.mainBar."hyprland/language"."on-click"
     = "hyprctl switchxkblayout ${keyboard} next";
