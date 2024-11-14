@@ -35,6 +35,8 @@ in {
   home.sessionVariables = {
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
+    BROWSER = "firefox";
+    TERMINAL = "kitty";
     # GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";
   };
 

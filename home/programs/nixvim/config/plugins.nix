@@ -21,11 +21,71 @@
         enable = true;
         settings.highlight.enable = true;
       };
+      # Treesitter text objects
+      treesitter-textobjects = {
+        enable = true;
+
+        select = {
+          enable = true;
+          lookahead = true;
+
+          keymaps = {
+            "af" = "@function.outer";
+            "if" = "@function.inner";
+            "ac" = "@class.outer";
+            "ic" = "@class.inner";
+            "ap" = "@parameter.outer";
+            "ip" = "@parameter.inner";
+          };
+
+          selectionModes = {
+            "@function.outer" = "V";
+            "@class.outer" = "V";
+          };
+
+          includeSurroundingWhitespace = false;
+        };
+
+        move = {
+          enable = true;
+          setJumps = true;
+
+          gotoNextStart = {
+            "]f" = "@function.outer";
+            "]c" = "@class.outer";
+          };
+          gotoNextEnd = {
+            "]F" = "@function.outer";
+            "]C" = "@class.outer";
+          };
+          gotoPreviousStart = {
+            "[f" = "@function.outer";
+            "[c" = "@class.outer";
+          };
+          gotoPreviousEnd = {
+            "[F" = "@function.outer";
+            "[C" = "@class.outer";
+          };
+        };
+
+        lspInterop = {
+          enable = true;
+          border = "rounded";
+
+          peekDefinitionCode = {
+            "<leader>pd" = "@function.outer";
+            "<leader>pc" = "@class.outer";
+          };
+
+          floatingPreviewOpts = {
+            max_width = 80;
+            max_height = 20;
+          };
+        };
+      };
 
       # Auto-tagging
-      ts-autotag = {
-        enable = true;
-      };
+      ts-autotag.enable = true;
 
       # Autopairs
       # nvim-autopairs = {
