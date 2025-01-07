@@ -31,41 +31,27 @@ in {
     wayland-utils
     wl-clipboard
     hyprpickerPkg
-    hyprpanel
+    # hyprpanel
     nautilus
     cliphist
     wl-clip-persist
     wtype
     grimblast
+    dunst
+
+    wl-gammarelay-rs
   ];
 
-  # programs.rofi = {
-  #   enable = true;
-  #   package = pkgs.rofi-wayland;
-  # };
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
   };
-
-  # home.pointerCursor = {
-  #   gtk.enable = true;
-  #   # x11.enable = true;
-  #   package = pkgs.bibata-cursors;
-  #   name = "Bibata-Modern-Classic";
-  #   size = 16;
-  # };
 
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
   };
   gtk.enable = true;
-
-  # services.mako = {
-  #   enable = true;
-  #   borderRadius = 3;
-  # };
 
   wayland.windowManager.hyprland =
   let
@@ -75,7 +61,9 @@ in {
     xwayland.enable = true;
     settings = {
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet &";
+      # exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet & dunst &";
+      exec = "wl-gammarelay-rs";
       env = [
         "XCURSOR_SIZE,24"
       ];
@@ -167,6 +155,10 @@ in {
         "$mod SHIFT, R, exec, rofi -show run"
         ", Print, exec, ${screenshotScript} area"
         "SHIFT, Print, exec, ${screenshotScript} screen"
+
+        # gammarelay
+        "$mod ,Up,exec,busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -500"
+        "$mod ,Down,exec,busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +500"
 
         # Cliphist operations
         "$mod, semicolon, exec, ${(pkgs.writeShellScript "cliphist-selector" ''

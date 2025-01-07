@@ -27,4 +27,27 @@
 
     "keyboard-name" = "kanata";
   };
+
+  # idle settings
+  config.services.hypridle.settings.listener = [
+    # min brightness after 2.5 mins
+    {
+      timeout = 150;
+      on_timeout = "brightnessctl -s set 10";
+      on_resume = "brightnessctl -r";
+    }
+    # kb backlight off after 2.5 mins
+    {
+      timeout = 150;
+      on_timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+      on_resume = "brightnessctl -rd rgb:kbd_backlight";
+    }
+    # lock after 2 mins
+    {
+      timeout = 120;
+      on_timeout =  (pkgs.writeShellScript "lock-script" ''
+        pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock
+      '').outPath;
+    }
+  ];
 }

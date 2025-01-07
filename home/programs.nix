@@ -86,5 +86,18 @@ in {
     lutris
 
     vscode
+    
+    jq
+    networkmanager
+    bluez-experimental
+    playerctl
+
+    eww
+    socat
   ];
+  # programs.eww = {
+  #   enable = true;
+  #   configDir = ./eww;
+  #   package = pkgs.eww-wayland;
+  # };
 }

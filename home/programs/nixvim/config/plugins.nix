@@ -699,6 +699,13 @@
       require("ultimate-autopair").setup({})
     '';
 
+    extraConfigVim = ''
+      map f <Plug>Sneak_f
+      map F <Plug>Sneak_F
+      map t <Plug>Sneak_t
+      map T <Plug>Sneak_T
+    '';
+
     extraPlugins = with pkgs.vimPlugins;
       [
         vim-be-good
@@ -711,6 +718,7 @@
         vim-suda # saving root-owned files
         otter-nvim # embedded lsp
         ultimate-autopair-nvim
+        vim-sneak
       ]
       ++ [
         # (pkgs.vimUtils.buildVimPlugin {

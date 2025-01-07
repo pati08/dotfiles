@@ -38,9 +38,11 @@
 
     ags.url = "github:Aylur/ags";
 
-    hyprpanel.url = "github:pati08/HyprPanel";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
     winapps.url = "github:winapps-org/winapps";
+    #
+    # wezterm.url = "github:wez/wezterm?dir=nix";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
     let

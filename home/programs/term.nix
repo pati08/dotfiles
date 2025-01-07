@@ -19,6 +19,7 @@
     lbk = "${pkgs.util-linux}/bin/lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL";
   };
   thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
+  weztermFlake = inputs.wezterm.packages."${pkgs.system}".default;
 in {
 
   # command line utils
@@ -119,13 +120,17 @@ in {
   #
   #     config.adjust_window_size_when_changing_font_size = false
   #
-  #     config.color_scheme = "Argonaut"
+  #     -- config.color_scheme = "Argonaut"
+  #     config.colors = {
+  #         cursor_bg = "#CDD6F4"
+  #     }
   #
-  #     -- config.enable_wayland = false -- Currently required when using hyprland
   #     config.enable_wayland = true
   #
   #     return config
   #   '';
+  #
+  #   package = weztermFlake;
   # };
 
   imports = [
