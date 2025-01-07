@@ -29,7 +29,7 @@
   };
 
   # idle settings
-  config.services.hypridle.settings.listener = [
+  services.hypridle.settings.listener = [
     # min brightness after 2.5 mins
     {
       timeout = 150;

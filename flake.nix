@@ -11,7 +11,7 @@
     # hyprland stuff
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
-    # hyprlock.url = "github:hyprwm/hyprlock"; # switched to swaylock
+
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpicker.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -36,13 +36,7 @@
 
     stylix.url = "github:danth/stylix";
 
-    ags.url = "github:Aylur/ags";
-
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-
     winapps.url = "github:winapps-org/winapps";
-    #
-    # wezterm.url = "github:wez/wezterm?dir=nix";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
     let
@@ -50,9 +44,7 @@
   system = "x86_64-linux";
   pkgs = import nixpkgs {
     inherit system;
-    overlays = [
-      inputs.hyprpanel.overlay
-    ];
+    overlays = [  ];
   };
   in {
     nixosConfigurations = {

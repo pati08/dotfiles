@@ -6,6 +6,7 @@
 }:
 let
   screenshotScript = (import ../../scripts/screenshot.nix pkgs).outPath;
+  lockScript = (import ../../scripts/lock.nix pkgs).outPath;
   hyprpickerPkg = inputs.hyprpicker.packages."${pkgs.system}".default;
 
   active_opacity = 0.95;
@@ -31,7 +32,6 @@ in {
     wayland-utils
     wl-clipboard
     hyprpickerPkg
-    # hyprpanel
     nautilus
     cliphist
     wl-clip-persist
@@ -41,6 +41,8 @@ in {
 
     wl-gammarelay-rs
   ];
+
+  services.dunst.enable = true;
 
   programs.rofi = {
     enable = true;
@@ -61,8 +63,7 @@ in {
     xwayland.enable = true;
     settings = {
       "$mod" = "SUPER";
-      # exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & hyprpanel & firefox & kitty & nm-applet --indicator & hypridle >> ~/hypridle.log & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet &";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet & dunst &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet & dunst & waybar &";
       exec = "wl-gammarelay-rs";
       env = [
         "XCURSOR_SIZE,24"
@@ -178,6 +179,7 @@ in {
         "$mod, V, togglefloating"
         "$mod, bracketleft, togglesplit"
         "$mod, T, exec, ${toggleOpacity.outPath}"
+        "$mod, N, exec, ${lockScript}"
 
         # Switching windows
         "$mod, H, movefocus, l"

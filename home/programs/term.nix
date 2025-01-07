@@ -19,7 +19,6 @@
     lbk = "${pkgs.util-linux}/bin/lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL";
   };
   thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
-  weztermFlake = inputs.wezterm.packages."${pkgs.system}".default;
 in {
 
   # command line utils
@@ -92,46 +91,11 @@ in {
 
   programs.git = {
     enable = true;
-    delta.enable = true;
+    difftastic.enable = true;
+    difftastic.background = "dark";
     userName = "Patrick Oberholzer";
     userEmail = "patrickoberholzer08@gmail.com";
   };
-
-  # programs.wezterm = {
-  #   enable = true;
-  #   extraConfig = /* lua */ ''
-  #     local wezterm = require 'wezterm'
-  #
-  #     local config = {}
-  #
-  #     if wezterm.config_builder then
-  #         config = wezterm.config_builder()
-  #     end
-  #
-  #     -- config.font = wezterm.font 'FiraCode Nerd Font'
-  #     config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
-  #     config.enable_tab_bar = false
-  #     config.window_padding = {
-  #         left = 6,
-  #         right = 2,
-  #         top = 6,
-  #         bottom = 2,
-  #     }
-  #
-  #     config.adjust_window_size_when_changing_font_size = false
-  #
-  #     -- config.color_scheme = "Argonaut"
-  #     config.colors = {
-  #         cursor_bg = "#CDD6F4"
-  #     }
-  #
-  #     config.enable_wayland = true
-  #
-  #     return config
-  #   '';
-  #
-  #   package = weztermFlake;
-  # };
 
   imports = [
     ./zellij.nix

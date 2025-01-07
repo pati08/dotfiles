@@ -11,6 +11,7 @@
     ./hypridle.nix
     ./waybar
     ./hyprpaper.nix
+    ./hyprlock.nix
   ];
 
   home.packages = with pkgs; [
@@ -18,6 +19,4 @@
     slurp
     hypridle
   ];
-
-  programs.swaylock.enable = true;
 }

@@ -327,6 +327,7 @@
         renderer = {
           addTrailing = true;
         };
+        view.width = 40;
       };
 
       harpoon = {

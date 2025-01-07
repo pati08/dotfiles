@@ -10,7 +10,6 @@
     ./zellij.nix
     ./term.nix
     ./wayland
-    # ./ags.nix
     ./nixvim
   ];
 }

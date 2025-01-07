@@ -57,14 +57,11 @@ in {
     trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="
     ];
 
     # enable flakes
     experimental-features = ["nix-command" "flakes"];
   };
-
-  nix.settings.trusted-substituters = ["https://ai.cachix.org"];
 
   # optional if you use allowed-users in other places
   nix.settings.allowed-users = [ "harmonia" "patrick" ];
@@ -220,11 +217,6 @@ in {
 
       inputs.winapps.packages."${pkgs.system}".winapps
       inputs.winapps.packages."${pkgs.system}".winapps-launcher
-
-      pkgs.carla
-      pkgs.lsp-plugins
-      pkgs.zam-plugins
-      pkgs.helvum
     ];
 
   programs.steam = {

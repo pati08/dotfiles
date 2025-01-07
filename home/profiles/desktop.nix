@@ -7,13 +7,6 @@
 }:
 let
   keyboard = "kanata";
-  # suspendScript = pkgs.writeShellScript "suspend-script" ''
-  #   ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
-  #   # don't suspend if audio is playing
-  #   if [ $? == 1 ]; then
-  #     ${pkgs.systemd}/bin/systemctl suspend
-  #   fi
-  # '';
 in {
   _module.args = { inherit inputs; };
   imports = [
@@ -24,14 +17,6 @@ in {
     prismlauncher
     darktable
   ];
-
-  # services.hypridle.settings.listener = [
-  #   {
-  #     timeout = 1800; # 30 minutes
-  #     on_timeout = suspendScript.outPath;
-  #   }
-  # ];
-
 
   wayland.windowManager.hyprland.settings.monitor = [
     "DP-3,2560x1440@60,1920x0,1,vrr,2"
