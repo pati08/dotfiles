@@ -108,10 +108,6 @@ in {
           passes = 1;
         };
 
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-
         inherit active_opacity;
         inherit inactive_opacity;
         fullscreen_opacity = 1;

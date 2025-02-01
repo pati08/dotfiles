@@ -36,7 +36,7 @@ let
         EOF
       '';
     };
-  fhsZulu8 = pkgs.buildFHSUserEnv {
+  fhsZulu8 = pkgs.buildFHSEnv {
     name = "zulu8-env";
     targetPkgs = pkgs: [ pkgs.zulu8 ];
   };
@@ -49,7 +49,6 @@ in {
     libreoffice
     prusa-slicer
     gimp
-    aseprite
     blender
     sidequest
     lumafly # hollow knight modding
@@ -57,7 +56,6 @@ in {
     # vscode
     imv
     # Inkscape with .EPS support
-    (inkscape.overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [pkgs.ghostscript]; }))
     ghostscript
 
     # misc (temp)
@@ -73,7 +71,11 @@ in {
     playerctl
     brightnessctl
 
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    # fonts
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.dejavu-sans-mono
+    dejavu_fonts
 
     # openjdk8-bootstrap
 

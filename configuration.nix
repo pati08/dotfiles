@@ -44,6 +44,13 @@ in {
   };
   services.blueman.enable = true;
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.dejavu-sans-mono
+    font-awesome_5
+  ];
+
   # didn't like the delay, but keeping it here just in case
 
   services.kanata = {
@@ -145,6 +152,12 @@ in {
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # Enable sound with pipewire.
   # hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
@@ -201,22 +214,20 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = 
+  environment.systemPackages = with pkgs; 
     [
-      pkgs.iwd
-      pkgs.pulseaudioFull
-      pkgs.gcc
-      pkgs.libsForQt5.qt5.qtwayland pkgs.qt5ct pkgs.libva
-      pkgs.inotify-tools
-      pkgs.libnotify
-      pkgs.pkg-config
-      pkgs.fish
-      pkgs.libinput
-      pkgs.lxqt.lxqt-policykit
-      pkgs.sbctl
-
-      inputs.winapps.packages."${pkgs.system}".winapps
-      inputs.winapps.packages."${pkgs.system}".winapps-launcher
+      iwd
+      pulseaudioFull
+      gcc
+      libsForQt5.qt5.qtwayland libsForQt5.qt5ct libva
+      inotify-tools
+      libnotify
+      pkg-config
+      fish
+      libinput
+      lxqt.lxqt-policykit
+      sbctl
+      openssl
     ];
 
   programs.steam = {
@@ -236,7 +247,7 @@ in {
     # NIXOS_OZONE_WL = "1";
   };
 
-# screen sharing
+  # screen sharing
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;

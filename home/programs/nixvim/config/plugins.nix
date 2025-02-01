@@ -277,7 +277,7 @@
       # Todo comments
       todo-comments = {
         enable = true;
-        colors = {
+        settings.colors = {
           error = ["DiagnosticError" "ErrorMsg" "#DC2626"];
           warning = ["DiagnosticWarn" "WarningMsg" "#FBBF24"];
           info = ["DiagnosticInfo" "#2563EB"];
@@ -287,30 +287,6 @@
         };
       };
 
-      # File tree
-      # neo-tree = {
-      #   enable = true;
-      #   enableDiagnostics = true;
-      #   enableGitStatus = true;
-      #   enableModifiedMarkers = true;
-      #   enableRefreshOnWrite = true;
-      #   closeIfLastWindow = true;
-      #   popupBorderStyle = "rounded"; # Type: null or one of “NC”, “double”, “none”, “rounded”, “shadow”, “single”, “solid” or raw lua code
-      #   buffers = {
-      #     bindToCwd = false;
-      #     followCurrentFile = {
-      #       enabled = true;
-      #     };
-      #   };
-      #   window = {
-      #     width = 40;
-      #     height = 15;
-      #     autoExpandWidth = false;
-      #     mappings = {
-      #       "<space>" = "none";
-      #     };
-      #   };
-      # };
       nvim-tree = {
         enable = true;
         git = {
@@ -335,7 +311,7 @@
       };
 
       # Nice surrounding features
-      surround = {
+      vim-surround = {
         enable = true;
       };
 
@@ -359,56 +335,32 @@
       # Status column
       statuscol.enable = true;
 
+      web-devicons.enable = true;
+
       # Language server
       lsp = {
         enable = true;
         servers = {
-          # Average webdev LSPs
-          tsserver.enable = true; # TS/JS
           cssls.enable = true; # CSS
           tailwindcss.enable = true; # TailwindCSS
           html.enable = true; # HTML
-          astro.enable = true; # AstroJS
-          phpactor.enable = true; # PHP
-          svelte.enable = false; # Svelte
-          vuels.enable = false; # Vue
           
-          jdt-language-server.enable = true;
+          jdtls.enable = true;
 
           # Python
-          pyright.enable = true;
           ruff.enable = true;
 
           # Markdown
           marksman.enable = true;
 
           # Nix
-          nil-ls.enable = true;
-
-          # Docker
-          dockerls.enable = true;
+          nil_ls.enable = true;
 
           # Bash
           bashls.enable = true;
 
           # C/C++
           clangd.enable = true;
-
-          # C#
-          csharp-ls.enable = true;
-
-          # Lua
-          lua-ls = {
-            enable = true;
-            settings.telemetry.enable = false;
-          };
-
-          # Rust
-          # rust-analyzer = {
-          #   enable = true;
-          #   installRustc = true;
-          #   installCargo = true;
-          # };
         };
       };
 
@@ -416,7 +368,6 @@
       alpha = {
         enable = true;
         theme = "dashboard";
-        iconsEnabled = true;
       };
 
       cmp = {

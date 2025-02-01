@@ -35,8 +35,7 @@
     };
 
     stylix.url = "github:danth/stylix";
-
-    winapps.url = "github:winapps-org/winapps";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
     let
