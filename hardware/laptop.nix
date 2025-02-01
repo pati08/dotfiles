@@ -13,6 +13,9 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  networking.defaultGateway = "192.168.1.1";
+  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f263cdcb-730d-4e45-939d-b0bc5237bb83";
       fsType = "ext4";
