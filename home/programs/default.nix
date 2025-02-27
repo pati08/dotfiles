@@ -1,9 +1,10 @@
-{ config, pkgs, inputs, ... }: {
-  programs.kitty = {
+{ inputs, ... }: {
+  config.programs.kitty = {
     enable = true;
     extraConfig = builtins.readFile ./kitty.conf;
     theme = "duckbones";
   };
+  config._module.args = { inherit inputs; };
   imports = [
     ./spotify.nix
     ./browser.nix
@@ -11,5 +12,6 @@
     ./term.nix
     ./wayland
     ./nixvim
+    ./texvim
   ];
 }

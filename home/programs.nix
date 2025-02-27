@@ -53,10 +53,8 @@ in {
     sidequest
     lumafly # hollow knight modding
     vesktop # discord replacement that doesn't suck on linux
-    # vscode
     imv
-    # Inkscape with .EPS support
-    ghostscript
+    ghostscript # Inkscape with .EPS support
 
     # misc (temp)
     wget

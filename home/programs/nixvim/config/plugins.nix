@@ -374,18 +374,25 @@
         enable = true;
         settings = {
           mapping = {
-            __raw = /* lua */ ''
-              cmp.mapping.preset.insert({
-                ["<C-p>"] = cmp.mapping.select_prev_item(),
-                ["<C-n>"] = cmp.mapping.select_next_item(),
-                -- Add tab support
-                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<Tab>"] = cmp.mapping.confirm({
-                  behavior = cmp.ConfirmBehavior.Insert,
-                  select = true,
-                }),
-              })
+            "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-p>" = "cmp.mapping.select_prev_item()";
+            "<C-n>" = "cmp.mapping.select_next_item()";
+            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<C-l>" = ''
+              cmp.mapping(function()
+                if luasnip.expand_or_locally_jumpable() then
+                  luasnip.expand_or_jump()
+                end
+              end, { 'i', 's' })
+            '';
+            "<C-h>" = ''
+              cmp.mapping(function()
+                if luasnip.locally_jumpable(-1) then
+                  luasnip.jump(-1)
+                end
+              end, { 'i', 's' })
             '';
           };
           snippet = {
@@ -393,11 +400,9 @@
           };
           sources = [
             { name = "nvim_lsp"; }
-            # { name = "vsnip"; }
             { name = "luasnip"; }
             { name = "path"; }
             { name = "buffer"; }
-            { name = "otter"; }
           ];
         };
       };
@@ -647,8 +652,12 @@
               fat_headline_lower_string = "🬂",
           },
       }
-      require("otter").activate({"python", "rust", "fish", "lua"}, true, true, nil)
       require("ultimate-autopair").setup({})
+
+      local snippets = vim.env.LUASNIP_SNIPPETS_DIR
+      if snippets then
+        require("luasnip.loaders.from_lua").lazy_load({ paths = snippets })
+      end
     '';
 
     extraConfigVim = ''
@@ -668,7 +677,6 @@
         # ultisnips
         clipboard-image-nvim
         vim-suda # saving root-owned files
-        otter-nvim # embedded lsp
         ultimate-autopair-nvim
         vim-sneak
       ]

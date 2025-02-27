@@ -176,6 +176,7 @@ in {
         "$mod, bracketleft, togglesplit"
         "$mod, T, exec, ${toggleOpacity.outPath}"
         "$mod, N, exec, ${lockScript}"
+        "$mod, B, exec, pkill -SIGUSR1 waybar"
 
         # Switching windows
         "$mod, H, movefocus, l"
