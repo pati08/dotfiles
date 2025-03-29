@@ -25,8 +25,8 @@ let
 in {
   home.packages = with pkgs; [
     xwayland
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-gtk
+    # xdg-desktop-portal-hyprland
     meson
     wayland-protocols
     wayland-utils
@@ -42,7 +42,15 @@ in {
     wl-gammarelay-rs
   ];
 
-  services.dunst.enable = true;
+  services.dunst = {
+    enable = true;
+    settings.global = {
+      width = 300;
+      height = 300;
+      offset = "30x50";
+      origin = "center";
+    };
+  };
 
   programs.rofi = {
     enable = true;
@@ -52,6 +60,9 @@ in {
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
+    hyprcursor = {
+      enable = true;
+    };
   };
   gtk.enable = true;
 
@@ -61,12 +72,15 @@ in {
   in {
     enable = true;
     xwayland.enable = true;
+    # portalPackage = pkgs.xdg-desktop-portal-hyprland;
     settings = {
       "$mod" = "SUPER";
       exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet & dunst & waybar &";
       exec = "wl-gammarelay-rs";
       env = [
         "XCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,Bibata-Modern-Classic"
+        "HYPRCURSOR_SIZE,24"
       ];
       input = {
         scroll_factor = 0.66667;

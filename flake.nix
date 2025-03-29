@@ -17,10 +17,10 @@
 
     nilLs.url = "github:oxalica/nil";
 
-    waybar = {
-      url = "github:Alexays/Waybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # waybar = {
+    #   url = "github:Alexays/Waybar";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -37,9 +37,9 @@
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, lanzaboote, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, lanzaboote, ... }:
     let
-    lib = nixpkgs.lib;
+    inherit (nixpkgs) lib;
   system = "x86_64-linux";
   pkgs = import nixpkgs {
     inherit system;

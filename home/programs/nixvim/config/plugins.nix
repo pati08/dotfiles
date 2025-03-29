@@ -1,6 +1,137 @@
 {pkgs, ...}: {
   programs.nixvim = {
     plugins = {
+      # copilot
+      copilot-lua = {
+        enable = true;
+        settings = {
+          panel.enabled = false;
+          suggestion.enabled = false;
+        };
+      };
+      blink-cmp-copilot.enable = true;
+      copilot-chat.enable = true;
+
+      # completions
+      blink-cmp = {
+        enable = true;
+        settings = {
+          cmdline.enabled = false;
+          signature.enabled = true;
+          completion = {
+            ghost_text.enabled = true;
+            documentation = {
+              auto_show = true;
+              auto_show_delay_ms = 250;
+            };
+            list.max_items = 30;
+          };
+          keymap = {
+            preset = "none";
+            "<Tab>" = [ "select_next" "fallback" ];
+            "<C-p>" = [ "select_prev" "fallback" ];
+            "<C-n>" = [ "select_next" "fallback" ];
+            "<C-d>" = [ "scroll_documentation_up" "fallback" ];
+            "<C-f>" = [ "scroll_documentation_down" "fallback" ];
+            "<CR>" = [ "select_and_accept" "fallback" ];
+            "<C-l>" = [ "snippet_forward" "fallback" ];
+            "<C-h>" = [ "snippet_backward" "fallback" ];
+          };
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "snippets"
+              "buffer"
+              "copilot"
+            ];
+            providers.copilot = {
+              async = true;
+              module = "blink-cmp-copilot";
+              name = "copilot";
+              score_offset = 100;
+            };
+          };
+        };
+      };
+
+      #lsp
+      lsp = {
+        enable = true;
+        servers = {
+          cssls.enable = true; # CSS
+          tailwindcss.enable = true; # TailwindCSS
+          html.enable = true; # HTML
+          
+          jdtls.enable = true;
+
+          # Python
+          ruff.enable = true;
+          pylsp.enable = true;
+
+          # Markdown
+          marksman.enable = true;
+
+          # Nix
+          nil_ls.enable = true;
+
+          # Bash
+          bashls.enable = true;
+
+          # C/C++
+          clangd.enable = true;
+
+          # typescript
+          ts_ls.enable = true;
+
+          # Golang
+          gopls.enable = true;
+          # golangci_lint_ls.enable = true;
+
+          # haskell
+          hls.enable = true;
+          hls.installGhc = true;
+        };
+      };
+
+      none-ls = {
+        enable = true;
+        settings = {
+          cmd = ["bash -c nvim"];
+          debug = true;
+        };
+        sources = {
+          code_actions = {
+            statix.enable = true;
+            gitsigns.enable = true;
+          };
+          diagnostics = {
+            statix.enable = true;
+            deadnix.enable = true;
+          };
+          formatting = {
+            alejandra.enable = true;
+            stylua.enable = true;
+            shfmt.enable = true;
+            nixpkgs_fmt.enable = true;
+            google_java_format.enable = false;
+            prettier = {
+              enable = true;
+              disableTsServerFormatter = true;
+            };
+            black = {
+              enable = true;
+              settings = ''
+                {
+                  extra_args = { "--fast" },
+                }
+              '';
+
+            };
+          };
+        };
+      };
+
       # Buffer bar
       bufferline = {
         enable = true;
@@ -16,10 +147,18 @@
         enable = true;
       };
 
+      colorizer.enable = true;
+
+      zen-mode.enable = true;
+
       # Includes all parsers for treesitter
       treesitter = {
         enable = true;
-        settings.highlight.enable = true;
+        settings = {
+          highlight.enable = true;
+          auto_install = true;
+          indent.enable = true;
+        };
       };
       # Treesitter text objects
       treesitter-textobjects = {
@@ -86,55 +225,6 @@
 
       # Auto-tagging
       ts-autotag.enable = true;
-
-      # Autopairs
-      # nvim-autopairs = {
-      #   enable = true;
-      # };
-
-      none-ls = {
-        enable = true;
-        settings = {
-          cmd = ["bash -c nvim"];
-          debug = true;
-        };
-        sources = {
-          code_actions = {
-            statix.enable = true;
-            gitsigns.enable = true;
-          };
-          diagnostics = {
-            statix.enable = true;
-            deadnix.enable = true;
-            # pylint.enable = true;
-            checkstyle.enable = true;
-          };
-          formatting = {
-            alejandra.enable = true;
-            stylua.enable = true;
-            shfmt.enable = true;
-            nixpkgs_fmt.enable = true;
-            google_java_format.enable = false;
-            prettier = {
-              enable = true;
-              disableTsServerFormatter = true;
-            };
-            black = {
-              enable = true;
-              settings = ''
-                {
-                  extra_args = { "--fast" },
-                }
-              '';
-
-            };
-          };
-          # completion = {
-          #   luasnip.enable = true;
-          #   spell.enable = true;
-          # };
-        };
-      };
 
       # Notify
       notify = {
@@ -215,10 +305,6 @@
       # Code snippets
       luasnip = {
         enable = true;
-        #extraConfig = {
-        #  enable_autosnippets = true;
-        #  store_selection_keys = "<Tab>";
-        #};
       };
 
       # Easily toggle comments
@@ -226,17 +312,6 @@
         enable = true;
         settings.sticky = true;
       };
-
-      # Terminal inside Neovim
-      # toggleterm = {
-      #   enable = true;
-      #   settings = {
-      #     hide_numbers = false;
-      #     autochdir = true;
-      #     close_on_exit = true;
-      #     direction = "vertical";
-      #   };
-      # };
 
       # Git signs in code
       gitsigns = {
@@ -337,74 +412,10 @@
 
       web-devicons.enable = true;
 
-      # Language server
-      lsp = {
-        enable = true;
-        servers = {
-          cssls.enable = true; # CSS
-          tailwindcss.enable = true; # TailwindCSS
-          html.enable = true; # HTML
-          
-          jdtls.enable = true;
-
-          # Python
-          ruff.enable = true;
-
-          # Markdown
-          marksman.enable = true;
-
-          # Nix
-          nil_ls.enable = true;
-
-          # Bash
-          bashls.enable = true;
-
-          # C/C++
-          clangd.enable = true;
-        };
-      };
-
       # Dashboard
       alpha = {
         enable = true;
         theme = "dashboard";
-      };
-
-      cmp = {
-        enable = true;
-        settings = {
-          mapping = {
-            "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-            "<C-p>" = "cmp.mapping.select_prev_item()";
-            "<C-n>" = "cmp.mapping.select_next_item()";
-            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-            "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<C-l>" = ''
-              cmp.mapping(function()
-                if luasnip.expand_or_locally_jumpable() then
-                  luasnip.expand_or_jump()
-                end
-              end, { 'i', 's' })
-            '';
-            "<C-h>" = ''
-              cmp.mapping(function()
-                if luasnip.locally_jumpable(-1) then
-                  luasnip.jump(-1)
-                end
-              end, { 'i', 's' })
-            '';
-          };
-          snippet = {
-            expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-          };
-          sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "path"; }
-            { name = "buffer"; }
-          ];
-        };
       };
     };
 
@@ -517,146 +528,22 @@
               fat_headline_upper_string = "▃",
               fat_headline_lower_string = "🬂",
           },
-          rmd = {
-              query = vim.treesitter.query.parse(
-                  "markdown",
-                  [[
-                      (atx_heading [
-                          (atx_h1_marker)
-                          (atx_h2_marker)
-                          (atx_h3_marker)
-                          (atx_h4_marker)
-                          (atx_h5_marker)
-                          (atx_h6_marker)
-                      ] @headline)
-
-                      (thematic_break) @dash
-
-                      (fenced_code_block) @codeblock
-
-                      (block_quote_marker) @quote
-                      (block_quote (paragraph (inline (block_continuation) @quote)))
-                      (block_quote (paragraph (block_continuation) @quote))
-                      (block_quote (block_continuation) @quote)
-                  ]]
-              ),
-              treesitter_language = "markdown",
-              headline_highlights = { "Headline" },
-              bullet_highlights = {
-                  "@text.title.1.marker.markdown",
-                  "@text.title.2.marker.markdown",
-                  "@text.title.3.marker.markdown",
-                  "@text.title.4.marker.markdown",
-                  "@text.title.5.marker.markdown",
-                  "@text.title.6.marker.markdown",
-              },
-              bullets = { "◉", "○", "✸", "✿" },
-              codeblock_highlight = "CodeBlock",
-              dash_highlight = "Dash",
-              dash_string = "-",
-              quote_highlight = "Quote",
-              quote_string = "┃",
-              fat_headlines = true,
-              fat_headline_upper_string = "▃",
-              fat_headline_lower_string = "🬂",
-          },
-          norg = {
-              query = vim.treesitter.query.parse(
-                  "norg",
-                  [[
-                      [
-                          (heading1_prefix)
-                          (heading2_prefix)
-                          (heading3_prefix)
-                          (heading4_prefix)
-                          (heading5_prefix)
-                          (heading6_prefix)
-                      ] @headline
-
-                      (weak_paragraph_delimiter) @dash
-                      (strong_paragraph_delimiter) @doubledash
-
-                      ([(ranged_tag
-                          name: (tag_name) @_name
-                          (#eq? @_name "code")
-                      )
-                      (ranged_verbatim_tag
-                          name: (tag_name) @_name
-                          (#eq? @_name "code")
-                      )] @codeblock (#offset! @codeblock 0 0 1 0))
-      
-                      (quote1_prefix) @quote
-                  ]]
-              ),
-              headline_highlights = { "Headline" },
-              bullet_highlights = {
-                  "@neorg.headings.1.prefix",
-                  "@neorg.headings.2.prefix",
-                  "@neorg.headings.3.prefix",
-                  "@neorg.headings.4.prefix",
-                  "@neorg.headings.5.prefix",
-                  "@neorg.headings.6.prefix",
-              },
-              bullets = { "◉", "○", "✸", "✿" },
-              codeblock_highlight = "CodeBlock",
-              dash_highlight = "Dash",
-              dash_string = "-",
-              doubledash_highlight = "DoubleDash",
-              doubledash_string = "=",
-              quote_highlight = "Quote",
-              quote_string = "┃",
-              fat_headlines = true,
-              fat_headline_upper_string = "▃",
-              fat_headline_lower_string = "🬂",
-          },
-          org = {
-              query = vim.treesitter.query.parse(
-                  "org",
-                  [[
-                      (headline (stars) @headline)
-
-                      (
-                          (expr) @dash
-                          (#match? @dash "^-----+$")
-                      )
-
-                      (block
-                          name: (expr) @_name
-                          (#match? @_name "(SRC|src)")
-                      ) @codeblock
-
-                      (paragraph . (expr) @quote
-                          (#eq? @quote ">")
-                      )
-                  ]]
-              ),
-              headline_highlights = { "Headline" },
-              bullet_highlights = {
-                  "@org.headline.level1",
-                  "@org.headline.level2",
-                  "@org.headline.level3",
-                  "@org.headline.level4",
-                  "@org.headline.level5",
-                  "@org.headline.level6",
-                  "@org.headline.level7",
-                  "@org.headline.level8",
-              },
-              bullets = { "◉", "○", "✸", "✿" },
-              codeblock_highlight = "CodeBlock",
-              dash_highlight = "Dash",
-              dash_string = "-",
-              quote_highlight = "Quote",
-              quote_string = "┃",
-              fat_headlines = true,
-              fat_headline_upper_string = "▃",
-              fat_headline_lower_string = "🬂",
-          },
       }
       require("ultimate-autopair").setup({})
 
       local snippets = vim.env.LUASNIP_SNIPPETS_DIR
       if snippets then
         require("luasnip.loaders.from_lua").lazy_load({ paths = snippets })
+      end
+
+      local snippets_multi = vim.env.LUASNIP_SNIPPETS_DIRS
+
+      if snippets_multi then
+        local paths = {}
+        for path in snippets_multi:gmatch("[^:]+") do
+          table.insert(paths, path)
+        end
+        require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
       end
     '';
 
@@ -679,28 +566,6 @@
         vim-suda # saving root-owned files
         ultimate-autopair-nvim
         vim-sneak
-      ]
-      ++ [
-        # (pkgs.vimUtils.buildVimPlugin {
-        #   pname = "accelerated-jk";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "rainbowhxch";
-        #     repo = "accelerated-jk.nvim";
-        #     rev = "8fb5dad4ccc1811766cebf16b544038aeeb7806f";
-        #     sha256 = "";
-        #   };
-        #   version = "2023-03-01";
-        # })
-        # Just copy this block for a new plugin
-        # (pkgs.vimUtils.buildVimPlugin {
-        #   pname = "";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "";
-        #     repo = "";
-        #     rev = "";
-        #     sha256 = "";
-        #   };
-        # })
       ];
   };
 }

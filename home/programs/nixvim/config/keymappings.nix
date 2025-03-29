@@ -112,6 +112,15 @@
         options.silent = true;
       }
 
+      # zen mode
+      {
+        action = {__raw = ''function()
+          require("zen-mode").toggle({})
+        end'';};
+        key = "<leader>z";
+        options.silent = true;
+      }
+
       # redo
       {
         action = {__raw = "function() vim.cmd(\"redo\") end";};

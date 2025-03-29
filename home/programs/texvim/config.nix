@@ -218,6 +218,16 @@ in {
     if extra_snippets then
       require("luasnip.loaders.from_lua").lazy_load({ paths = extra_snippets })
     end
+
+    local extra_snippets_multi = vim.env.LUASNIP_SNIPPETS_DIRS
+
+    if extra_snippets_multi then
+      local paths = {}
+      for path in extra_snippets_multi:gmatch("[^:]+") do
+        table.insert(paths, path)
+      end
+      require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
+    end
   '';
 
   extraConfigVim = ''

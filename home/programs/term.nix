@@ -12,7 +12,6 @@
     za = "${pkgs.zellij}/bin/zellij a";
     zn = "${pkgs.zellij}/bin/zellij -s";
     top = "${pkgs.btop}/bin/btop";
-    du = "${pkgs.diskonaut}/bin/diskonaut";
     df = "${pkgs.duf}/bin/duf";
     ll = "${pkgs.lsd}/bin/lsd -l";
     lso = "command ls";
@@ -28,7 +27,6 @@ in {
     lsd # better ls
     alejandra # nix code formatting
     btop # better top
-    diskonaut # better du
     scc # count lines of code
     fzf skim # kinda the same, idk which to use
     hyperfine # benchmarking
