@@ -228,6 +228,8 @@ in {
       lxqt.lxqt-policykit
       sbctl
       openssl
+      protonvpn-cli_2
+      protonvpn-gui
     ];
 
   programs.steam = {

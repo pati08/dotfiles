@@ -28,12 +28,12 @@
           };
           keymap = {
             preset = "none";
+            "<S-CR>" = [ "select_and_accept" "fallback" ];
             "<Tab>" = [ "select_next" "fallback" ];
             "<C-p>" = [ "select_prev" "fallback" ];
             "<C-n>" = [ "select_next" "fallback" ];
             "<C-d>" = [ "scroll_documentation_up" "fallback" ];
             "<C-f>" = [ "scroll_documentation_down" "fallback" ];
-            "<CR>" = [ "select_and_accept" "fallback" ];
             "<C-l>" = [ "snippet_forward" "fallback" ];
             "<C-h>" = [ "snippet_backward" "fallback" ];
           };
@@ -277,23 +277,6 @@
               port = 5005;
             }
           ];
-        };
-      };
-
-      # Linting
-      lint = {
-        enable = true;
-        lintersByFt = {
-          text = ["vale"];
-          json = ["jsonlint"];
-          markdown = ["vale"];
-          rst = ["vale"];
-          ruby = ["ruby"];
-          janet = ["janet"];
-          inko = ["inko"];
-          clojure = ["clj-kondo"];
-          dockerfile = ["hadolint"];
-          terraform = ["tflint"];
         };
       };
 
