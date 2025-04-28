@@ -364,9 +364,9 @@
         view.width = 40;
       };
 
-      harpoon = {
-        enable = true;
-      };
+      # harpoon = {
+      #   enable = true;
+      # };
 
       # Nice surrounding features
       vim-surround = {
@@ -387,7 +387,7 @@
       rustaceanvim = {
         enable = true;
         # Use whatever is around
-        rustAnalyzerPackage = null;
+        # rustAnalyzerPackage = null;
       };
 
       # Status column
@@ -414,7 +414,7 @@
           noice = true;
           notify = true;
           neotree = true;
-          harpoon = true;
+          # harpoon = true;
           gitsigns = true;
           which_key = true;
           illuminate.enabled = true;

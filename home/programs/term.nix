@@ -43,8 +43,9 @@ in {
     fclones # duplicate file finder
     fend # calculator
     caligula # burning disk images
+    dust # disk space usage visualizer
     nixos-generators
-    mpg123
+    mpg123 # mp3 player
 
     usbutils # duh, it's utils for usb!
     exfatprogs # for the camera card
@@ -53,38 +54,69 @@ in {
     unzip
     zip
 
-    thokrPkg
+    thokrPkg # custom thokr
 
-    g810-led
+    g810-led # keyboard lighting
   ];
 
-  # Use fish
-  programs.fish = {
+  # programs.thefuck = {
+  #   enable = true;
+  #   enableNushellIntegration = true;
+  # };
+
+  # # Use fish
+  # programs.fish = {
+  #   enable = true;
+  #   shellAliases = aliases;
+  #   shellInit = ''
+  #     ${pkgs.fastfetch}/bin/fastfetch
+  #     set fish_greeting
+  #   '';
+  #   functions = {
+  #     hm-switch = ''
+  #       pushd ~/dotfiles
+  #       set arg ".#$argv"
+  #       home-manager switch --flake $arg
+  #       popd
+  #     '';
+  #     os-switch = ''
+  #       pushd ~/dotfiles
+  #       set arg ".#$argv"
+  #       sudo nixos-rebuild switch --flake $arg
+  #       popd
+  #     '';
+  #   };
+  # };
+  # use nushell
+  programs.nushell = {
     enable = true;
     shellAliases = aliases;
-    shellInit = ''
-      ${pkgs.fastfetch}/bin/fastfetch
-      set fish_greeting
-    '';
-    functions = {
-      hm-switch = ''
-        pushd ~/dotfiles
-        set arg ".#$argv"
-        home-manager switch --flake $arg
-        popd
-      '';
-      os-switch = ''
-        pushd ~/dotfiles
-        set arg ".#$argv"
-        sudo nixos-rebuild switch --flake $arg
-        popd
-      '';
+    # maybe add fastfetch here later
+    settings = {
+      show_banner = false;
     };
+    # define functions
+    extraConfig = ''
+      def hm-switch [arg?] {
+          cd ~/dotfiles
+          let flake = if $arg == ''' { '.' } else { ".$arg" }
+          home-manager switch --flake $flake
+          cd -
+      }
+
+      # Define the `os-switch` function
+      def os-switch [arg?] {
+          cd ~/dotfiles
+          let flake = if $arg == ''' { '.' } else { ".$arg" }
+          sudo nixos-rebuild switch --flake $flake
+          cd -
+      }
+    '';
   };
 
   programs.zoxide = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 
   programs.git = {
@@ -101,11 +133,11 @@ in {
 
   programs.direnv = {
     enable = true;
-    #enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 }

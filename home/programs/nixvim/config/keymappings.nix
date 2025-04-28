@@ -129,37 +129,37 @@
         mode = "n";
       }
 
-      # Harpoon
-      {
-        action = {__raw = "require(\"harpoon.mark\").add_file";};
-        key = "<leader>a";
-        options.silent = true;
-        mode = "n";
-      }
-      {
-        action = {__raw = "require(\"harpoon.ui\").toggle_quick_menu";};
-        key = "<C-e>";
-        options.silent = true;
-        mode = "n";
-      }
-      {
-        action = {__raw = "function() require(\"harpoon.ui\").nav_file(1) end";};
-        key = "<C-r>";
-        options.silent = true;
-        mode = "n";
-      }
-      {
-        action = {__raw = "function() require(\"harpoon.ui\").nav_file(2) end";};
-        key = "<C-t>";
-        options.silent = true;
-        mode = "n";
-      }
-      {
-        action = {__raw = "function() require(\"harpoon.ui\").nav_file(3) end";};
-        key = "<C-u>";
-        options.silent = true;
-        mode = "n";
-      }
+      # # Harpoon
+      # {
+      #   action = {__raw = "require(\"harpoon.mark\").add_file";};
+      #   key = "<leader>a";
+      #   options.silent = true;
+      #   mode = "n";
+      # }
+      # {
+      #   action = {__raw = "require(\"harpoon.ui\").toggle_quick_menu";};
+      #   key = "<C-e>";
+      #   options.silent = true;
+      #   mode = "n";
+      # }
+      # {
+      #   action = {__raw = "function() require(\"harpoon.ui\").nav_file(1) end";};
+      #   key = "<C-r>";
+      #   options.silent = true;
+      #   mode = "n";
+      # }
+      # {
+      #   action = {__raw = "function() require(\"harpoon.ui\").nav_file(2) end";};
+      #   key = "<C-t>";
+      #   options.silent = true;
+      #   mode = "n";
+      # }
+      # {
+      #   action = {__raw = "function() require(\"harpoon.ui\").nav_file(3) end";};
+      #   key = "<C-u>";
+      #   options.silent = true;
+      #   mode = "n";
+      # }
 
       # floaterm
       {
