@@ -18,4 +18,6 @@
     waydroid
     # blender
   ];
+
+  services.ollama.acceleration = "rocm";
 }

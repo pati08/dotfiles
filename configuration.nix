@@ -53,7 +53,9 @@ in {
     font-awesome_5
   ];
 
-  # didn't like the delay, but keeping it here just in case
+  services.ollama = {
+    enable = true;
+  };
 
   services.kanata = {
     enable = true;

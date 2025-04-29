@@ -2,7 +2,6 @@
   config.programs.kitty = {
     enable = true;
     extraConfig = builtins.readFile ./kitty.conf;
-    theme = "duckbones";
   };
   config._module.args = { inherit inputs; };
   imports = [
