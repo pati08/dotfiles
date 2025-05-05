@@ -19,5 +19,5 @@
     # blender
   ];
 
-  services.ollama.acceleration = "rocm";
+  # services.ollama.acceleration = "rocm";
 }

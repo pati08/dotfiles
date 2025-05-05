@@ -75,7 +75,7 @@ in {
     # portalPackage = pkgs.xdg-desktop-portal-hyprland;
     settings = {
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard regular & blueman-applet & dunst & waybar &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard both & blueman-applet & dunst & waybar &";
       exec = "wl-gammarelay-rs";
       env = [
         "XCURSOR_SIZE,24"
