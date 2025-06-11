@@ -10,6 +10,12 @@
   };
 
   imports = [
+    {
+      programs.nixvim = inputs.tree-sitter-rstml.nixvimModule {
+        config = config.programs.nixvim;
+        inherit pkgs;
+      };
+    }
     ./config
     inputs.nixvim.homeManagerModules.nixvim
   ];

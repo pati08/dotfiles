@@ -70,4 +70,12 @@
     options.silent = true;
     mode = "t";
   }
+
+  # paste images
+  {
+    action = "<cmd>PasteImage<CR>";
+    key = "<leader>i";
+    options.silent = true;
+    mode = "n";
+  }
 ]

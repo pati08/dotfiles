@@ -37,20 +37,27 @@ in {
     wl-clip-persist
     wtype
     grimblast
-    dunst
+    mako
 
     wl-gammarelay-rs
   ];
 
-  services.dunst = {
+  services.mako = {
     enable = true;
-    settings.global = {
-      width = 300;
-      height = 300;
-      offset = "30x50";
-      origin = "center";
+    settings = {
+      anchor = "center";
+      default-timeout = 2500;
     };
   };
+  # services.dunst = {
+  #   enable = true;
+  #   settings.global = {
+  #     width = 300;
+  #     height = 300;
+  #     offset = "30x50";
+  #     origin = "center";
+  #   };
+  # };
 
   programs.rofi = {
     enable = true;
@@ -75,7 +82,7 @@ in {
     # portalPackage = pkgs.xdg-desktop-portal-hyprland;
     settings = {
       "$mod" = "SUPER";
-      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & kitty & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard both & blueman-applet & dunst & waybar &";
+      exec-once = "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr & firefox & ${config.home.terminal} & nm-applet --indicator & lxqt-policykit-agent & wl-paste --watch cliphist store & wl-clip-persist --clipboard both & blueman-applet & waybar &";
       exec = "wl-gammarelay-rs";
       env = [
         "XCURSOR_SIZE,24"
@@ -153,12 +160,12 @@ in {
       misc = {
         force_default_wallpaper = 0;
         enable_swallow = true;
-        swallow_regex = "kitty";
+        swallow_regex = "${config.home.terminal}";
       };
 
       bind = [
         # Binds that launch things
-        "$mod, Return, exec, kitty"
+        "$mod, Return, exec, ${config.home.terminal}"
         "$mod, F, exec, firefox"
         "$mod, E, exec, nautilus"
         "$mod, P, exec, ${hyprpickerPkg}/bin/hyprpicker -an -f hex"

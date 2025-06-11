@@ -1,4 +1,4 @@
-{self, ...}: let
+_: let
   opts = {
     # Line numbers
     number = true;
@@ -45,15 +45,9 @@ in {
     globalOpts = opts;
     inherit opts;
 
-    diagnostics = {
+    diagnostic.settings = {
+      severity_sort = true;
       virtual_text = {
-        severity = {
-          # This defines the priority order of diagnostic severity
-          # min = vim.diagnostic.severity.HINT;
-          min = { __raw = "vim.diagnostic.severity.HINT"; };
-          max = { __raw = "vim.diagnostic.severity.ERROR"; };
-        };
-        # Show only the highest priority diagnostic on a line
         severity_sort = true;
       };
       float = {

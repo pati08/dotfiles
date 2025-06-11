@@ -23,12 +23,6 @@ in {
     ./stylix
   ];
 
-  # _module.args = { inherit inputs; };
-  # imports = [
-  #   ./spotify.nix
-  #   ./browser.nix
-  # ];
-
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -36,7 +30,7 @@ in {
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
     BROWSER = "firefox";
-    TERMINAL = "kitty";
+    TERMINAL = config.home.terminal;
     # GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";
   };
 

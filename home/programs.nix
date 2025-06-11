@@ -43,7 +43,6 @@ let
 in {
   home.packages = with pkgs; [
     # applications
-    spotify
     (obsidian.overrideAttrs (_oldAttrs: { buildInputs = [pkgs.d2]; })) celluloid
     godot_4
     libreoffice
@@ -91,5 +90,13 @@ in {
     networkmanager
     bluez-experimental
     playerctl
+
+    (rust-bin.nightly.latest.default.override {
+      extensions = [ "rust-src" "rustfmt" "clippy" "rust-docs" ];
+      targets = [ "x86_64-unknown-linux-gnu" "wasm32-unknown-unknown" ];
+    })
+
+    zathura
+    lldb
   ];
 }

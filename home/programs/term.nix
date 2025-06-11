@@ -7,45 +7,45 @@
   aliases = {
     grep = "${pkgs.ripgrep}/bin/rg";
     cat = "${pkgs.bat}/bin/bat";
-    ls = "${pkgs.lsd}/bin/lsd";
+    ls = "${pkgs.eza}/bin/eza";
     zj = "${pkgs.zellij}/bin/zellij";
     za = "${pkgs.zellij}/bin/zellij a";
     zn = "${pkgs.zellij}/bin/zellij -s";
     top = "${pkgs.btop}/bin/btop";
     df = "${pkgs.duf}/bin/duf";
-    ll = "${pkgs.lsd}/bin/lsd -l";
+    ll = "${pkgs.eza}/bin/eza -l";
     lso = "command ls";
     lbk = "${pkgs.util-linux}/bin/lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL";
   };
   thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
 in {
 
+  home.terminal = "wezterm";
+
   # command line utils
   home.packages = with pkgs; [
-    ripgrep # better grep
-    bat # better cat
-    lsd # better ls
     alejandra # nix code formatting
-    btop # better top
-    scc # count lines of code
-    fzf skim # kinda the same, idk which to use
+    tokei scc # count lines of code
     hyperfine # benchmarking
     file # very basic utility
     d2 # graphrendering
     duf # better df
     inlyne # markdown rendering
     mdcat # markdown rendering in terminal
-    fd # better find
     fselect # file finding with sql-like syntax
     jless # json reading
-    git-cliff # git changelogs
     pipr # interactive pipe construction
     fclones # duplicate file finder
-    fend # calculator
+    bc # calculator
     caligula # burning disk images
-    dust # disk space usage visualizer
+    dua # disk space usage visualizer
     nixos-generators
+    xh # curl but better
     mpg123 # mp3 player
+    wiki-tui # firefox in the terminal
+    just mask # command runners
+    mprocs # background process manager
+    presenterm
 
     usbutils # duh, it's utils for usb!
     exfatprogs # for the camera card
@@ -59,85 +59,124 @@ in {
     g810-led # keyboard lighting
   ];
 
-  # programs.thefuck = {
-  #   enable = true;
-  #   enableNushellIntegration = true;
-  # };
-
-  # # Use fish
-  # programs.fish = {
-  #   enable = true;
-  #   shellAliases = aliases;
-  #   shellInit = ''
-  #     ${pkgs.fastfetch}/bin/fastfetch
-  #     set fish_greeting
-  #   '';
-  #   functions = {
-  #     hm-switch = ''
-  #       pushd ~/dotfiles
-  #       set arg ".#$argv"
-  #       home-manager switch --flake $arg
-  #       popd
-  #     '';
-  #     os-switch = ''
-  #       pushd ~/dotfiles
-  #       set arg ".#$argv"
-  #       sudo nixos-rebuild switch --flake $arg
-  #       popd
-  #     '';
-  #   };
-  # };
-  # use nushell
-  programs.nushell = {
-    enable = true;
-    shellAliases = aliases;
-    # maybe add fastfetch here later
-    settings = {
-      show_banner = false;
+  programs = {
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
     };
-    # define functions
-    extraConfig = ''
-      def hm-switch [arg?] {
-          cd ~/dotfiles
-          let flake = if $arg == ''' { '.' } else { ".$arg" }
-          home-manager switch --flake $flake
-          cd -
-      }
+    fish = {
+      enable = true;
+      shellAliases = aliases;
+      shellInit = ''
+        set fish_greeting
+      '';
+      functions = {
+        hm-switch = ''
+          pushd ~/dotfiles
+          set arg ".#$argv"
+          home-manager switch --flake $arg
+          popd
+        '';
+        os-switch = ''
+          pushd ~/dotfiles
+          set arg ".#$argv"
+          sudo nixos-rebuild switch --flake $arg
+          popd
+        '';
+      };
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    git = {
+      enable = true;
+      difftastic.enable = true;
+      difftastic.background = "dark";
+      userName = "Patrick Oberholzer";
+      userEmail = "patrickoberholzer08@gmail.com";
+    };
+    direnv.enable = true;
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    wezterm = {
+      enable = config.home.terminal == "wezterm";
+      extraConfig = /* lua */ ''
+        local wezterm = require 'wezterm'
 
-      # Define the `os-switch` function
-      def os-switch [arg?] {
-          cd ~/dotfiles
-          let flake = if $arg == ''' { '.' } else { ".$arg" }
-          sudo nixos-rebuild switch --flake $flake
-          cd -
-      }
-    '';
-  };
+        local config = {}
 
-  programs.zoxide = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
+        if wezterm.config_builder then
+            config = wezterm.config_builder()
+        end
 
-  programs.git = {
-    enable = true;
-    difftastic.enable = true;
-    difftastic.background = "dark";
-    userName = "Patrick Oberholzer";
-    userEmail = "patrickoberholzer08@gmail.com";
+        -- config.font = wezterm.font 'FiraCode Nerd Font'
+        config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
+        config.enable_tab_bar = false
+        config.window_padding = {
+          left = 6,
+          right = 2,
+          top = 6,
+          bottom = 2,
+        }
+
+        -- Catppuccin mocha theme
+        config.color_scheme = 'Catppuccin Mocha'
+
+        config.adjust_window_size_when_changing_font_size = false
+
+        -- config.enable_wayland = false -- Currently required when using hyprland
+        config.enable_wayland = true
+
+        config.keys = {
+          -- Bindings for copying and pasting
+          { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
+          { key = 'c', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo 'Clipboard' },
+          -- Bindings for changing font size
+          { key = '=', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
+          { key = '-', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
+          -- Reset font size
+          { key = '0', mods = 'CTRL|SHIFT', action = wezterm.action.ResetFontSize },
+          -- Send modified enter keys
+          {
+            key = "\r",
+            mods = "SHIFT",
+            action = wezterm.action.SendString("\x1b[13;2u"),
+          },
+          {
+            key = "\r",
+            mods = "CTRL",
+            action = wezterm.action.SendString("\x1b[13;5u"),
+          },
+        }
+        config.disable_default_key_bindings = true
+
+        return config
+      '';
+    };
+    fd.enable = true;
+    bat.enable = true;
+    eza = {
+      enable = true;
+      icons = "auto";
+    };
+    ripgrep.enable = true;
+    btop.enable = true;
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    git-cliff.enable = true;
+    gitui.enable = true;
+    helix = {
+      enable = true;
+      package = pkgs.evil-helix;
+    };
   };
 
   imports = [
     ./zellij.nix
   ];
-
-  programs.direnv = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
 }

@@ -1,17 +1,6 @@
 {pkgs, ...}: {
   programs.nixvim = {
     plugins = {
-      # copilot
-      copilot-lua = {
-        enable = true;
-        settings = {
-          panel.enabled = false;
-          suggestion.enabled = false;
-        };
-      };
-      blink-cmp-copilot.enable = true;
-      copilot-chat.enable = true;
-
       # completions
       blink-cmp = {
         enable = true;
@@ -43,14 +32,7 @@
               "path"
               "snippets"
               "buffer"
-              "copilot"
             ];
-            providers.copilot = {
-              async = true;
-              module = "blink-cmp-copilot";
-              name = "copilot";
-              score_offset = 100;
-            };
           };
         };
       };
@@ -72,34 +54,16 @@
           # Markdown
           marksman.enable = true;
 
-          # Nix
-          nil_ls.enable = true;
-
           # Bash
           bashls.enable = true;
 
           # C/C++
           clangd.enable = true;
-
-          # typescript
-          ts_ls.enable = true;
-
-          # Golang
-          gopls.enable = true;
-          # golangci_lint_ls.enable = true;
-
-          # haskell
-          hls.enable = true;
-          hls.installGhc = true;
         };
       };
 
       none-ls = {
         enable = true;
-        settings = {
-          cmd = ["bash -c nvim"];
-          debug = true;
-        };
         sources = {
           code_actions = {
             statix.enable = true;
@@ -142,11 +106,6 @@
         enable = true;
       };
 
-      # Make `nvim .` look prettier
-      oil = {
-        enable = true;
-      };
-
       colorizer.enable = true;
 
       zen-mode.enable = true;
@@ -185,27 +144,7 @@
           includeSurroundingWhitespace = false;
         };
 
-        move = {
-          enable = true;
-          setJumps = true;
-
-          gotoNextStart = {
-            "]f" = "@function.outer";
-            "]c" = "@class.outer";
-          };
-          gotoNextEnd = {
-            "]F" = "@function.outer";
-            "]C" = "@class.outer";
-          };
-          gotoPreviousStart = {
-            "[f" = "@function.outer";
-            "[c" = "@class.outer";
-          };
-          gotoPreviousEnd = {
-            "[F" = "@function.outer";
-            "[C" = "@class.outer";
-          };
-        };
+        move.enable = false;
 
         lspInterop = {
           enable = true;
@@ -226,63 +165,73 @@
       # Auto-tagging
       ts-autotag.enable = true;
 
-      # Notify
-      notify = {
+      dap-view = {
         enable = true;
-        backgroundColour = "#1e1e2e";
-        fps = 60;
-        render = "default";
-        timeout = 500;
-        topDown = true;
+      };
+      dap-virtual-text = {
+        enable = true;
       };
 
       # Debugger
       dap = {
         enable = true;
+        adapters.executables = {
+          lldb = {
+            command = "${pkgs.lldb}/bin/lldb-dap";
+          };
+        };
         signs = {
           dapBreakpoint = {
             text = "●";
             texthl = "DapBreakpoint";
           };
           dapBreakpointCondition = {
-            text = "●";
+            text = "◆";
             texthl = "DapBreakpointCondition";
           };
           dapLogPoint = {
-            text = "◆";
+            text = "";
             texthl = "DapLogPoint";
           };
         };
-        extensions = {
-          dap-python = {
-            enable = true;
-          };
-          dap-ui = {
-            enable = true;
-            floating.mappings = {
-              close = ["<ESC>" "q"];
-            };
-          };
-          dap-virtual-text = {
-            enable = true;
-          };
-        };
         configurations = {
-          java = [
+          cpp = [
             {
-              type = "java";
+              name = "Launch C++";
+              type = "lldb";
               request = "launch";
-              name = "Debug (Attach) - Remote";
-              hostName = "127.0.0.1";
-              port = 5005;
+              program = {__raw = ''function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              end'';};
+              cwd = "\${workspaceFolder}";
+              stopOnEntry = false;
+              args = [];
+            }
+          ];
+          c = [
+            {
+              name = "Launch C";
+              type = "lldb";
+              request = "launch";
+              program = {__raw = ''function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              end'';};
+              cwd = "\${workspaceFolder}";
+              stopOnEntry = false;
+              args = [];
             }
           ];
         };
       };
+      dap-python.enable = true;
 
       # Trouble
       trouble = {
         enable = true;
+        lazyLoad = {
+          enable = true;
+          settings.cmd = "Trouble";
+        };
       };
 
       # Code snippets
@@ -304,11 +253,6 @@
 
       which-key = {
         enable = true;
-        registrations = {
-          "<leader>pg" = "Find Git files with telescope";
-          "<leader>ps" = "Find text with telescope";
-          "<leader>pf" = "Find files with telescope";
-        };
       };
 
       # Markdown preview server
@@ -364,19 +308,22 @@
         view.width = 40;
       };
 
-      # harpoon = {
-      #   enable = true;
-      # };
-
       # Nice surrounding features
       vim-surround = {
         enable = true;
       };
 
-      # Floating terminal
-      floaterm = {
+      # terminal
+      toggleterm = {
         enable = true;
+        settings = {
+          open_mapping = "[[<A-i>]]";
+          direction = "horizontal";
+        };
       };
+
+      # lazy loading
+      lz-n.enable = true;
 
       # Nix expressions in Neovim
       nix = {
@@ -386,8 +333,11 @@
       # Rust language support
       rustaceanvim = {
         enable = true;
-        # Use whatever is around
-        # rustAnalyzerPackage = null;
+        settings.dap.adapter = "lldb";
+        lazyLoad = {
+          enable = true;
+          settings.ft = "rust";
+        };
       };
 
       # Status column
@@ -399,6 +349,13 @@
       alpha = {
         enable = true;
         theme = "dashboard";
+      };
+
+      nvim-autopairs = {
+        enable = true;
+        settings = {
+          check_ts = true;
+        };
       };
     };
 
@@ -413,7 +370,6 @@
           cmp = true;
           noice = true;
           notify = true;
-          neotree = true;
           # harpoon = true;
           gitsigns = true;
           which_key = true;
@@ -422,7 +378,6 @@
           treesitter_context = true;
           telescope.enabled = true;
           indent_blankline.enabled = true;
-          mini.enabled = true;
           native_lsp = {
             enabled = true;
             inlay_hints = {
@@ -512,7 +467,6 @@
               fat_headline_lower_string = "🬂",
           },
       }
-      require("ultimate-autopair").setup({})
 
       local snippets = vim.env.LUASNIP_SNIPPETS_DIR
       if snippets then
@@ -527,6 +481,51 @@
           table.insert(paths, path)
         end
         require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
+      end
+
+      local npairs = require'nvim-autopairs'
+      local Rule = require'nvim-autopairs.rule'
+      local cond = require 'nvim-autopairs.conds'
+
+      local brackets = { { '(', ')' }, { '[', ']' }, { '{', '}' } }
+      npairs.add_rules {
+        -- Rule for a pair with left-side ' ' and right side ' '
+        Rule(' ', ' ')
+          -- Pair will only occur if the conditional function returns true
+          :with_pair(function(opts)
+            -- We are checking if we are inserting a space in (), [], or {}
+            local pair = opts.line:sub(opts.col - 1, opts.col)
+            return vim.tbl_contains({
+              brackets[1][1] .. brackets[1][2],
+              brackets[2][1] .. brackets[2][2],
+              brackets[3][1] .. brackets[3][2]
+            }, pair)
+          end)
+          :with_move(cond.none())
+          :with_cr(cond.none())
+          -- We only want to delete the pair of spaces when the cursor is as such: ( | )
+          :with_del(function(opts)
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local context = opts.line:sub(col - 1, col + 2)
+            return vim.tbl_contains({
+              brackets[1][1] .. '  ' .. brackets[1][2],
+              brackets[2][1] .. '  ' .. brackets[2][2],
+              brackets[3][1] .. '  ' .. brackets[3][2]
+            }, context)
+          end)
+      }
+      -- For each pair of brackets we will add another rule
+      for _, bracket in pairs(brackets) do
+        npairs.add_rules {
+          -- Each of these rules is for a pair with left-side '( ' and right-side ' )' for each bracket type
+          Rule(bracket[1] .. ' ', ' ' .. bracket[2])
+            :with_pair(cond.none())
+            :with_move(function(opts) return opts.char == bracket[2] end)
+            :with_del(cond.none())
+            :use_key(bracket[2])
+            -- Removes the trailing whitespace that can occur without this
+            :replace_map_cr(function(_) return '<C-c>2xi<CR><C-c>O' end)
+        }
       end
     '';
 
@@ -547,7 +546,6 @@
         # ultisnips
         clipboard-image-nvim
         vim-suda # saving root-owned files
-        ultimate-autopair-nvim
         vim-sneak
       ];
   };

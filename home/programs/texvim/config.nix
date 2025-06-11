@@ -228,6 +228,8 @@ in {
       end
       require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
     end
+
+    require("img-clip").setup({})
   '';
 
   extraConfigVim = ''
@@ -241,6 +243,7 @@ in {
     [
       # ultimate-autopair-nvim
       vim-sneak
+      pkgs.vimPlugins.img-clip-nvim
     ];
   diagnostics = {
     virtual_text = {

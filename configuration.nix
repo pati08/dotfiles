@@ -1,67 +1,118 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
   pkgs,
-  lib,
   inputs,
   profilePath,
   hwConfigPath,
   ...
 }: let
-  hyprland_flake = inputs.hyprland.packages."${pkgs.system}".default;
-  # tilp2 = pkgs.callPackage (import ./tilp2.nix { inherit pkgs; }).tilp {};
+  hyprlandFlake = inputs.hyprland.packages."${pkgs.system}".default;
 in {
   imports = [
-    # Include the results of the hardware scan.
-    # ./hardware-configuration.nix
-
     profilePath
     hwConfigPath
   ];
-
-  programs.virt-manager.enable = true;
+  programs = {
+    virt-manager.enable = true;
+    nix-ld.enable = true;
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
+    steam = {
+      enable = true;
+      package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; };
+    };
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      package = hyprlandFlake;
+    };
+    fish.enable = true;
+  };
+  services = {
+    joycond.enable = true;
+    blueman.enable = true;
+    ollama.enable = true;
+    kanata = {
+      enable = true;
+      keyboards.all.config = builtins.readFile ./config.kbd;
+    };
+    nginx = {
+      enable = true;
+      package = pkgs.nginxStable.override {
+        modules = [ pkgs.nginxModules.zstd ];
+      };
+      recommendedTlsSettings = true;
+      recommendedZstdSettings = true;
+    };
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
+    displayManager.sddm.enable = true;
+    printing = {
+      enable = true;
+      drivers = [ pkgs.brlaser ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+    pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    libinput.enable = true;
+    dbus.enable = true;
+    openssh.enable = true;
+  };
   virtualisation = {
     libvirtd.enable = true;
-  };
-
-  services.joycond.enable = true;
-
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-      data-root = "/home/patrick/docker/";
+    docker = {
+      enable = true;
+      daemon.settings = {
+        data-root = "/home/patrick/docker/";
+      };
     };
   };
-  users.groups.docker.members = [ "patrick" ];
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.loader.systemd-boot.enable = true;
-
+  users = {
+    groups = {
+      docker.members = [ "patrick" ];
+      wireshark.members = [ "patrick" ];
+    };
+    users.patrick = {
+      isNormalUser = true;
+      description = "Patrick Oberholzer";
+      extraGroups = ["networkmanager" "wheel"];
+      packages = [];
+      uid = 1000;
+      shell = pkgs.fish;
+    };
+    defaultUserShell = pkgs.fish;
+  };
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+  };
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
   };
-  services.blueman.enable = true;
-
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.dejavu-sans-mono
     font-awesome_5
   ];
-
-  services.ollama = {
-    enable = true;
-  };
-
-  services.kanata = {
-    enable = true;
-    keyboards.all.config = builtins.readFile ./config.kbd;
-  };
-
   nix.settings = {
     # enable hyprland's cachix
     substituters = ["https://nix-community.cachix.org" "https://hyprland.cachix.org"];
@@ -72,152 +123,52 @@ in {
 
     # enable flakes
     experimental-features = ["nix-command" "flakes"];
+    allowed-users = [ "harmonia" "patrick" ];
   };
-
-  # optional if you use allowed-users in other places
-  nix.settings.allowed-users = [ "harmonia" "patrick" ];
-
-  networking.firewall.allowedTCPPorts = [ 443 80 ];
-
-  services.nginx = {
-    enable = true;
-    package = pkgs.nginxStable.override {
-      modules = [ pkgs.nginxModules.zstd ];
-    };
-    recommendedTlsSettings = true;
-    recommendedZstdSettings = true;
-  };
-
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024;
-    }
-  ];
-
-  # Bootloader.
-  # boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "patrick-nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager = {
-    enable = true;
-    wifi = {
-      backend = "iwd";
-      macAddress = "random";
+  networking = {
+    hostName = "patrick-nixos";
+    firewall.allowedTCPPorts = [ 443 80 ];
+    networkmanager = {
+      enable = true;
+      wifi = {
+        backend = "iwd";
+        macAddress = "random";
+      };
     };
   };
-
-  # allow swaylock to unlock
-  security.pam.services.swaylock = {};
-
-
-  # Set your time zone.
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 16 * 1024;
+  } ];
+  security = {
+    rtkit.enable = true;
+    pam.services.swaylock = {};
+  };
   time.timeZone = "America/New_York";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # use SDDM
-  services.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "us";
-      variant = "";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.brlaser ];
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [(self: super: {
+      waybar = super.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    })];
   };
 
-  # Enable sound with pipewire.
-  # hardware.pulseaudio.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  users.groups.wireshark = {
-    # gid = 1001;
-    members = [ "patrick" ];
-  };
-
-  users.users.patrick = {
-    isNormalUser = true;
-    description = "Patrick Oberholzer";
-    extraGroups = ["networkmanager" "wheel"];
-    # all in HM now
-    packages = [];
-    uid = 1000;
-  };
-
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "nu" && -z ''${BASH_EXECUTION_STRING} ]]
-        then
-          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.nushell}/bin/nu $LOGIN_OPTION
-        fi
-    '';
-  };
-
-  programs.nix-ld.enable = true;
-
-  programs.wireshark = {
-    enable = true;
-    package = pkgs.wireshark;
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; 
     [
       iwd
@@ -227,75 +178,20 @@ in {
       inotify-tools
       libnotify
       pkg-config
-      nushell
+      fish
       libinput
       lxqt.lxqt-policykit
       sbctl
       openssl
+      openssl.dev
       protonvpn-cli_2
       protonvpn-gui
     ];
-
-  programs.steam = {
-    enable = true;
-    package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; };
-  };
-
-  # Hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    package = hyprland_flake;
-  };
-
-  # hint electron apps to use wayland
-  environment.sessionVariables = {
-    # NIXOS_OZONE_WL = "1";
-  };
-
-  # screen sharing
-  services.dbus.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # fix waybar not displaying hyprland workspaces
-  nixpkgs.overlays = [
-    (self: super: {
-     waybar = super.waybar.overrideAttrs (oldAttrs: {
-         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-         });
-     })
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 }

@@ -1,6 +1,6 @@
-{ inputs, ... }: {
+{ inputs, config, ... }: {
   config.programs.kitty = {
-    enable = true;
+    enable = config.home.terminal == "kitty";
     extraConfig = builtins.readFile ./kitty.conf;
   };
   config._module.args = { inherit inputs; };

@@ -6,6 +6,9 @@
     targets = {
       zellij.enable = false;
       waybar.enable = false;
+      firefox.profileNames = [ "personal-profile" "school-profile" ];
+      firefox.colorTheme.enable = true;
+      nixvim.enable = false;
     };
     polarity = "dark";
     cursor = {
