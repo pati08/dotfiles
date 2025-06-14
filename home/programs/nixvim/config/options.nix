@@ -40,6 +40,16 @@ _: let
     # Start scrolling when the cursor is X lines away from the top/bottom
     scrolloff = 5;
   };
+  twoIndentFts = [
+    "html"
+    "lisp"
+    "dart"
+  ];
+  indentationAutoCmds = map (ft: {
+    event = "FileType";
+    pattern = ft;
+    command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
+  }) twoIndentFts;
 in {
   programs.nixvim = {
     globalOpts = opts;
@@ -82,16 +92,6 @@ in {
       }
       {
         event = "FileType";
-        pattern = "html";
-        command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
-      }
-      {
-        event = "FileType";
-        pattern = "lisp";
-        command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
-      }
-      {
-        event = "FileType";
         pattern = "markdown";
         command = "set colorcolumn= | set linebreak";
       }
@@ -100,6 +100,6 @@ in {
         pattern = "*.rs";
         callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
       }
-    ];
+    ] ++ indentationAutoCmds;
   };
 }

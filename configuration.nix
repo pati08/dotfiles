@@ -186,6 +186,7 @@ in {
       openssl.dev
       protonvpn-cli_2
       protonvpn-gui
+      android-studio
     ];
   xdg.portal = {
     enable = true;

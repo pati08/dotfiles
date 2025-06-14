@@ -96,6 +96,11 @@
         };
       };
 
+      # flutter language support
+      flutter-tools = {
+        enable = true;
+      };
+
       # Buffer bar
       bufferline = {
         enable = true;
