@@ -48,7 +48,7 @@ in {
     libreoffice
     prusa-slicer
     gimp
-    blender
+    blender-hip
     sidequest
     lumafly # hollow knight modding
     vesktop # discord replacement that doesn't suck on linux

@@ -28,6 +28,7 @@ in {
       package = hyprlandFlake;
     };
     fish.enable = true;
+    adb.enable = true;
   };
   services = {
     joycond.enable = true;
@@ -87,6 +88,8 @@ in {
     groups = {
       docker.members = [ "patrick" ];
       wireshark.members = [ "patrick" ];
+      kvm.members = [ "patrick" ];
+      adbusers.members = [ "patrick" ];
     };
     users.patrick = {
       isNormalUser = true;
