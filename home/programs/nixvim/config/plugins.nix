@@ -49,7 +49,7 @@
 
           # Python
           ruff.enable = true;
-          pylsp.enable = true;
+          basedpyright.enable = true;
 
           # Markdown
           marksman.enable = true;
@@ -59,6 +59,9 @@
 
           # C/C++
           clangd.enable = true;
+
+          # Javascript
+          ts_ls.enable = true;
         };
       };
 
