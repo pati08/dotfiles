@@ -1,4 +1,8 @@
-{ config, pkgs, inputs, ...}: {
+{ config
+, pkgs
+, inputs
+, ...
+}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -7,6 +11,10 @@
     vimAlias = true;
 
     luaLoader.enable = true;
+  };
+
+  home.sessionVariables = {
+    LUASNIP_SNIPPETS_DIRS = "${config.home.homeDirectory}/.luasnip-snippets";
   };
 
   imports = [

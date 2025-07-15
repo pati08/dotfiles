@@ -1,12 +1,13 @@
-{
-  pkgs,
-  inputs,
-  profilePath,
-  hwConfigPath,
-  ...
-}: let
+{ pkgs
+, inputs
+, profilePath
+, hwConfigPath
+, ...
+}:
+let
   hyprlandFlake = inputs.hyprland.packages."${pkgs.system}".default;
-in {
+in
+{
   imports = [
     profilePath
     hwConfigPath
@@ -94,8 +95,8 @@ in {
     users.patrick = {
       isNormalUser = true;
       description = "Patrick Oberholzer";
-      extraGroups = ["networkmanager" "wheel"];
-      packages = [];
+      extraGroups = [ "networkmanager" "wheel" ];
+      packages = [ ];
       uid = 1000;
       shell = pkgs.fish;
     };
@@ -118,14 +119,14 @@ in {
   ];
   nix.settings = {
     # enable hyprland's cachix
-    substituters = ["https://nix-community.cachix.org" "https://hyprland.cachix.org"];
+    substituters = [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
     trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
     # enable flakes
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [ "nix-command" "flakes" ];
     allowed-users = [ "harmonia" "patrick" ];
   };
   networking = {
@@ -138,14 +139,19 @@ in {
         macAddress = "random";
       };
     };
+    extraHosts = ''
+      127.0.0.1 www.crossbeamdata.bob
+    '';
   };
-  swapDevices = [ {
-    device = "/var/lib/swapfile";
-    size = 16 * 1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
   security = {
     rtkit.enable = true;
-    pam.services.swaylock = {};
+    pam.services.swaylock = { };
   };
   time.timeZone = "America/New_York";
   i18n = {
@@ -165,32 +171,32 @@ in {
   };
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [(self: super: {
-      waybar = super.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    })];
+    overlays = [
+      (self: super: {
+        waybar = super.waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        });
+      })
+    ];
   };
 
-  environment.systemPackages = with pkgs; 
-    [
-      iwd
-      pulseaudioFull
-      gcc
-      libsForQt5.qt5.qtwayland libsForQt5.qt5ct libva
-      inotify-tools
-      libnotify
-      pkg-config
-      fish
-      libinput
-      lxqt.lxqt-policykit
-      sbctl
-      openssl
-      openssl.dev
-      protonvpn-cli_2
-      protonvpn-gui
-      android-studio
-    ];
+  environment.systemPackages = with pkgs; [
+    iwd
+    pulseaudioFull
+    gcc
+    libsForQt5.qt5.qtwayland
+    libsForQt5.qt5ct
+    libva
+    inotify-tools
+    libnotify
+    pkg-config
+    fish
+    libinput
+    lxqt.lxqt-policykit
+    sbctl
+    openssl
+    openssl.dev
+  ];
   xdg.portal = {
     enable = true;
     wlr.enable = true;

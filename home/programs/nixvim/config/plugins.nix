@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.nixvim = {
     plugins = {
       # completions
@@ -41,10 +41,12 @@
       lsp = {
         enable = true;
         servers = {
+          # webdev
           cssls.enable = true; # CSS
           tailwindcss.enable = true; # TailwindCSS
           html.enable = true; # HTML
-          
+          # djlsp.enable = true;
+
           jdtls.enable = true;
 
           # Python
@@ -75,6 +77,7 @@
           diagnostics = {
             statix.enable = true;
             deadnix.enable = true;
+            djlint.enable = true;
           };
           formatting = {
             alejandra.enable = true;
@@ -82,22 +85,12 @@
             shfmt.enable = true;
             nixpkgs_fmt.enable = true;
             google_java_format.enable = false;
-            prettier = {
-              enable = true;
-              disableTsServerFormatter = true;
-            };
-            black = {
-              enable = true;
-              settings = ''
-                {
-                  extra_args = { "--fast" },
-                }
-              '';
-
-            };
+            djlint.enable = true;
           };
         };
       };
+
+      otter.enable = true;
 
       # flutter language support
       flutter-tools = {
@@ -208,12 +201,14 @@
               name = "Launch C++";
               type = "lldb";
               request = "launch";
-              program = {__raw = ''function()
-                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-              end'';};
+              program = {
+                __raw = ''                  function()
+                                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                                end'';
+              };
               cwd = "\${workspaceFolder}";
               stopOnEntry = false;
-              args = [];
+              args = [ ];
             }
           ];
           c = [
@@ -221,12 +216,14 @@
               name = "Launch C";
               type = "lldb";
               request = "launch";
-              program = {__raw = ''function()
-                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-              end'';};
+              program = {
+                __raw = ''                  function()
+                                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                                end'';
+              };
               cwd = "\${workspaceFolder}";
               stopOnEntry = false;
-              args = [];
+              args = [ ];
             }
           ];
         };
@@ -288,12 +285,12 @@
       todo-comments = {
         enable = true;
         settings.colors = {
-          error = ["DiagnosticError" "ErrorMsg" "#DC2626"];
-          warning = ["DiagnosticWarn" "WarningMsg" "#FBBF24"];
-          info = ["DiagnosticInfo" "#2563EB"];
-          hint = ["DiagnosticHint" "#10B981"];
-          default = ["Identifier" "#7C3AED"];
-          test = ["Identifier" "#FF00FF"];
+          error = [ "DiagnosticError" "ErrorMsg" "#DC2626" ];
+          warning = [ "DiagnosticWarn" "WarningMsg" "#FBBF24" ];
+          info = [ "DiagnosticInfo" "#2563EB" ];
+          hint = [ "DiagnosticHint" "#10B981" ];
+          default = [ "Identifier" "#7C3AED" ];
+          test = [ "Identifier" "#FF00FF" ];
         };
       };
 
@@ -392,150 +389,154 @@
               background = true;
             };
             underlines = {
-              errors = ["underline"];
-              hints = ["underline"];
-              information = ["underline"];
-              warnings = ["underline"];
+              errors = [ "underline" ];
+              hints = [ "underline" ];
+              information = [ "underline" ];
+              warnings = [ "underline" ];
             };
           };
         };
       };
     };
 
-    extraConfigLua = /* lua */ ''
-      luasnip = require("luasnip")
-      kind_icons = {
-        Text = "󰊄",
-        Method = "",
-        Function = "󰡱",
-        Constructor = "",
-        Field = "",
-        Variable = "󱀍",
-        Class = "",
-        Interface = "",
-        Module = "󰕳",
-        Property = "",
-        Unit = "",
-        Value = "",
-        Enum = "",
-        Keyword = "",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "",
-        Struct = "",
-        Event = "",
-        Operator = "",
-        TypeParameter = "",
-      }
-      require("headlines").setup {
-          markdown = {
-              query = vim.treesitter.query.parse(
-                  "markdown",
-                  [[
-                      (atx_heading [
-                          (atx_h1_marker)
-                          (atx_h2_marker)
-                          (atx_h3_marker)
-                          (atx_h4_marker)
-                          (atx_h5_marker)
-                          (atx_h6_marker)
-                      ] @headline)
-
-                      (thematic_break) @dash
-
-                      (fenced_code_block) @codeblock
-
-                      (block_quote_marker) @quote
-                      (block_quote (paragraph (inline (block_continuation) @quote)))
-                      (block_quote (paragraph (block_continuation) @quote))
-                      (block_quote (block_continuation) @quote)
-                  ]]
-              ),
-              headline_highlights = { "Headline" },
-              bullet_highlights = {
-                  "@text.title.1.marker.markdown",
-                  "@text.title.2.marker.markdown",
-                  "@text.title.3.marker.markdown",
-                  "@text.title.4.marker.markdown",
-                  "@text.title.5.marker.markdown",
-                  "@text.title.6.marker.markdown",
-              },
-              bullets = { "◉", "○", "✸", "✿" },
-              codeblock_highlight = "CodeBlock",
-              dash_highlight = "Dash",
-              dash_string = "-",
-              quote_highlight = "Quote",
-              quote_string = "┃",
-              fat_headlines = true,
-              fat_headline_upper_string = "▃",
-              fat_headline_lower_string = "🬂",
-          },
-      }
-
-      local snippets = vim.env.LUASNIP_SNIPPETS_DIR
-      if snippets then
-        require("luasnip.loaders.from_lua").lazy_load({ paths = snippets })
-      end
-
-      local snippets_multi = vim.env.LUASNIP_SNIPPETS_DIRS
-
-      if snippets_multi then
-        local paths = {}
-        for path in snippets_multi:gmatch("[^:]+") do
-          table.insert(paths, path)
-        end
-        require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
-      end
-
-      local npairs = require'nvim-autopairs'
-      local Rule = require'nvim-autopairs.rule'
-      local cond = require 'nvim-autopairs.conds'
-
-      local brackets = { { '(', ')' }, { '[', ']' }, { '{', '}' } }
-      npairs.add_rules {
-        -- Rule for a pair with left-side ' ' and right side ' '
-        Rule(' ', ' ')
-          -- Pair will only occur if the conditional function returns true
-          :with_pair(function(opts)
-            -- We are checking if we are inserting a space in (), [], or {}
-            local pair = opts.line:sub(opts.col - 1, opts.col)
-            return vim.tbl_contains({
-              brackets[1][1] .. brackets[1][2],
-              brackets[2][1] .. brackets[2][2],
-              brackets[3][1] .. brackets[3][2]
-            }, pair)
-          end)
-          :with_move(cond.none())
-          :with_cr(cond.none())
-          -- We only want to delete the pair of spaces when the cursor is as such: ( | )
-          :with_del(function(opts)
-            local col = vim.api.nvim_win_get_cursor(0)[2]
-            local context = opts.line:sub(col - 1, col + 2)
-            return vim.tbl_contains({
-              brackets[1][1] .. '  ' .. brackets[1][2],
-              brackets[2][1] .. '  ' .. brackets[2][2],
-              brackets[3][1] .. '  ' .. brackets[3][2]
-            }, context)
-          end)
-      }
-      -- For each pair of brackets we will add another rule
-      for _, bracket in pairs(brackets) do
-        npairs.add_rules {
-          -- Each of these rules is for a pair with left-side '( ' and right-side ' )' for each bracket type
-          Rule(bracket[1] .. ' ', ' ' .. bracket[2])
-            :with_pair(cond.none())
-            :with_move(function(opts) return opts.char == bracket[2] end)
-            :with_del(cond.none())
-            :use_key(bracket[2])
-            -- Removes the trailing whitespace that can occur without this
-            :replace_map_cr(function(_) return '<C-c>2xi<CR><C-c>O' end)
+    extraConfigLua =
+      /*
+      lua
+      */
+      ''
+        luasnip = require("luasnip")
+        kind_icons = {
+          Text = "󰊄",
+          Method = "",
+          Function = "󰡱",
+          Constructor = "",
+          Field = "",
+          Variable = "󱀍",
+          Class = "",
+          Interface = "",
+          Module = "󰕳",
+          Property = "",
+          Unit = "",
+          Value = "",
+          Enum = "",
+          Keyword = "",
+          Snippet = "",
+          Color = "",
+          File = "",
+          Reference = "",
+          Folder = "",
+          EnumMember = "",
+          Constant = "",
+          Struct = "",
+          Event = "",
+          Operator = "",
+          TypeParameter = "",
         }
-      end
-    '';
+        require("headlines").setup {
+            markdown = {
+                query = vim.treesitter.query.parse(
+                    "markdown",
+                    [[
+                        (atx_heading [
+                            (atx_h1_marker)
+                            (atx_h2_marker)
+                            (atx_h3_marker)
+                            (atx_h4_marker)
+                            (atx_h5_marker)
+                            (atx_h6_marker)
+                        ] @headline)
+
+                        (thematic_break) @dash
+
+                        (fenced_code_block) @codeblock
+
+                        (block_quote_marker) @quote
+                        (block_quote (paragraph (inline (block_continuation) @quote)))
+                        (block_quote (paragraph (block_continuation) @quote))
+                        (block_quote (block_continuation) @quote)
+                    ]]
+                ),
+                headline_highlights = { "Headline" },
+                bullet_highlights = {
+                    "@text.title.1.marker.markdown",
+                    "@text.title.2.marker.markdown",
+                    "@text.title.3.marker.markdown",
+                    "@text.title.4.marker.markdown",
+                    "@text.title.5.marker.markdown",
+                    "@text.title.6.marker.markdown",
+                },
+                bullets = { "◉", "○", "✸", "✿" },
+                codeblock_highlight = "CodeBlock",
+                dash_highlight = "Dash",
+                dash_string = "-",
+                quote_highlight = "Quote",
+                quote_string = "┃",
+                fat_headlines = true,
+                fat_headline_upper_string = "▃",
+                fat_headline_lower_string = "🬂",
+            },
+        }
+
+        local snippets = vim.env.LUASNIP_SNIPPETS_DIR
+        if snippets then
+          require("luasnip.loaders.from_lua").lazy_load({ paths = snippets })
+        end
+
+        local snippets_multi = vim.env.LUASNIP_SNIPPETS_DIRS
+
+        if snippets_multi then
+          local paths = {}
+          for path in snippets_multi:gmatch("[^:]+") do
+            table.insert(paths, path)
+          end
+          require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
+        end
+
+        local npairs = require'nvim-autopairs'
+        local Rule = require'nvim-autopairs.rule'
+        local cond = require 'nvim-autopairs.conds'
+
+        local brackets = { { '(', ')' }, { '[', ']' }, { '{', '}' } }
+        npairs.add_rules {
+          -- Rule for a pair with left-side ' ' and right side ' '
+          Rule(' ', ' ')
+            -- Pair will only occur if the conditional function returns true
+            :with_pair(function(opts)
+              -- We are checking if we are inserting a space in (), [], or {}
+              local pair = opts.line:sub(opts.col - 1, opts.col)
+              return vim.tbl_contains({
+                brackets[1][1] .. brackets[1][2],
+                brackets[2][1] .. brackets[2][2],
+                brackets[3][1] .. brackets[3][2]
+              }, pair)
+            end)
+            :with_move(cond.none())
+            :with_cr(cond.none())
+            -- We only want to delete the pair of spaces when the cursor is as such: ( | )
+            :with_del(function(opts)
+              local col = vim.api.nvim_win_get_cursor(0)[2]
+              local context = opts.line:sub(col - 1, col + 2)
+              return vim.tbl_contains({
+                brackets[1][1] .. '  ' .. brackets[1][2],
+                brackets[2][1] .. '  ' .. brackets[2][2],
+                brackets[3][1] .. '  ' .. brackets[3][2]
+              }, context)
+            end)
+        }
+        -- For each pair of brackets we will add another rule
+        for _, bracket in pairs(brackets) do
+          npairs.add_rules {
+            -- Each of these rules is for a pair with left-side '( ' and right-side ' )' for each bracket type
+            Rule(bracket[1] .. ' ', ' ' .. bracket[2])
+              :with_pair(cond.none())
+              :with_move(function(opts) return opts.char == bracket[2] end)
+              :with_del(cond.none())
+              :use_key(bracket[2])
+              -- Removes the trailing whitespace that can occur without this
+              :replace_map_cr(function(_) return '<C-c>2xi<CR><C-c>O' end)
+          }
+        end
+      '';
 
     extraConfigVim = ''
       map f <Plug>Sneak_f
@@ -544,17 +545,16 @@
       map T <Plug>Sneak_T
     '';
 
-    extraPlugins = with pkgs.vimPlugins;
-      [
-        vim-be-good
-        headlines-nvim # Should load this in at the opening of filetypes that require this, namely Markdown.
-        nvim-web-devicons # Should load this in at Telescope/NvimTree actions.
-        # friendly-snippets # Should load this in at LuaSnip's initialisation, no clue how tho yet...
-        glow-nvim # Glow inside of Neovim
-        # ultisnips
-        clipboard-image-nvim
-        vim-suda # saving root-owned files
-        vim-sneak
-      ];
+    extraPlugins = with pkgs.vimPlugins; [
+      vim-be-good
+      headlines-nvim # Should load this in at the opening of filetypes that require this, namely Markdown.
+      nvim-web-devicons # Should load this in at Telescope/NvimTree actions.
+      # friendly-snippets # Should load this in at LuaSnip's initialisation, no clue how tho yet...
+      glow-nvim # Glow inside of Neovim
+      # ultisnips
+      clipboard-image-nvim
+      vim-suda # saving root-owned files
+      vim-sneak
+    ];
   };
 }

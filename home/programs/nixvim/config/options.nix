@@ -1,4 +1,5 @@
-_: let
+_:
+let
   opts = {
     # Line numbers
     number = true;
@@ -23,7 +24,7 @@ _: let
     foldlevelstart = 99;
 
     # color column
-    colorcolumn="80";
+    colorcolumn = "80";
 
     # System clipboard support, needs xclip/wl-clipboard
     # clipboard = "unnamedplus";
@@ -44,13 +45,19 @@ _: let
     "html"
     "lisp"
     "dart"
+    "javascript"
+    "htmldjango"
   ];
-  indentationAutoCmds = map (ft: {
-    event = "FileType";
-    pattern = ft;
-    command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
-  }) twoIndentFts;
-in {
+  indentationAutoCmds =
+    map
+      (ft: {
+        event = "FileType";
+        pattern = ft;
+        command = "set softtabstop=2 | set shiftwidth=2 | set tabstop=2";
+      })
+      twoIndentFts;
+in
+{
   programs.nixvim = {
     globalOpts = opts;
     inherit opts;
@@ -79,27 +86,29 @@ in {
       };
     };
 
-    autoCmd = [
-      {
-        event = ["BufNewFile" "BufRead"];
-        pattern = "*.wgsl";
-        command = "set filetype=wgsl";
-      }
-      {
-        event = ["BufNewFile" "BufRead"];
-        pattern = "*.mdp";
-        command = "set filetype=markdown";
-      }
-      {
-        event = "FileType";
-        pattern = "markdown";
-        command = "set colorcolumn= | set linebreak";
-      }
-      {
-        event = "BufWritePre";
-        pattern = "*.rs";
-        callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
-      }
-    ] ++ indentationAutoCmds;
+    autoCmd =
+      [
+        {
+          event = [ "BufNewFile" "BufRead" ];
+          pattern = "*.wgsl";
+          command = "set filetype=wgsl";
+        }
+        {
+          event = [ "BufNewFile" "BufRead" ];
+          pattern = "*.mdp";
+          command = "set filetype=markdown";
+        }
+        {
+          event = "FileType";
+          pattern = "markdown";
+          command = "set colorcolumn= | set linebreak";
+        }
+        {
+          event = "BufWritePre";
+          pattern = "*";
+          callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
+        }
+      ]
+      ++ indentationAutoCmds;
   };
 }
