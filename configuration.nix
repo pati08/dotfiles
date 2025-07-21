@@ -142,6 +142,7 @@ in
     extraHosts = ''
       127.0.0.1 www.crossbeamdata.bob
     '';
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
   swapDevices = [
     {
