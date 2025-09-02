@@ -45,7 +45,6 @@ in
         modules = [ pkgs.nginxModules.zstd ];
       };
       recommendedTlsSettings = true;
-      recommendedZstdSettings = true;
     };
     xserver = {
       enable = true;
@@ -197,6 +196,8 @@ in
     sbctl
     openssl
     openssl.dev
+    game-devices-udev-rules
+    moltengamepad
   ];
   xdg.portal = {
     enable = true;

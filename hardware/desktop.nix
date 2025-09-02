@@ -12,7 +12,7 @@
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "hid-nintendo" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {

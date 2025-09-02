@@ -1,13 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 let
   keyboard = "kanata";
-in {
+in
+{
   _module.args = { inherit inputs; };
   imports = [
     ../programs
@@ -19,8 +19,9 @@ in {
   ];
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "DP-3,2560x1440@60,1920x0,1,vrr,2"
-    "HDMI-A-1,1920x1080@60,0x0,1"
+    "DP-3,2560x1440@60,5760x0,1,vrr,2"
+    "DP-2,1920x1080@60,3840x0,1"
+    "HDMI-A-1,3840x2160@60,0x0,1"
     "Unknown-1,disable"
   ];
 
@@ -29,8 +30,7 @@ in {
     passes = lib.mkForce 3;
   };
 
-  programs.waybar.settings.mainBar."hyprland/language"."on-click"
-    = "hyprctl switchxkblayout ${keyboard} next";
+  programs.waybar.settings.mainBar."hyprland/language"."on-click" = "hyprctl switchxkblayout ${keyboard} next";
 
   programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "${keyboard}";
 }

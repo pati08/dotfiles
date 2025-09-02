@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  ffSchool = { pkgs ? import <nixpkgs> {} }:
+  ffSchool = { pkgs ? import <nixpkgs> { } }:
     pkgs.stdenv.mkDerivation {
       pname = "firefox-school";
       version = "1.0";
@@ -40,10 +40,12 @@ let
     name = "zulu8-env";
     targetPkgs = pkgs: [ pkgs.zulu8 ];
   };
-in {
+in
+{
   home.packages = with pkgs; [
     # applications
-    (obsidian.overrideAttrs (_oldAttrs: { buildInputs = [pkgs.d2]; })) celluloid
+    (obsidian.overrideAttrs (_oldAttrs: { buildInputs = [ pkgs.d2 ]; }))
+    celluloid
     godot_4
     libreoffice
     prusa-slicer
@@ -54,6 +56,9 @@ in {
     vesktop # discord replacement that doesn't suck on linux
     imv
     ghostscript # Inkscape with .EPS support
+    code-cursor
+    todoist
+    todoist-electron
 
     # misc (temp)
     wget
@@ -76,7 +81,7 @@ in {
 
     # openjdk8-bootstrap
 
-    (pkgs.callPackage ffSchool {})
+    (pkgs.callPackage ffSchool { })
 
     zulu
     fhsZulu8
@@ -85,7 +90,7 @@ in {
     lutris
 
     vscode
-    
+
     jq
     networkmanager
     bluez-experimental
