@@ -1,9 +1,9 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, pkgs
+, inputs
+, ...
+}:
+let
   aliases = {
     grep = "${pkgs.ripgrep}/bin/rg";
     cat = "${pkgs.bat}/bin/bat";
@@ -18,14 +18,15 @@
     lbk = "${pkgs.util-linux}/bin/lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL";
   };
   thokrPkg = inputs.thokr.packages."${pkgs.system}".default;
-in {
-
+in
+{
   home.terminal = "wezterm";
 
   # command line utils
   home.packages = with pkgs; [
     alejandra # nix code formatting
-    tokei scc # count lines of code
+    tokei
+    scc # count lines of code
     hyperfine # benchmarking
     file # very basic utility
     d2 # graphrendering
@@ -43,7 +44,8 @@ in {
     xh # curl but better
     mpg123 # mp3 player
     wiki-tui # firefox in the terminal
-    just mask # command runners
+    just
+    mask # command runners
     mprocs # background process manager
     presenterm
 
@@ -103,58 +105,63 @@ in {
     };
     wezterm = {
       enable = config.home.terminal == "wezterm";
-      extraConfig = /* lua */ ''
-        local wezterm = require 'wezterm'
+      extraConfig =
+        /*
+        lua
+        */
+        ''
+          local wezterm = require 'wezterm'
 
-        local config = {}
+          local config = {}
 
-        if wezterm.config_builder then
-            config = wezterm.config_builder()
-        end
+          if wezterm.config_builder then
+              config = wezterm.config_builder()
+          end
 
-        -- config.font = wezterm.font 'FiraCode Nerd Font'
-        config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
-        config.enable_tab_bar = false
-        config.window_padding = {
-          left = 6,
-          right = 2,
-          top = 6,
-          bottom = 2,
-        }
+          -- config.font = wezterm.font 'FiraCode Nerd Font'
+          config.font = wezterm.font_with_fallback { 'FiraCode Nerd Font', 'JetBrains Mono Nerd Font' }
+          config.enable_tab_bar = false
+          config.window_padding = {
+            left = 6,
+            right = 2,
+            top = 6,
+            bottom = 2,
+          }
 
-        -- Catppuccin mocha theme
-        config.color_scheme = 'Catppuccin Mocha'
+          -- Catppuccin mocha theme
+          config.color_scheme = 'Catppuccin Mocha'
 
-        config.adjust_window_size_when_changing_font_size = false
+          config.adjust_window_size_when_changing_font_size = false
 
-        -- config.enable_wayland = false -- Currently required when using hyprland
-        config.enable_wayland = true
+          -- config.enable_wayland = false -- Currently required when using hyprland
+          config.enable_wayland = true
 
-        config.keys = {
-          -- Bindings for copying and pasting
-          { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
-          { key = 'c', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo 'Clipboard' },
-          -- Bindings for changing font size
-          { key = '=', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
-          { key = '-', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
-          -- Reset font size
-          { key = '0', mods = 'CTRL|SHIFT', action = wezterm.action.ResetFontSize },
-          -- Send modified enter keys
-          {
-            key = "\r",
-            mods = "SHIFT",
-            action = wezterm.action.SendString("\x1b[13;2u"),
-          },
-          {
-            key = "\r",
-            mods = "CTRL",
-            action = wezterm.action.SendString("\x1b[13;5u"),
-          },
-        }
-        config.disable_default_key_bindings = true
+          config.key_map_preference = "Physical";
+          config.keys = {
+            -- Bindings for copying and pasting
+            { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
+            { key = 'c', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo 'Clipboard' },
+            -- Bindings for changing font size
+            { key = '=', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
+            { key = '-', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
+            -- Reset font size
+            { key = '0', mods = 'CTRL|SHIFT', action = wezterm.action.ResetFontSize },
+            -- Send modified enter keys
+            {
+              key = "\r",
+              mods = "SHIFT",
+              action = wezterm.action.SendString("\x1b[13;2u"),
+            },
+            {
+              key = "\r",
+              mods = "CTRL",
+              action = wezterm.action.SendString("\x1b[13;5u"),
+            },
+          }
+          config.disable_default_key_bindings = true
 
-        return config
-      '';
+          return config
+        '';
     };
     fd.enable = true;
     bat.enable = true;

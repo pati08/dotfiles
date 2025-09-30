@@ -58,57 +58,55 @@ let
       twoIndentFts;
 in
 {
-  programs.nixvim = {
-    globalOpts = opts;
-    inherit opts;
+  globalOpts = opts;
+  inherit opts;
 
-    diagnostic.settings = {
+  diagnostic.settings = {
+    severity_sort = true;
+    virtual_text = {
       severity_sort = true;
-      virtual_text = {
-        severity_sort = true;
-      };
-      float = {
-        source = "always"; # You can also include the source of the diagnostic
-      };
-      signs = true; # Show signs on the left column
-      underline = true; # Underline diagnostics
-      update_in_insert = false; # Update diagnostics only in normal mode
     };
-
-    globals.mapleader = " ";
-
-    highlight = {
-      Comment = {
-        fg = "#ff00ff";
-        bg = "#000000";
-        underline = true;
-        bold = true;
-      };
+    float = {
+      source = "always"; # You can also include the source of the diagnostic
     };
-
-    autoCmd =
-      [
-        {
-          event = [ "BufNewFile" "BufRead" ];
-          pattern = "*.wgsl";
-          command = "set filetype=wgsl";
-        }
-        {
-          event = [ "BufNewFile" "BufRead" ];
-          pattern = "*.mdp";
-          command = "set filetype=markdown";
-        }
-        {
-          event = "FileType";
-          pattern = "markdown";
-          command = "set colorcolumn= | set linebreak";
-        }
-        {
-          event = "BufWritePre";
-          pattern = "*";
-          callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
-        }
-      ]
-      ++ indentationAutoCmds;
+    signs = true; # Show signs on the left column
+    underline = true; # Underline diagnostics
+    update_in_insert = false; # Update diagnostics only in normal mode
   };
+
+  globals.mapleader = " ";
+
+  highlight = {
+    Comment = {
+      fg = "#ff00ff";
+      bg = "#000000";
+      underline = true;
+      bold = true;
+    };
+  };
+
+  autoCmd =
+    [
+      {
+        event = [ "BufNewFile" "BufRead" ];
+        pattern = "*.wgsl";
+        command = "set filetype=wgsl";
+      }
+      {
+        event = [ "BufNewFile" "BufRead" ];
+        pattern = "*.mdp";
+        command = "set filetype=markdown";
+      }
+      {
+        event = "FileType";
+        pattern = "markdown";
+        command = "set colorcolumn= | set linebreak";
+      }
+      {
+        event = "BufWritePre";
+        pattern = "*";
+        callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
+      }
+    ]
+    ++ indentationAutoCmds;
 }

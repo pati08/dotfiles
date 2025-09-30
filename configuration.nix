@@ -56,12 +56,47 @@ in
     displayManager.sddm.enable = true;
     printing = {
       enable = true;
-      drivers = [ pkgs.brlaser ];
+      drivers = with pkgs; [
+        brlaser
+        gutenprint
+        hplip
+        samsung-unified-linux-driver
+        epson-escpr
+        epson-escpr2
+        cnijfilter2
+        splix
+        foo2zjs
+        mfcl2700dnlpr
+        mfcl2700dncupswrapper
+      ];
+      # Enable CUPS web interface
+      webInterface = true;
+      # Allow remote administration
+      allowFrom = [ "all" ];
+      # Enable printer sharing (defaultShared = true)
+      defaultShared = true;
+      # Enable browsing for network printer discovery
+      browsing = true;
+      # Enable logging
+      logLevel = "info";
+      # Open firewall for CUPS
+      openFirewall = true;
     };
     avahi = {
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+      # Enable printer discovery
+      publish = {
+        enable = true;
+        userServices = true;
+        workstation = true;
+        domain = true;
+      };
+      # Enable printer browsing
+      browseDomains = [ "local" ];
+      # Enable wide-area service discovery
+      wideArea = true;
     };
     pipewire = {
       enable = true;
@@ -130,7 +165,18 @@ in
   };
   networking = {
     hostName = "patrick-nixos";
-    firewall.allowedTCPPorts = [ 443 80 ];
+    firewall.allowedTCPPorts = [
+      443
+      80
+      # CUPS web interface
+      631
+      # IPP (Internet Printing Protocol)
+      9100
+    ];
+    firewall.allowedUDPPorts = [
+      # mDNS for printer discovery
+      5353
+    ];
     networkmanager = {
       enable = true;
       wifi = {
@@ -198,6 +244,14 @@ in
     openssl.dev
     game-devices-udev-rules
     moltengamepad
+    # Printer management tools
+    system-config-printer
+    cups
+    cups-filters
+    ghostscript
+    # Additional printer utilities
+    hplip
+    gutenprint
   ];
   xdg.portal = {
     enable = true;

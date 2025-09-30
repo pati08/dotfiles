@@ -1,5 +1,4 @@
-{
-  # Import all your configuration modules here
+_: {
   imports = [
     ./plugins.nix
     ./options.nix

@@ -1,4 +1,5 @@
-{ lib, ... }: let
+{ lib, ... }:
+let
   mkVimWithMode = mode: key: action: desc: {
     inherit key action;
     inherit mode;
@@ -7,8 +8,8 @@
     };
   };
   mkVim = mkVimWithMode "n";
-  mkLua = key: lua: (mkVim key {__raw = lua;});
-  mkLuaFn = key: body: (mkVim key {__raw = "function()\n${body}\nend";});
+  mkLua = key: lua: (mkVim key { __raw = lua; });
+  mkLuaFn = key: body: (mkVim key { __raw = "function()\n${body}\nend"; });
   mkCmd = key: cmd: (mkVim key "<cmd>${cmd}<CR>");
   mkInput = key: input: (mkLuaFn key ''vim.api.nvim_input("${input}")'');
   withMode = keymap: mode: lib.attrsets.overrideExisting keymap { inherit mode; };
@@ -27,6 +28,8 @@
     (mkCmd "<leader>ff" "Telescope find_files" "Find files")
     (mkCmd "<leader>fw" "Telescope live_grep" "Grep find files")
     (mkCmd "<leader>fg" "Telescope git_commits" "Search git commits")
+    (mkCmd "<leader>fh" "Telescope oldfiles" "Recently opened files")
+    (mkCmd "<leader>fm" "Telescope marks" "Search marks")
   ];
   bufferline = [
     (mkCmd "<S-l>" "BufferLineCycleNext" "Cycle to next buffer")
@@ -47,17 +50,27 @@
     (mkDap "<leader>dsi" "step_into" "Step into")
     (mkDap "<leader>db" "toggle_breakpoint" "Toggle breakpoint")
     (mkDap "<leader>dB" "set_breakpoint" "Set breakpoint")
-    (mkLuaFn "<leader>dl" /* lua */ ''
-      require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-    '' "Debug: Set log point")
+    (mkLuaFn "<leader>dl"
+      /*
+      lua
+      */
+      ''
+        require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+      '' "Debug: Set log point")
     (mkDap "<leader>dR" "repl.open" "Open REPL")
     (mkDap "<leader>dC" "run_to_cursor" "Run to cursor")
     (mkDap "<leader>dT" "terminate" "Terminate")
     (mkDap "<leader>dr" "run_last" "Run last")
   ];
-in {
-  programs.nixvim = {
-    keymaps = windowSwitches ++ telescope ++ bufferline ++ lsp ++ dap ++ [
+in
+{
+  keymaps =
+    windowSwitches
+    ++ telescope
+    ++ bufferline
+    ++ lsp
+    ++ dap
+    ++ [
       # Toggle file tree
       (mkCmd "<leader>e" "NvimTreeToggle" "Toggle file tree")
 
@@ -70,5 +83,4 @@ in {
       # redo
       (mkSilent (mkCmd "r" "redo" "Redo"))
     ];
-  };
 }
