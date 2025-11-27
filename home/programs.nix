@@ -140,6 +140,7 @@ in
     marksman
     nodejs
     networkmanagerapplet
+    docker-compose
 
     # Printer management and utilities
     system-config-printer

@@ -42,6 +42,7 @@ let
     (mkSilent (mkLua "gD" "vim.lsp.buf.type_definition" "Go to type definition"))
     (mkSilent (mkLua "gI" "vim.lsp.buf.implementation" "List implementations"))
     (mkSilent (mkLua "ga" "vim.lsp.buf.code_action" "List code actions"))
+    (mkSilent (mkLua "gF" "vim.lsp.buf.format" "Format"))
   ];
   mkDap = key: function: desc: (mkLuaFn key "require('dap').${function}()" "Debug: ${desc}");
   dap = [

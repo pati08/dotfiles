@@ -1,14 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
+{ config
+, pkgs
+, lib
+, inputs
+, ...
 }: {
   services.hardware.openrgb.enable = true;
 
   environment.systemPackages = with pkgs; [
-    docker-compose
     testdisk
     gparted
     unixtools.fsck

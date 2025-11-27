@@ -104,7 +104,7 @@ in
       }
       {
         event = "BufWritePre";
-        pattern = "*";
+        pattern = "*.rs";
         callback = { __raw = "function() vim.lsp.buf.format({ timeout_ms = 200 }) end"; };
       }
     ]

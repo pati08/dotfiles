@@ -33,6 +33,7 @@ in
   };
   services = {
     flatpak.enable = true;
+    tailscale.enable = true;
     joycond.enable = true;
     blueman.enable = true;
     ollama.enable = true;
@@ -117,6 +118,7 @@ in
       enable = true;
       daemon.settings = {
         data-root = "/home/patrick/docker/";
+        dns = [ "8.8.8.8" "1.1.1.1" ];
       };
     };
   };
@@ -186,10 +188,6 @@ in
         macAddress = "random";
       };
     };
-    extraHosts = ''
-      127.0.0.1 www.crossbeamdata.bob
-    '';
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
   swapDevices = [
     {
@@ -256,6 +254,8 @@ in
     # Additional printer utilities
     hplip
     gutenprint
+    tailscale
+    docker-buildx
   ];
   xdg.portal = {
     enable = true;

@@ -9,6 +9,7 @@
       firefox.profileNames = [ "personal-profile" "school-profile" ];
       firefox.colorTheme.enable = true;
       nixvim.enable = false;
+      starship.enable = false;
     };
     polarity = "dark";
     cursor = {
