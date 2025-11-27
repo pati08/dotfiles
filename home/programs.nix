@@ -131,8 +131,7 @@ in
     todoist-electron
     cursor
     cursor-agent
-    f4c7
-    (printing and some other stuff i think)
+    musescore
 
     # misc (temp)
     wget

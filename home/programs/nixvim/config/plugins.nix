@@ -42,7 +42,23 @@
       servers = {
         # webdev
         cssls.enable = true; # CSS
-        tailwindcss.enable = true; # TailwindCSS
+        tailwindcss = {
+          enable = true; # TailwindCSS
+          filetypes = [
+            "css"
+            "scss"
+            "sass"
+            "postcss"
+            "html"
+            "javascript"
+            "javascriptreact"
+            "typescript"
+            "typescriptreact"
+            "svelte"
+            "vue"
+            "rust"
+          ];
+        };
         html.enable = true; # HTML
         # djlsp.enable = true;
 

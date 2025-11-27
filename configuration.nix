@@ -32,6 +32,7 @@ in
     adb.enable = true;
   };
   services = {
+    flatpak.enable = true;
     joycond.enable = true;
     blueman.enable = true;
     ollama.enable = true;
@@ -145,6 +146,7 @@ in
     enable = true;
     powerOnBoot = true;
   };
+  # hardware.opentabletdriver.enable = true;
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
@@ -229,6 +231,8 @@ in
   environment.systemPackages = with pkgs; [
     iwd
     pulseaudioFull
+    freerdp
+    inputs.winboat.packages.${system}.winboat
     gcc
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct

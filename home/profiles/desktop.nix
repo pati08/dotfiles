@@ -30,6 +30,13 @@ in
     passes = lib.mkForce 3;
   };
 
+  wayland.windowManager.hyprland.settings = {
+    device = {
+      name = "ugtablet-m708-pen";
+      output = "current";
+    };
+  };
+
   programs.waybar.settings.mainBar."hyprland/language"."on-click" = "hyprctl switchxkblayout ${keyboard} next";
 
   programs.waybar.settings.mainBar."hyprland/language"."keyboard-name" = "${keyboard}";

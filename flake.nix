@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    winboat = {
+      url = "github:TibixDev/winboat";
+    };
+
     # hyprland stuff
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
@@ -45,7 +49,15 @@
 
     tree-sitter-rstml.url = "github:rayliwell/tree-sitter-rstml";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, lanzaboote, nur, rust-overlay, ... }:
+  outputs =
+    inputs @ { self
+    , nixpkgs
+    , home-manager
+    , lanzaboote
+    , nur
+    , rust-overlay
+    , ...
+    }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -53,7 +65,8 @@
         inherit system;
         overlays = [ nur.overlays.default rust-overlay.overlays.default ];
       };
-    in {
+    in
+    {
       nixosConfigurations = {
         desktop = lib.nixosSystem {
           system = "x86_64-linux";
@@ -92,7 +105,7 @@
       homeConfigurations."desktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        extraSpecialArgs = { 
+        extraSpecialArgs = {
           inherit inputs;
         };
 
@@ -102,12 +115,11 @@
           ./home/profiles/desktop.nix
           inputs.stylix.homeModules.stylix
         ];
-
       };
       homeConfigurations."laptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        extraSpecialArgs = { 
+        extraSpecialArgs = {
           inherit inputs;
         };
 
@@ -117,7 +129,6 @@
           ./home/profiles/laptop.nix
           inputs.stylix.homeModules.stylix
         ];
-
       };
     };
 }
