@@ -10,7 +10,6 @@ let
     inherit pkgs;
     module = {
       imports = [
-        inputs.tree-sitter-rstml.nixvimModule
         ./config
       ];
     };

@@ -131,8 +131,9 @@
       enable = true;
       settings = {
         highlight.enable = true;
+        highlight.disable = [ "rust" ];
         auto_install = true;
-        indent.enable = true;
+        indent.enable = false;
       };
     };
     # Treesitter text objects

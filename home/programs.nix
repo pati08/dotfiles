@@ -178,7 +178,7 @@ in
     bluez-experimental
     playerctl
 
-    (rust-bin.nightly.latest.default.override {
+    (rust-bin.stable.latest.default.override {
       extensions = [ "rust-src" "rustfmt" "clippy" "rust-docs" "rust-analyzer" ];
       targets = [ "x86_64-unknown-linux-gnu" "wasm32-unknown-unknown" ];
     })

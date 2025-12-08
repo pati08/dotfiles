@@ -230,7 +230,6 @@ in
     iwd
     pulseaudioFull
     freerdp
-    inputs.winboat.packages.${system}.winboat
     gcc
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct

@@ -79,7 +79,9 @@ in {
     lualine.enable = true;
     treesitter = {
       enable = true;
-      settings.highlight.enable = false;
+      settings = {
+        highlight.enable = false;
+      };
     };
     luasnip = {
       enable = true;

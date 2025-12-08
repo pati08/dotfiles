@@ -8,10 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    winboat = {
-      url = "github:TibixDev/winboat";
-    };
-
     # hyprland stuff
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
@@ -23,37 +19,26 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     thokr.url = "github:pati08/thokr";
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-    mozOverlay.url = "github:mozilla/nixpkgs-mozilla";
-
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
-    tree-sitter-rstml.url = "github:rayliwell/tree-sitter-rstml";
+    rust-overlay.url = "github:oxalica/rust-overlay/stable";
   };
   outputs =
     inputs @ { self
     , nixpkgs
     , home-manager
-    , lanzaboote
     , nur
     , rust-overlay
     , ...
@@ -81,7 +66,6 @@
             };
           };
           modules = [
-            lanzaboote.nixosModules.lanzaboote
             ./configuration.nix
           ];
         };
