@@ -181,6 +181,7 @@ in
       # mDNS for printer discovery
       5353
     ];
+    firewall.checkReversePath = "loose";
     networkmanager = {
       enable = true;
       wifi = {
